@@ -12,6 +12,16 @@ export default Control.extend({
     $(element).hide();
     $(element).html(template());
     $(element).fadeIn();
+
+    $("#terms-and-conditions").scroll(function() {
+      var scrollTop = $(this).scrollTop(); // $("#terms-and-conditions").scrollTop()
+      var tcHeight = $(this).height(); // $("#terms-and-conditions").height()
+      var scrolled = Math.floor(scrollTop + tcHeight);
+
+      if (scrolled >= $(this)[0].scrollHeight) {
+        $('#accept-terms-and-conditions')[0].disabled = false
+      }
+    });
   },
 
   'submit': function(element, event) {
@@ -41,7 +51,12 @@ export default Control.extend({
     var passwordError = user.checkPassword(newPassword.val(), confirmNewPassword.val());
     this.updateControl(newPassword, passwordError);
 
-    if (usernameError || fullnameError || mailError || passwordError) {
+    // terms & conditions
+    var termsAndConditions = $(element).find("[name='accept-terms-and-conditions']") // document.querySelector('#accept-terms-and-conditions').checked;
+    var termsAndConditionsError = (termsAndConditions[0].checked ? undefined : 'Must accept the terms & conditions')
+    this.updateControl(termsAndConditions, termsAndConditionsError);
+
+    if (usernameError || fullnameError || mailError || passwordError || termsAndConditionsError) {
       return false;
     }
 

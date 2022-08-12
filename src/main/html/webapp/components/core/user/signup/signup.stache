@@ -1,47 +1,62 @@
-<h2>Sign up</h2>
-<br>
+<div class="row" style="height: 570px; min-width: 670px;">
+  <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 h-100">
+    <h2>Sign up</h2>
+    <br>
 
-<div class="alert alert-success" id="success-message" style="display: none;">
-  <b>Well done!</b> An email including the activation code has been sent to your address.
-  <br>
+    <div class="alert alert-success" id="success-message" style="display: none;">
+      <b>Well done!</b> An email including the activation code has been sent to your address.
+      <br>
+    </div>
+
+    <form id="signon-form" class="form-horizontal" autocomplete="off">
+
+      <div class="form-group">
+        <label for="username" class="control-label">Username:</label>
+        <input id="username" name="username" type="text" class="form-control" autocomplete="off">
+        <div class="invalid-feedback"></div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="full-name" class="control-label">Full Name:</label>
+        <input id="full-name" name="full-name" type="text" class="form-control" autocomplete="off">
+        <div class="invalid-feedback"></div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="mail" class="control-label">E-Mail:</label>
+        <input id="mail" name="mail" type="text" class="form-control" autocomplete="off">
+        <div class="invalid-feedback"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="new-password" class="control-label">Password:</label>
+        <input id="new-password" name="new-password" type="password" class="form-control" autocomplete="off">
+        <div class="invalid-feedback"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirm-new-password" class="control-label">Confirm password:</label>
+        <input id="confirm-new-password" name="confirm-new-password" type="password" class="form-control" autocomplete="off">
+        <div class="invalid-feedback"></div>
+      </div>
+
+      <div class="form-group">
+        <!-- <label style="float: left;">I agree to the terms & conditions: </label> -->
+        <span>I agree to the terms & conditions: </span>
+        <input id="accept-terms-and-conditions" name="accept-terms-and-conditions" type="checkbox" disabled>
+      </div>
+
+      <div class="form-group">
+        <button id="save" class="btn btn-primary" data-loading-text="please wait...">Register</button>
+      </div>
+
+    </form>
+  </div>
+
+  <div id="terms-and-conditions" class="col-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 h-100" style="overflow: auto;">
+    <h2>Terms & Conditions</h2>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur pulvinar egestas. Nulla lobortis lorem nec viverra luctus. Cras elementum augue id arcu pharetra, eget pharetra ipsum hendrerit. Vivamus faucibus, nisi et imperdiet ullamcorper, tortor eros posuere dui, vitae condimentum lacus metus a lectus. Morbi elementum, nibh dictum auctor placerat, tellus lorem commodo neque, convallis tincidunt ante augue lacinia lectus. Vestibulum id faucibus risus. Donec sed eleifend massa, at bibendum nisi. Quisque commodo imperdiet neque id consequat. Ut molestie pellentesque consequat. Proin eleifend risus sed suscipit faucibus. Sed gravida erat tortor. Nunc fringilla odio eu nulla rutrum, vel rhoncus augue accumsan. Nunc dignissim orci nulla, at sagittis est hendrerit ac. Integer dignissim odio in est vulputate laoreet. Sed arcu tortor, efficitur quis cursus nec, lobortis ac arcu. Pellentesque sit amet enim a erat venenatis vestibulum vitae a libero. Phasellus turpis turpis, maximus vitae viverra quis, semper et risus. In ut feugiat orci. Curabitur est quam, aliquam ac felis ut, mattis mattis lacus. Suspendisse lacinia nisl ut libero vulputate, a fringilla turpis scelerisque. Vivamus aliquam dolor vestibulum orci pharetra convallis. Sed eros nibh, molestie id justo ut, egestas hendrerit lacus. Etiam consectetur urna at tellus gravida sollicitudin. Mauris faucibus sem quam, sit amet pulvinar diam lacinia et. Cras vel tristique tortor. Quisque lobortis mauris lacus, quis pharetra nisi semper vel. Vivamus vitae tincidunt sapien, quis ornare augue. Praesent egestas mi lorem, eu ultrices metus consectetur ac. Etiam nec sem sollicitudin, condimentum lectus in, scelerisque erat. Praesent turpis urna, tincidunt sed tempor eget, vehicula ut ipsum. Proin vulputate cursus magna sed placerat. Nunc quis ornare nunc. Cras venenatis pretium sagittis. Suspendisse blandit ac lacus a euismod. Morbi pellentesque, odio nec pharetra pellentesque, purus ante accumsan nisl, vitae bibendum eros ex a e Phasellus molestie nibh ex, id placerat mi maximus ac. Fusce rutrum porttitor nibh ut molestie. Donec vehicula tellus vitae dolor bibendum, id condimentum felis rutrum. Vestibulum egestas metus non magna accumsan viverra. Nunc non neque volutpat, dapibus ligula at, lobortis massa. Nullam ut eros quam. Ut id nisl turpis. Sed tincidunt ultricies vehicul Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur pulvinar egestas. Nulla lobortis lorem nec viverra luctus. Cras elementum augue id arcu pharetra, eget pharetra ipsum hendrerit. Vivamus faucibus, nisi et imperdiet ullamcorper, tortor eros posuere dui, vitae condimentum lacus metus a lectus. Morbi elementum, nibh dictum auctor placerat, tellus lorem commodo neque, convallis tincidunt ante augue lacinia lectus. Vestibulum id faucibus risus. Donec sed eleifend massa, at bibendum nisi. Quisque commodo imperdiet neque id consequa Ut molestie pellentesque consequat. Proin eleifend risus sed suscipit faucibus. Sed gravida erat tortor. Nunc fringilla odio eu nulla rutrum, vel rhoncus augue accumsan. Nunc dignissim orci nulla, at sagittis est hendrerit ac. Integer dignissim odio in est vulputate laoreet. Sed arcu tortor, efficitur quis cursus nec, lobortis ac arc Pellentesque sit amet enim a erat venenatis vestibulum vitae a libero. Phasellus turpis turpis, maximus vitae viverra quis, semper et risus. In ut feugiat orci. Curabitur est quam, aliquam ac felis ut, mattis mattis lacus. Suspendisse lacinia nisl ut libero vulputate, a fringilla turpis scelerisque. Vivamus aliquam dolor vestibulum orci pharetra convallis. Sed eros nibh, molestie id justo ut, egestas hendrerit lacus. Etiam consectetur urna at tellus gravida sollicitudin. Mauris faucibus sem quam, sit amet pulvinar diam lacinia et. Cras vel tristique tortor. Quisque lobortis mauris lacus, quis pharetra nisi semper vel. Vivamus vitae tincidunt sapien, quis ornare augue. Praesent egestas mi lorem, eu ultrices metus consectetur a Etiam nec sem sollicitudin, condimentum lectus in, scelerisque erat. Praesent turpis urna, tincidunt sed tempor eget, vehicula ut ipsum. Proin vulputate cursus magna sed placerat. Nunc quis ornare nunc. Cras venenatis pretium sagittis. Suspendisse blandit ac lacus a euismod. Morbi pellentesque, odio nec pharetra pellentesque, purus ante accumsan nisl, vitae bibendum eros ex a e Phasellus molestie nibh ex, id placerat mi maximus ac. Fusce rutrum porttitor nibh ut molestie. Donec vehicula tellus vitae dolor bibendum, id condimentum felis rutrum. Vestibulum egestas metus non magna accumsan viverra. Nunc non neque volutpat, dapibus ligula at, lobortis massa. Nullam ut eros quam. Ut id nisl turpis. Sed tincidunt ultricies vehicul Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur pulvinar egestas. Nulla lobortis lorem nec viverra luctus. Cras elementum augue id arcu pharetra, eget pharetra ipsum hendrerit. Vivamus faucibus, nisi et imperdiet ullamcorper, tortor eros posuere dui, vitae condimentum lacus metus a lectus. Morbi elementum, nibh dictum auctor placerat, tellus lorem commodo neque, convallis tincidunt ante augue lacinia lectus. Vestibulum id faucibus risus. Donec sed eleifend massa, at bibendum nisi. Quisque commodo imperdiet neque id consequa Ut molestie pellentesque consequat. Proin eleifend risus sed suscipit faucibus. Sed gravida erat tortor. Nunc fringilla odio eu nulla rutrum, vel rhoncus augue accumsan. Nunc dignissim orci nulla, at sagittis est hendrerit ac. Integer dignissim odio in est vulputate laoreet. Sed arcu tortor, efficitur quis cursus nec, lobortis ac arc Pellentesque sit amet enim a erat venenatis vestibulum vitae a libero. Phasellus turpis turpis, maximus vitae viverra quis, semper et risus. In ut feugiat orci. Curabitur est quam, aliquam ac felis ut, mattis mattis lacus. Suspendisse lacinia nisl ut libero vulputate, a fringilla turpis scelerisque. Vivamus aliquam dolor vestibulum orci pharetra convallis. Sed eros nibh, molestie id justo ut, egestas hendrerit lacus. Etiam consectetur urna at tellus gravida sollicitudin. Mauris faucibus sem quam, sit amet pulvinar diam lacinia et. Cras vel tristique tortor. Quisque lobortis mauris lacus, quis pharetra nisi semper vel. Vivamus vitae tincidunt sapien, quis ornare augue. Praesent egestas mi lorem, eu ultrices metus consectetur a Etiam nec sem sollicitudin, condimentum lectus in, scelerisque erat. Praesent turpis urna, tincidunt sed tempor eget, vehicula ut ipsum. Proin vulputate cursus magna sed placerat. Nunc quis ornare nunc. Cras venenatis pretium sagittis. Suspendisse blandit ac lacus a euismod. Morbi pellentesque, odio nec pharetra pellentesque, purus ante accumsan nisl, vitae bibendum eros ex a e Phasellus molestie nibh ex, id placerat mi maximus ac. Fusce rutrum porttitor nibh ut molestie. Donec vehicula tellus vitae dolor bibendum, id condimentum felis rutrum. Vestibulum egestas metus non magna accumsan viverra. Nunc non neque volutpat, dapibus ligula at, lobortis massa. Nullam ut eros quam. Ut id nisl turpis. Sed tincidunt ultricies vehicul Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur pulvinar egestas. Nulla lobortis lorem nec viverra luctus. Cras elementum augue id arcu pharetra, eget pharetra ipsum hendrerit. Vivamus faucibus, nisi et imperdiet ullamcorper, tortor eros posuere dui, vitae condimentum lacus metus a lectus. Morbi elementum, nibh dictum auctor placerat, tellus lorem commodo neque, convallis tincidunt ante augue lacinia lectus. Vestibulum id faucibus risus. Donec sed eleifend massa, at bibendum nisi. Quisque commodo imperdiet neque id consequa Ut molestie pellentesque consequat. Proin eleifend risus sed suscipit faucibus. Sed gravida erat tortor. Nunc fringilla odio eu nulla rutrum, vel rhoncus augue accumsan. Nunc dignissim orci nulla, at sagittis est hendrerit ac. Integer dignissim odio in est vulputate laoreet. Sed arcu tortor, efficitur quis cursus nec, lobortis ac arc Pellentesque sit amet enim a erat venenatis vestibulum vitae a libero. Phasellus turpis turpis, maximus vitae viverra quis, semper et risus. In ut feugiat orci. Curabitur est quam, aliquam ac felis ut, mattis mattis lacus. Suspendisse lacinia nisl ut libero vulputate, a fringilla turpis scelerisque. Vivamus aliquam dolor vestibulum orci pharetra convallis. Sed eros nibh, molestie id justo ut, egestas hendrerit lacus. Etiam consectetur urna at tellus gravida sollicitudin. Mauris faucibus sem quam, sit amet pulvinar diam lacinia et. Cras vel tristique tortor. Quisque lobortis mauris lacus, quis pharetra nisi semper vel. Vivamus vitae tincidunt sapien, quis ornare augue. Praesent egestas mi lorem, eu ultrices metus consectetur a Etiam nec sem sollicitudin, condimentum lectus in, scelerisque erat. Praesent turpis urna, tincidunt sed tempor eget, vehicula ut ipsum. Proin vulputate cursus magna sed placerat. Nunc quis ornare nunc. Cras venenatis pretium sagittis. Suspendisse blandit ac lacus a euismod. Morbi pellentesque, odio nec pharetra pellentesque, purus ante accumsan nisl, vitae bibendum eros ex a e Phasellus molestie nibh ex, id placerat mi maximus ac. Fusce rutrum porttitor nibh ut molestie. Donec vehicula tellus vitae dolor bibendum, id condimentum felis rutrum. Vestibulum egestas metus non magna accumsan viverra. Nunc non neque volutpat, dapibus ligula at, lobortis massa. Nullam ut eros quam. Ut id nisl turpis. Sed tincidunt ultricies vehicul Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur pulvinar egestas. Nulla lobortis lorem nec viverra luctus. Cras elementum augue id arcu pharetra, eget pharetra ipsum hendrerit. Vivamus faucibus, nisi et imperdiet ullamcorper, tortor eros posuere dui, vitae condimentum lacus metus a lectus. Morbi elementum, nibh dictum auctor placerat, tellus lorem commodo neque, convallis tincidunt ante augue lacinia lectus. Vestibulum id faucibus risus. Donec sed eleifend massa, at bibendum nisi. Quisque commodo imperdiet neque id consequa Ut molestie pellentesque consequat. Proin eleifend risus sed suscipit faucibus. Sed gravida erat tortor. Nunc fringilla odio eu nulla rutrum, vel rhoncus augue accumsan. Nunc dignissim orci nulla, at sagittis est hendrerit ac. Integer dignissim odio in est vulputate laoreet. Sed arcu tortor, efficitur quis cursus nec, lobortis ac arc Pellentesque sit amet enim a erat venenatis vestibulum vitae a libero. Phasellus turpis turpis, maximus vitae viverra quis, semper et risus. In ut feugiat orci. Curabitur est quam, aliquam ac felis ut, mattis mattis lacus. Suspendisse lacinia nisl ut libero vulputate, a fringilla turpis scelerisque. Vivamus aliquam dolor vestibulum orci pharetra convallis. Sed eros nibh, molestie id justo ut, egestas hendrerit lacus. Etiam consectetur urna at tellus gravida sollicitudin. Mauris faucibus sem quam, sit amet pulvinar diam lacinia et. Cras vel tristique tortor. Quisque lobortis mauris lacus, quis pharetra nisi semper vel. Vivamus vitae tincidunt sapien, quis ornare augue. Praesent egestas mi lorem, eu ultrices metus consectetur a Etiam nec sem sollicitudin, condimentum lectus in, scelerisque erat. Praesent turpis urna, tincidunt sed tempor eget, vehicula ut ipsum. Proin vulputate cursus magna sed placerat. Nunc quis ornare nunc. Cras venenatis pretium sagittis. Suspendisse blandit ac lacus a euismod. Morbi pellentesque, odio nec pharetra pellentesque, purus ante accumsan nisl, vitae bibendum eros ex a e Phasellus molestie nibh ex, id placerat mi maximus ac. Fusce rutrum porttitor nibh ut molestie. Donec vehicula tellus vitae dolor bibendum, id condimentum felis rutrum. Vestibulum egestas metus non magna accumsan viverra. Nunc non neque volutpat, dapibus ligula at, lobortis massa. Nullam ut eros quam. Ut id nisl turpis. Sed tincidunt ultricies vehicula.
+  </div>
 </div>
-
-<form id="signon-form" class="form-horizontal" autocomplete="off">
-
-  <div class="form-group">
-    <label for="username" class="control-label">Username:</label>
-    <input id="username" name="username" type="text" class="form-control col-sm-3" autocomplete="off">
-    <div class="invalid-feedback"></div>
-  </div>
-
-
-  <div class="form-group">
-    <label for="full-name" class="control-label">Full Name:</label>
-    <input id="full-name" name="full-name" type="text" class="form-control col-sm-3" autocomplete="off">
-    <div class="invalid-feedback"></div>
-  </div>
-
-
-  <div class="form-group">
-    <label for="mail" class="control-label">E-Mail:</label>
-    <input id="mail" name="mail" type="text" class="form-control col-sm-3" autocomplete="off">
-    <div class="invalid-feedback"></div>
-  </div>
-
-  <div class="form-group">
-    <label for="new-password" class="control-label">Password:</label>
-    <input id="new-password" name="new-password" type="password" class="form-control col-sm-3" autocomplete="off">
-    <div class="invalid-feedback"></div>
-  </div>
-
-  <div class="form-group">
-    <label for="confirm-new-password" class="control-label">Confirm password:</label>
-    <input id="confirm-new-password" name="confirm-new-password" type="password" class="form-control col-sm-3" autocomplete="off">
-    <div class="invalid-feedback"></div>
-  </div>
-
-  <div class="form-group">
-    <button id="save" class="btn btn-primary" data-loading-text="please wait...">Register</button>
-  </div>
-
-</form>
