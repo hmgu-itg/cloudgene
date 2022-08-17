@@ -33,6 +33,7 @@ public class LoginUserTest extends JobsApiTestCase {
 		testUser1.setActive(true);
 		testUser1.setActivationCode("");
 		testUser1.setPassword(HashUtil.hashPassword("test1"));
+		testUser1.setAcceptedTandC(new Date());
 		userDao.insert(testUser1);
 
 		User testUser2 = new User();
@@ -43,6 +44,7 @@ public class LoginUserTest extends JobsApiTestCase {
 		testUser2.setActive(false);
 		testUser2.setActivationCode("some-activation-code");
 		testUser2.setPassword(HashUtil.hashPassword("test2"));
+		testUser2.setAcceptedTandC(new Date());
 		userDao.insert(testUser2);
 
 		User testUser3 = new User();
@@ -53,6 +55,7 @@ public class LoginUserTest extends JobsApiTestCase {
 		testUser3.setActive(true);
 		testUser3.setActivationCode("");
 		testUser3.setPassword(HashUtil.hashPassword("lockedpasssord"));
+		testUser3.setAcceptedTandC(new Date());
 		userDao.insert(testUser3);
 
 	}

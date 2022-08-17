@@ -1,6 +1,7 @@
 package cloudgene.mapred.api.v2.users;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.restlet.resource.ClientResource;
@@ -31,6 +32,7 @@ public class LogoutUserTest extends JobsApiTestCase {
 		testUser1.setActive(true);
 		testUser1.setActivationCode("");
 		testUser1.setPassword(HashUtil.hashPassword("testuser99"));
+		testUser1.setAcceptedTandC(new Date());
 		userDao.insert(testUser1);
 
 	}
