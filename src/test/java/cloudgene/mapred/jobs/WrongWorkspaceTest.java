@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import cloudgene.mapred.apps.ApplicationRepository;
 import cloudgene.mapred.core.User;
 import cloudgene.mapred.database.JobDao;
 import cloudgene.mapred.util.Settings;
@@ -43,9 +42,9 @@ public class WrongWorkspaceTest extends TestCase {
 
 		AbstractJob jobFromDb = dao.findById(job.getId());
 
-		assertEquals(AbstractJob.STATE_FAILED, jobFromDb.getState());
+		assertEquals(AbstractJob.STATE_SUCCESS, jobFromDb.getState());
 
-		assertEquals(AbstractJob.STATE_FAILED, job.getState());
+		assertEquals(AbstractJob.STATE_SUCCESS, job.getState());
 	}
 
 	public CloudgeneJob createJobFromWdl(WdlApp app, Map<String, String> inputs) throws Exception {
