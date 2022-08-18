@@ -29,6 +29,8 @@ public class User {
 
 	private int loginAttempts;
 
+	private Date acceptedTandC = new Date();
+
 	public static final String ROLE_SEPARATOR = ",";
 
 	public static final String ROLE_ADMIN = "admin";
@@ -147,6 +149,14 @@ public class User {
 
 	public int getLoginAttempts() {
 		return loginAttempts;
+	}
+
+	public void setAcceptedTandC(Date acceptedTandC) {
+		this.acceptedTandC = acceptedTandC;
+	}
+
+	public Date getAcceptedTandC() {
+		return acceptedTandC;
 	}
 
 	public static String checkUsername(String username) {

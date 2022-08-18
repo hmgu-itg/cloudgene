@@ -1,5 +1,7 @@
 package cloudgene.mapred.api.v2.users;
 
+import java.util.Date;
+
 import org.restlet.data.Form;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Post;
@@ -65,6 +67,7 @@ public class RegisterUser extends BaseResource {
 		newUser.setMail(mail);
 		newUser.setRoles(new String[] { DEFAULT_ROLE });
 		newUser.setPassword(HashUtil.hashPassword(newPassword));
+		newUser.setAcceptedTandC(new Date());
 
 		try {
 

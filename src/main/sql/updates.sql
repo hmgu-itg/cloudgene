@@ -165,3 +165,6 @@ ALTER TABLE html_snippets MODIFY COLUMN text VARCHAR (8000);
 
 -- 2.3.7
 alter table job add column user_agent VARCHAR (400);
+
+-- 2.3.8
+alter table `user` add column accepted_t_c timestamp not null;

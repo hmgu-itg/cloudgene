@@ -25,12 +25,12 @@ public class UserDao extends JdbcDataAccessObject {
 	public boolean insert(User user) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"insert into `user` (username, password, full_name, aws_key, aws_secret_key, save_keys, export_to_s3, s3_bucket, mail, role, export_input_to_s3, activation_code, active,api_token, last_login, locked_until, login_attempts) ");
-		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				"insert into `user` (username, password, full_name, aws_key, aws_secret_key, save_keys, export_to_s3, s3_bucket, mail, role, export_input_to_s3, activation_code, active,api_token, last_login, locked_until, login_attempts, accepted_t_c) ");
+		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 		try {
 
-			Object[] params = new Object[17];
+			Object[] params = new Object[18];
 			params[0] = user.getUsername().toLowerCase();
 			params[1] = user.getPassword();
 			params[2] = user.getFullName();
@@ -49,6 +49,7 @@ public class UserDao extends JdbcDataAccessObject {
 			params[14] = user.getLastLogin();
 			params[15] = user.getLockedUntil();
 			params[16] = user.getLoginAttempts();
+			params[17] = user.getAcceptedTandC();
 
 			int id = insert(sql.toString(), params);
 
