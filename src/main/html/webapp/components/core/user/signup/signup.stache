@@ -1,4 +1,4 @@
-<div class="row" style="height: 900px; min-width: 670px;">
+<div class="row" style="height: 1000px; min-width: 670px;">
   <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 h-100">
     <h2>Sign up</h2>
     <br>
@@ -61,11 +61,12 @@
         <div class="invalid-feedback"></div>
       </div>
 
-
       <div class="form-group">
-        <!-- <label style="float: left;">I agree to the terms & conditions: </label> -->
-        <span>I agree to the terms & conditions: </span>
-        <input id="accept-terms-and-conditions" name="accept-terms-and-conditions" type="checkbox" disabled>
+        {{! <label style="float: left;" for="accept-terms-and-conditions" class="control-label">I agree to the terms & conditions: </label> }}
+        <span>I agree to the terms & conditions:</span>
+        <input id="accept-terms-and-conditions" name="accept-terms-and-conditions" class="form-control"
+         type="checkbox" style="width: auto; height: auto; display: inline;" disabled>
+        <div class="invalid-feedback"></div>
       </div>
 
       <div class="form-group">
