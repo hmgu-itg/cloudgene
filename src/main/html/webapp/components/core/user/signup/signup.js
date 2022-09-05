@@ -16,8 +16,7 @@ export default Control.extend({
     $("#terms-and-conditions").scroll(function() {
       var scrollTop = $(this).scrollTop(); // $("#terms-and-conditions").scrollTop()
       var tcHeight = $(this).height(); // $("#terms-and-conditions").height()
-      var scrolled = Math.floor(scrollTop + tcHeight);
-
+      var scrolled = Math.ceil(scrollTop + tcHeight);
       if (scrolled >= $(this)[0].scrollHeight) {
         $('#accept-terms-and-conditions')[0].disabled = false
       }
