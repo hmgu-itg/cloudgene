@@ -32,6 +32,8 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test-uniquent@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
+		
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -172,6 +174,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -195,6 +198,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -218,6 +222,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -241,6 +246,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -264,6 +270,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "password");
 		form.set("confirm-new-password", "password1");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -287,6 +294,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "pass");
 		form.set("confirm-new-password", "pass");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -310,6 +318,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "passwordword27");
 		form.set("confirm-new-password", "passwordword27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -333,6 +342,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "PASSWORD2727");
 		form.set("confirm-new-password", "PASSWORD2727");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -356,6 +366,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "PASSWORDpassword");
 		form.set("confirm-new-password", "PASSWORDpassword");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");

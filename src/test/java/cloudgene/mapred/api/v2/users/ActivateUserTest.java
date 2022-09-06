@@ -37,6 +37,7 @@ public class ActivateUserTest extends JobsApiTestCase {
 		form.set("mail", "new.user@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
