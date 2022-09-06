@@ -5,6 +5,8 @@ import java.util.Date;
 import org.restlet.data.Form;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Post;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import cloudgene.mapred.core.User;
 import cloudgene.mapred.database.UserDao;
@@ -21,6 +23,8 @@ public class RegisterUser extends BaseResource {
 	@Post
 	public Representation post(Representation entity) {
 
+		Log log = LogFactory.getLog(RegisterUser.class);
+
 		String hostname = getSettings().getServerUrl();
 
 		Form form = new Form(entity);
@@ -29,6 +33,12 @@ public class RegisterUser extends BaseResource {
 		String mail = form.getFirstValue("mail").toString();
 		String newPassword = form.getFirstValue("new-password");
 		String confirmNewPassword = form.getFirstValue("confirm-new-password");
+		String termsAndConditions = form.getFirstValue("accept-terms-and-conditions");
+
+		// check user accepted terms of service
+		if (!termsAndConditions.equals("on")) {
+			return new JSONAnswer("Must accept Terms of Service.", false);
+		}
 
 		// check username
 		String error = User.checkUsername(username);
@@ -55,7 +65,7 @@ public class RegisterUser extends BaseResource {
 			return new JSONAnswer(error, false);
 		}
 
-		// check password
+		// check name
 		error = User.checkName(fullname);
 		if (error != null) {
 			return new JSONAnswer(error, false);
