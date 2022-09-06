@@ -155,8 +155,6 @@ create    index    idx_steps_job_id    on    steps(job_id);
 create    index    idx_log_messages_step_id    on    log_messages(step_id);
 create    index    idx_job_user_id    on    job(user_id,state);
 
---    2.3.0
-
 --    2.3.4
 ALTER    TABLE    html_snippets    MODIFY    COLUMN    text    VARCHAR    (8000);
 
@@ -165,4 +163,3 @@ alter    table    job    add    column    user_agent    VARCHAR    (400);
 
 --    2.3.8
 alter    table    `user`    add    column    accepted_t_c    timestamp    not    null;
-ALTER    TABLE    log_messages    MODIFY    COLUMN    message    VARCHAR    (16383);
