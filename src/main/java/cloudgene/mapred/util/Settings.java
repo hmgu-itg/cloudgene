@@ -44,7 +44,7 @@ public class Settings {
 
 	private String version;
 
-	private String name = "Cloudgene";
+	private String name = "Helmholtz Munich Imputation Server";
 
 	private Map<String, String> colors;
 
@@ -134,7 +134,7 @@ public class Settings {
 		if (helpLink != null) {
 			helpMenuItem.setLink(helpLink);
 		} else {
-			helpMenuItem.setLink("http://docs.cloudgene.io");
+			helpMenuItem.setLink("https://imputationserver-doc.readthedocs.io/en/latest/");
 		}
 		navigation.add(helpMenuItem);
 
@@ -269,7 +269,7 @@ public class Settings {
 
 	public static Map<String, String> getDefaultColors() {
 		Map<String, String> colors = new HashMap<String, String>();
-		colors.put("background", "#343a40");
+		colors.put("background", "#ff506e");
 		colors.put("foreground", "navbar-dark");
 		return colors;
 	}

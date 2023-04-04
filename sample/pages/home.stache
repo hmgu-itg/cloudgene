@@ -1,6 +1,6 @@
-<div class="jumbotron jumbotron-fluid text-white text-center" style="background: #4f5d73; margin-bottom: 0px; ">
+<div class="jumbotron jumbotron-fluid text-white text-center" style="background: #69005f; margin-bottom: 0px; ">
 	<div class="container">
-		<h1 class="jumbotron-heading">Munich Imputation Server</h1>
+		<h1 class="jumbotron-heading">Helmholtz Munich Imputation Server (HMIS)</h1>
 		<p class="lead text-center">
 			Free Next-Generation Genotype Imputation Service<br>
 			Empowered by Helmholtz Munich
@@ -184,6 +184,22 @@
 					</p>
 					You have <b>full control</b> about the service. <a href="mailto:itg.analytics@helmholtz-muenchen.de"> Write us</a> to get more information.
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="py-5 bg-light">
+	<div class="container">
+		<h2 class="text-center pb-5">Funding body</h2>
+		<div class="card box-shadow">
+			<div class="card-body">
+				<p style="text-align: center">
+					<a href="https://www.helmholtz.ai">
+						<img src="/static/images/helmholtz-ai-logo.png">
+					</a>
+				</p>
 			</div>
 		</div>
 	</div>
