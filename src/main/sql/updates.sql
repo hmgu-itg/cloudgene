@@ -163,3 +163,12 @@ alter    table    job    add    column    user_agent    VARCHAR    (400);
 
 --    2.3.8
 alter    table    `user`    add    column    accepted_t_c    timestamp    not    null;
+
+
+--    2.3.9
+create    table    country    (
+    id            integer    not    null    auto_increment    primary    key,
+    name        varchar(300) unique,
+    display        boolean,
+    allowed        boolean
+);

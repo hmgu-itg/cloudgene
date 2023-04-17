@@ -1,0 +1,26 @@
+<h2>Country</h2>
+
+<p>
+	<form id="proband-search-form" class="form-inline">
+		Search:&nbsp;
+		<div class="input-group">
+			<input id="query" name="query" type="text" class="form-control" value="{{query}}" placeholder="country name" autocomplete="off">
+			&nbsp;
+				<span class="input-group-btn">
+						<button type="submit" class="btn btn-secondary">
+							<i class="fas fa-search"></i>
+						</button>
+				</span>
+		</div>
+	</form>
+</p>
+
+<table class="table table-striped table-bordered" id="user-list">
+    <thead>
+        <tr>
+            <th style="width: 150px;">Country</th>
+            <th style="width: 150px;">Display</th>
+            <th style="width: 150px;">Allowed</th>
+        </tr>
+    </thead>
+</table>
