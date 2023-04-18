@@ -169,6 +169,6 @@ alter    table    `user`    add    column    accepted_t_c    timestamp    not   
 create    table    country    (
     id            integer    not    null    auto_increment    primary    key,
     name        varchar(300) unique,
-    display        boolean,
-    allowed        boolean
+    display        boolean    not null    default false,
+    allowed        boolean    not null    default false
 );

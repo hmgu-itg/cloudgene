@@ -38,6 +38,7 @@ import cloudgene.mapred.api.v2.admin.server.BlockQueue;
 import cloudgene.mapred.api.v2.admin.server.EnterMaintenance;
 import cloudgene.mapred.api.v2.admin.server.ExitMaintenance;
 import cloudgene.mapred.api.v2.admin.server.GetClusterDetails;
+import cloudgene.mapred.api.v2.admin.server.GetCountries;
 import cloudgene.mapred.api.v2.admin.server.GetServerLogs;
 import cloudgene.mapred.api.v2.admin.server.GetSettings;
 import cloudgene.mapred.api.v2.admin.server.GetTemplates;
@@ -199,6 +200,9 @@ public class WebApp extends Application {
 		router.attach(prefix + "/api/v2/admin/users/{username}/delete", DeleteUser.class);
 		router.attach(prefix + "/api/v2/admin/users/changegroup", ChangeGroup.class);
 		router.attach(prefix + "/api/v2/admin/groups", GetGroups.class);
+
+		// admin countries
+		router.attach(prefix + "/api/v2/admin/countries", GetCountries.class);
 
 		// admin server management
 		router.attach(prefix + "/api/v2/admin/server/cluster", GetClusterDetails.class);
