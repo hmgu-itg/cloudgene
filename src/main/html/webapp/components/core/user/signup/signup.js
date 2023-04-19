@@ -2,6 +2,7 @@ import Control from 'can-control';
 import $ from 'jquery';
 
 import User from 'models/user';
+// import Country from 'models/country';
 
 import template from './signup.stache';
 
@@ -50,12 +51,22 @@ export default Control.extend({
     var passwordError = user.checkPassword(newPassword.val(), confirmNewPassword.val());
     this.updateControl(newPassword, passwordError);
 
+    // institute name
+    var instituteName = $(element).find("[name='institute-name']")
+    var instituteNameError = (instituteName.val() !== "" ? undefined : 'Must input your institute name')
+    this.updateControl(instituteName, instituteNameError);
+
+    // institute country
+    var instituteCountry = $(element).find("[name='institute-country']")
+    var instituteCountryError = (instituteCountry.val() !== "" ? undefined : 'Must select a country for your institute')
+    this.updateControl(instituteCountry, instituteCountryError);
+
     // terms & conditions
     var termsAndConditions = $(element).find("[name='accept-terms-and-conditions']") // document.querySelector('#accept-terms-and-conditions').checked;
     var termsAndConditionsError = (termsAndConditions[0].checked ? undefined : 'Must accept the terms & conditions')
     this.updateControl(termsAndConditions, termsAndConditionsError);
 
-    if (usernameError || fullnameError || mailError || passwordError || termsAndConditionsError) {
+    if (usernameError || fullnameError || mailError || passwordError || termsAndConditionsError || instituteNameError || instituteCountryError) {
       return false;
     }
 
