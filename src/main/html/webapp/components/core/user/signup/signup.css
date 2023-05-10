@@ -1,0 +1,122 @@
+#background {
+    min-height: 885px;
+    min-width: 670px;
+}
+
+h2 {
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    width: 80%;
+}
+
+#tos-view-btn {
+    color: #007bff;
+}
+
+#tos-view-btn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.tos-help {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+}
+
+#tos-view-btn:hover + .tos-help {
+    visibility: visible;
+    opacity: 1;
+}
+
+input[data-tooltip]:disabled:hover + .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+input[data-tooltip]:disabled + .tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+}
+
+#sign-up {
+    width: 100%;
+}
+
+#terms-and-conditions {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+  
+.hidden {
+    display: none;
+}
+  
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+#terms-and-conditions > .tac-background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+    max-height: 80%;
+    background-color: #fff;
+    padding: 20px;
+    z-index: 2;
+}
+
+#terms-and-conditions > .tac-background > .header > h2 {
+    font-size: 27px;
+    margin-bottom: 1.5rem;
+}
+
+#terms-and-conditions > .tac-background > .content {
+    overflow-y: scroll;
+    padding: 20px;
+    height: calc(100% - 40px);
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    cursor: pointer;
+}

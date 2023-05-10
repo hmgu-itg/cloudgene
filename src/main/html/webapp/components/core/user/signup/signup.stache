@@ -1,141 +1,161 @@
-<div class="row" style="height: 1000px; min-width: 670px;">
-  <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 h-100">
-    <h2>Sign up</h2>
-    <br>
-
+<div id="background">
+  <h2>Sign up</h2>
+  <div id="sign-up" class="container">
     <div class="alert alert-success" id="success-message" style="display: none;">
       <b>Well done!</b> An email including the activation code has been sent to your address.
       <br>
     </div>
 
-    <form id="signon-form" class="form-horizontal" autocomplete="off">
-      <h3>Personal details</h3>
-      <div class="form-group">
-        <label for="username" class="control-label">Username:</label>
-        <input id="username" name="username" type="text" class="form-control" autocomplete="off">
-        <div class="invalid-feedback"></div>
+    <form id="signon-form" class="form-horizontal row" autocomplete="off">
+      <div class="col">
+        <h3>Personal details</h3>
+        <div class="form-group">
+          <label for="username" class="control-label">Username:</label>
+          <input id="username" name="username" type="text" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="full-name" class="control-label">Full Name:</label>
+          <input id="full-name" name="full-name" type="text" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="mail" class="control-label">E-Mail:</label>
+          <input id="mail" name="mail" type="text" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="new-password" class="control-label">Password:</label>
+          <input id="new-password" name="new-password" type="password" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-new-password" class="control-label">Confirm password:</label>
+          <input id="confirm-new-password" name="confirm-new-password" type="password" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
       </div>
+      
+      <div class="col">
+        <h3>Affiliation details</h3>
+        <div class="form-group">
+          <label for="institute-mail" class="control-label">E-Mail:</label>
+          <input id="institute-mail" name="institute-mail" type="text" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
 
+        <div class="form-group">
+          <label for="institute-name" class="control-label">Institute name:</label>
+          <input id="institute-name" name="institute-name" type="text" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="full-name" class="control-label">Full Name:</label>
-        <input id="full-name" name="full-name" type="text" class="form-control" autocomplete="off">
-        <div class="invalid-feedback"></div>
-      </div>
+        <div class="form-group">
+          <label for="institute-address" class="control-label">Address:</label>
+          <input id="institute-address1" name="institute-address1" type="text" class="form-control" autocomplete="off">
+          <input id="institute-address2" name="institute-address2" type="text" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
 
+        <div class="form-group">
+          <label for="institute-city" class="control-label">City:</label>
+          <input id="institute-city" name="institute-city" type="text" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="mail" class="control-label">E-Mail:</label>
-        <input id="mail" name="mail" type="text" class="form-control" autocomplete="off">
-        <div class="invalid-feedback"></div>
-      </div>
+        <div class="form-group">
+          <label for="institute-state" class="control-label">State:</label>
+          <input id="institute-state" name="institute-state" type="text" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="new-password" class="control-label">Password:</label>
-        <input id="new-password" name="new-password" type="password" class="form-control" autocomplete="off">
-        <div class="invalid-feedback"></div>
-      </div>
+        <div class="form-group">
+          <label for="institute-postcode" class="control-label">Postal Code:</label>
+          <input id="institute-postcode" name="institute-postcode" type="text" class="form-control" autocomplete="off">
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="confirm-new-password" class="control-label">Confirm password:</label>
-        <input id="confirm-new-password" name="confirm-new-password" type="password" class="form-control" autocomplete="off">
-        <div class="invalid-feedback"></div>
-      </div>
+        <div class="form-group">
+          <label for="institute-country" class="control-label">Country:</label>
+          <select id="institute-country" name="institute-country" class="form-control">
+            <option value="" selected>Select your country</option>
+            {{#each countries}}
+              <option value="{{name}}">{{name}}</option>
+            {{/each}}
+          </select>
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <h3>Affiliation details</h3>
-      <div class="form-group">
-        <label for="institute-name" class="control-label">Institute name:</label>
-        <input id="institute-name" name="institute-name" type="text" class="form-control" autocomplete="off">
-        <div class="invalid-feedback"></div>
-      </div>
+        <div class="form-group" style="position: relative;">
+          {{! <label style="float: left;" for="accept-terms-and-conditions" class="control-label">I agree to the terms & conditions: </label> }}
+          I agree to the <a id="tos-view-btn">Terms of Service</a>:
+          <span class="tos-help">Click to open the Terms of Service</span>
 
-      <div class="form-group">
-        <label for="institute-address" class="control-label">Address:</label>
-        <input id="institute-address" name="institute-address" type="text" class="form-control" autocomplete="off">
-        <div class="invalid-feedback"></div>
-      </div>
+          <input id="accept-terms-and-conditions" name="accept-terms-and-conditions" class="form-control"
+          type="checkbox" style="width: auto; height: auto; display: inline;" disabled data-tooltip="">
+          <span class="tooltip">You must read and scroll to the end of the Terms of Service</span>
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="institute-country" class="control-label">Country:</label>
-        <select id="institute-country" name="institute-country" class="form-control">
-          <option value="" selected>Select your country</option>
-          <option value="United Kingdom">United Kingdom</option>
-          <option value="France">France</option>
-          <option value="Germany">Germany</option>
-          <!--
-          {{#each countries}}
-            <option value="{{name}}">{{name}}</option>
-          {{/each}}
-          -->
-        </select>
-        <div class="invalid-feedback"></div>
-      </div>
+        <div class="form-group">
+          {{! <label style="float: left;" for="accept-terms-and-conditions" class="control-label">I agree to the terms & conditions: </label> }}
+          <span>I agree to only use HMIS within the EU-/EEA-country:</span>
+          <input id="accept-eu" name="accept-eu" class="form-control"
+          type="checkbox" style="width: auto; height: auto; display: inline;" disabled data-tooltip="">
+          <span class="tooltip">You must first scroll to the end of the Terms of Service</span>
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        {{! <label style="float: left;" for="accept-terms-and-conditions" class="control-label">I agree to the terms & conditions: </label> }}
-        <span>I agree to the terms & conditions:</span>
-        <input id="accept-terms-and-conditions" name="accept-terms-and-conditions" class="form-control"
-         type="checkbox" style="width: auto; height: auto; display: inline;" disabled data-tooltip="">
-         <span class="tooltip">You must first scroll to the end of the Terms of Service</span>
-        <div class="invalid-feedback"></div>
-      </div>
-
-      <div class="form-group">
-        <button id="save" class="btn btn-primary" data-loading-text="please wait...">Register</button>
+        <div class="form-group">
+          <button id="save" class="btn btn-primary" data-loading-text="please wait...">Register</button>
+        </div>
       </div>
     </form>
   </div>
-
-  <div id="terms-and-conditions" class="col-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 h-100" style="overflow: auto;">
-    <h2>Terms of Service of the Helmholtz Munich Imputation Server ("HMIS") </h2>
-    <ul>
-      <li>The HMIS is run by the Institute of Translational Genomics (ITG), located at the Helmholtz Zentrum München Deutsches Forschungszentrum für Gesundheit und Umwelt (GmbH) ("Helmholtz Munich"), Ingolstädter Landstraße 1, D-85764 Neuherberg, Germany. </li>
-      <li>Third parties forming part of the research community may use the HMIS. Those third parties are in the following referred to as "the User".  </li>
-      <li>The datasets available at the HMIS ("Datasets") may only be used for</li>
-        <ul>
-          <li>imputation of additional sites into genotype data provided by the User,</li>
-          <li>refinement of uncertain genotype data provided by the User,</li>
-          <li>phasing of genotype data provided by the User,</li>
-          <li>or any combination of these operations.</li>
-        </ul>
-      <li>These operations may be used to evaluate new imputation and phasing methods. All other uses, such as but not limited to population specific genetic analyses, are prohibited.</li>
-      <li>The User agrees to only use the data generated by HMIS operations ("Imputed Data") for research purposes. Imputed Data are not recommended for commercial products, processes or services and no such conclusion should be drawn from Imputed Data and or further content provided in or linked from this website. </li>
-      <li>The User agrees to follow the Fort Lauderdale Guidelines (<a href="https://www.wtccc.org.uk/wtccc/assets/wtd003207.pdf">https://www.wtccc.org.uk/wtccc/assets/wtd003207.pdf</a>) and the Toronto Statement (<a href="http://www.nature.com/nature/journal/v461/n7261/full/461168a.html">http://www.nature.com/nature/journal/v461/n7261/full/461168a.html</a>). This includes but is not limited to recognising the contribution of the producers of the Datasets and including a proper acknowledgement in all reports or publications resulting from the use of the Imputed Data. </li>
-      <li>The User agrees not to make intellectual property claims on the Datasets and not to use intellectual property protection in ways that would prevent or block access to, or use of, any element of the Datasets, or conclusion drawn directly from the Datasets. </li>
-      <li>The User agrees to follow any publication moratoriums that come with the Datasets, which cover any publications (including oral communications) that describe the use of the Datasets. </li>
-      <li>The User agrees to preserve, at all times, the confidentiality of the Datasets available at the HMIS. In particular, it undertakes not to use, or attempt to use the Imputed Data to compromise or otherwise infringe the confidentiality of information on research participants, from whom the information contained in the Datasets available at the HMIS was obtained ("Research Participants"). </li>
-      <li>The User agrees to protect the confidentiality of Research Participants in any research papers or publications prepared by taking all reasonable care to limit the possibility of identification. </li>
-      <li>The User agrees not to link or combine the Imputed Data to other information or archived data available in a way that could re-identify the Research Participants or make any other attempts to re-identify or contact Research Participants, even if access to other information or archived data has been formally granted to the user or is freely available without restriction. </li>
-      <li>In the event that the Datasets available at the HMIS might be affected the User will report any inadvertent data release, security breach or other data management incident of which he or she becomes aware.</li>
-      <li>Any Imputed Data provided through the HMIS is understood to be experimental in nature. Helmholtz Munich makes no representations and extends no warranties of any kind, express or implied, as to the fitness of the imputed data for a particular purpose, or that the use of the imputed data will not infringe any patent, copyright, trademark, or other proprietary rights of a third party. </li>
-      <li>The User understands that personal data submitted to the HMIS contains genetic information, which may require consent from the data subject or another legal basis for the lawful processing of data. To the extent that the User submits this type of data for processing by the HMIS, the User represents to Helmholtz Munich that he or she has obtained such consent or that he or she can claim another legal basis for processing according to Art. 9(2) General Data Protection Regulation (GDPR). </li>
-      <li>When uploading personal data to the HMIS and using the HMIS Helmholtz Munich acts as a processor according to Art. 4 number 8 GDPR and the User shall remain controller of the Imputed data according to Art. 4 number 7 GDPR. Helmholtz Munich will process personal data submitted by the user as directed. Personal data will be processed by Helmholtz Munich on behalf of the user for the purpose of computing in support of genetic research, but only for so long as necessary to complete the computing. Once complete, the Imputed Data is encrypted, made available to the User, and deleted from the servers of HMIS once the User has retrieved it. </li>
-      <li>The User of the HMIS agrees with the provisions as stated in the Data Processing Agreement and with the technical and organisational measures ("TOM") implemented for the data uploaded as stipulated in Appendix 1 of the Data Processing Agreement.  </li>
-      <li>The User confirms that she/he is fully authorized to accept these Terms of Service including the Data Processing Agreement on behalf of her/his institution. </li>
-      <li>In case the User is not located in an EU-/EEA-country and is intending to use the HMIS, the data transfer of the Imputed data requires the conclusion of Standard Contractual Clauses (SCC) (MODULE FOUR, Processor to Controller) according to Art. 46(2) point (c) GDPR. Please contact <a href="mailto:dataprotectionmanagement@helmholtz-munich.de">dataprotectionmanagement@helmholtz-munich.de</a> for further assistance. </li>
-      <li>The User assumes all and any liability for damages which may arise from its use, storage or disposal of the Imputed Data.</li>
-      <li>Nothing in these terms shall limit or exclude liability for cases in which liability cannot be limited according to applicable law and/or for personal injury or death. </li>
-      <li>The User agrees that German law without regard to its conflicts of laws rules and regulations applies to usage of the HMIS and the resulting relationship between User and Helmholtz Munich.  </li>
-    </ul>
-  </div>
 </div>
 
-<style>
-  input[data-tooltip]:disabled:hover + .tooltip {
-    visibility: visible;
-    opacity: 1;
-  }
 
-  input[data-tooltip]:disabled + .tooltip {
-    position: absolute;
-    background-color: #333;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 10px;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s;
-    white-space: nowrap;
-  }
-</style>
+<div id="terms-and-conditions" class="hidden">
+  <div class="overlay"></div>
+  <div class="tac-background">
+    <div class="header">
+      <span class="close-btn">Close &times;</span>
+      <h2>Terms of Service of the Helmholtz Munich Imputation Server ("HMIS") </h2>
+    </div>
+    <div class="content">
+      <ul>
+        <li>The HMIS is run by the Institute of Translational Genomics (ITG), located at the Helmholtz Zentrum München Deutsches Forschungszentrum für Gesundheit und Umwelt (GmbH) ("Helmholtz Munich"), Ingolstädter Landstraße 1, D-85764 Neuherberg, Germany. </li>
+        <li>Third parties forming part of the research community may use the HMIS. Those third parties are in the following referred to as "the User".  </li>
+        <li>The datasets available at the HMIS ("Datasets") may only be used for</li>
+          <ul>
+            <li>imputation of additional sites into genotype data provided by the User,</li>
+            <li>refinement of uncertain genotype data provided by the User,</li>
+            <li>phasing of genotype data provided by the User,</li>
+            <li>or any combination of these operations.</li>
+          </ul>
+        <li>These operations may be used to evaluate new imputation and phasing methods. All other uses, such as but not limited to population specific genetic analyses, are prohibited.</li>
+        <li>The User agrees to only use the data generated by HMIS operations ("Imputed Data") for research purposes. Imputed Data are not recommended for commercial products, processes or services and no such conclusion should be drawn from Imputed Data and or further content provided in or linked from this website. </li>
+        <li>The User agrees to follow the Fort Lauderdale Guidelines (<a href="https://www.wtccc.org.uk/wtccc/assets/wtd003207.pdf">https://www.wtccc.org.uk/wtccc/assets/wtd003207.pdf</a>) and the Toronto Statement (<a href="http://www.nature.com/nature/journal/v461/n7261/full/461168a.html">http://www.nature.com/nature/journal/v461/n7261/full/461168a.html</a>). This includes but is not limited to recognising the contribution of the producers of the Datasets and including a proper acknowledgement in all reports or publications resulting from the use of the Imputed Data. </li>
+        <li>The User agrees not to make intellectual property claims on the Datasets and not to use intellectual property protection in ways that would prevent or block access to, or use of, any element of the Datasets, or conclusion drawn directly from the Datasets. </li>
+        <li>The User agrees to follow any publication moratoriums that come with the Datasets, which cover any publications (including oral communications) that describe the use of the Datasets. </li>
+        <li>The User agrees to preserve, at all times, the confidentiality of the Datasets available at the HMIS. In particular, it undertakes not to use, or attempt to use the Imputed Data to compromise or otherwise infringe the confidentiality of information on research participants, from whom the information contained in the Datasets available at the HMIS was obtained ("Research Participants"). </li>
+        <li>The User agrees to protect the confidentiality of Research Participants in any research papers or publications prepared by taking all reasonable care to limit the possibility of identification. </li>
+        <li>The User agrees not to link or combine the Imputed Data to other information or archived data available in a way that could re-identify the Research Participants or make any other attempts to re-identify or contact Research Participants, even if access to other information or archived data has been formally granted to the user or is freely available without restriction. </li>
+        <li>In the event that the Datasets available at the HMIS might be affected the User will report any inadvertent data release, security breach or other data management incident of which he or she becomes aware.</li>
+        <li>Any Imputed Data provided through the HMIS is understood to be experimental in nature. Helmholtz Munich makes no representations and extends no warranties of any kind, express or implied, as to the fitness of the imputed data for a particular purpose, or that the use of the imputed data will not infringe any patent, copyright, trademark, or other proprietary rights of a third party. </li>
+        <li>The User understands that personal data submitted to the HMIS contains genetic information, which may require consent from the data subject or another legal basis for the lawful processing of data. To the extent that the User submits this type of data for processing by the HMIS, the User represents to Helmholtz Munich that he or she has obtained such consent or that he or she can claim another legal basis for processing according to Art. 9(2) General Data Protection Regulation (GDPR). </li>
+        <li>When uploading personal data to the HMIS and using the HMIS Helmholtz Munich acts as a processor according to Art. 4 number 8 GDPR and the User shall remain controller of the Imputed data according to Art. 4 number 7 GDPR. Helmholtz Munich will process personal data submitted by the user as directed. Personal data will be processed by Helmholtz Munich on behalf of the user for the purpose of computing in support of genetic research, but only for so long as necessary to complete the computing. Once complete, the Imputed Data is encrypted, made available to the User, and deleted from the servers of HMIS once the User has retrieved it. </li>
+        <li>The User of the HMIS agrees with the provisions as stated in the Data Processing Agreement and with the technical and organisational measures ("TOM") implemented for the data uploaded as stipulated in Appendix 1 of the Data Processing Agreement.  </li>
+        <li>The User confirms that she/he is fully authorized to accept these Terms of Service including the Data Processing Agreement on behalf of her/his institution. </li>
+        <li>In case the User is not located in an EU-/EEA-country and is intending to use the HMIS, the data transfer of the Imputed data requires the conclusion of Standard Contractual Clauses (SCC) (MODULE FOUR, Processor to Controller) according to Art. 46(2) point (c) GDPR. Please contact <a href="mailto:dataprotectionmanagement@helmholtz-munich.de">dataprotectionmanagement@helmholtz-munich.de</a> for further assistance. </li>
+        <li>The User assumes all and any liability for damages which may arise from its use, storage or disposal of the Imputed Data.</li>
+        <li>Nothing in these terms shall limit or exclude liability for cases in which liability cannot be limited according to applicable law and/or for personal injury or death. </li>
+        <li>The User agrees that German law without regard to its conflicts of laws rules and regulations applies to usage of the HMIS and the resulting relationship between User and Helmholtz Munich.  </li>
+      </ul>
+    </div>
+  </div>
+</div>
