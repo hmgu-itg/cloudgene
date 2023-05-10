@@ -75,7 +75,8 @@
         {{! <label style="float: left;" for="accept-terms-and-conditions" class="control-label">I agree to the terms & conditions: </label> }}
         <span>I agree to the terms & conditions:</span>
         <input id="accept-terms-and-conditions" name="accept-terms-and-conditions" class="form-control"
-         type="checkbox" style="width: auto; height: auto; display: inline;" disabled>
+         type="checkbox" style="width: auto; height: auto; display: inline;" disabled data-tooltip="">
+         <span class="tooltip">You must first scroll to the end of the Terms of Service</span>
         <div class="invalid-feedback"></div>
       </div>
 
@@ -118,3 +119,23 @@
     </ul>
   </div>
 </div>
+
+<style>
+  input[data-tooltip]:disabled:hover + .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  input[data-tooltip]:disabled + .tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  }
+</style>
