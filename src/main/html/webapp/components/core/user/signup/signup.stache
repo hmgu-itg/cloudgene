@@ -59,14 +59,9 @@
         <label for="institute-country" class="control-label">Country:</label>
         <select id="institute-country" name="institute-country" class="form-control">
           <option value="" selected>Select your country</option>
-          <option value="United Kingdom">United Kingdom</option>
-          <option value="France">France</option>
-          <option value="Germany">Germany</option>
-          <!--
           {{#each countries}}
             <option value="{{name}}">{{name}}</option>
           {{/each}}
-          -->
         </select>
         <div class="invalid-feedback"></div>
       </div>

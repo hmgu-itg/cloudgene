@@ -2,7 +2,7 @@ import Control from 'can-control';
 import $ from 'jquery';
 
 import User from 'models/user';
-// import Country from 'models/country';
+import Country from 'models/country-signup';
 
 import template from './signup.stache';
 
@@ -10,13 +10,26 @@ import template from './signup.stache';
 export default Control.extend({
 
   "init": function(element, options) {
-    $(element).hide();
-    $(element).html(template());
-    $(element).fadeIn();
+    var params = {};
+    Country.findAll(
+      params,
+      function(countries) {
+        $(element).html(template({
+          countries: countries
+        }));
+        $(element).fadeIn();
+      },
+      function(response) {
+        new ErrorPage(element, response);
+      });
+
+    // $(element).hide();
+    // $(element).html(template());
+    // $(element).fadeIn();
 
     $("#terms-and-conditions").scroll(function() {
-      var scrollTop = $(this).scrollTop(); // $("#terms-and-conditions").scrollTop()
-      var tcHeight = $(this).height(); // $("#terms-and-conditions").height()
+      var scrollTop = $(this).scrollTop();
+      var tcHeight = $(this).height();
       var scrolled = Math.ceil(scrollTop + tcHeight);
       if (scrolled >= $(this)[0].scrollHeight) {
         $('#accept-terms-and-conditions')[0].disabled = false
