@@ -26,18 +26,6 @@ export default Control.extend({
     // $(element).html(template());
     // $(element).fadeIn();
 
-    // $(document).on("scroll", "#terms-and-conditions .tac-background .content", function() {
-    //   var scrollTop = $(this).scrollTop();
-    //   var tcHeight = $(this).height();
-    //   var scrolled = Math.ceil(scrollTop + tcHeight);
-    //   var scrollHeight = $(this)[0].scrollHeight;
-    //   console.log(scrolled);
-    //   console.log(scrollHeight);
-    //   if (scrolled >= scrollHeight) {
-    //     $('#accept-terms-and-conditions')[0].disabled = false
-    //   }
-    // });
-
     $(document).on("click", "#tos-view-btn", function () {
       $("#terms-and-conditions").removeClass("hidden");
     });
@@ -46,20 +34,7 @@ export default Control.extend({
       $("#terms-and-conditions").addClass("hidden");
     });
 
-    // setTimeout(function() {
-    //   var contentElement = document.querySelector("#terms-and-conditions .tac-background .content");
-    //   console.log(contentElement); // Debugging statement
-    //   contentElement.addEventListener("scroll", function() {
-    //     var scrollTop = this.scrollTop;
-    //     var tcHeight = this.clientHeight;
-    //     var scrolled = Math.ceil(scrollTop + tcHeight);
-    //     var scrollHeight = this.scrollHeight;
-    //     if (scrolled >= scrollHeight) {
-    //       document.querySelector('#accept-terms-and-conditions').disabled = false;
-    //       document.querySelector('#accept-eu').disabled = false;
-    //     }
-    //   });
-    // }, 1000);
+    // We use the MutationObserver to detect that the .content under #terms-and-conditions has been added to the DOM
     var observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
