@@ -97,7 +97,7 @@ export default Control.extend({
     this.updateControl(instituteName, instituteNameError);
 
     // institute address
-    var instituteName = $(element).find("[name='institute-address']")
+    var instituteName = $(element).find("[name='institute-address1']")
     var instituteNameError = (instituteName.val() !== "" ? undefined : 'Must input your institute address')
     this.updateControl(instituteName, instituteNameError);
 
