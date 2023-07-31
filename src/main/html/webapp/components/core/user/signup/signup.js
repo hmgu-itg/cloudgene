@@ -57,6 +57,22 @@ export default Control.extend({
       });
     });
     observer.observe(document.body, { childList: true, subtree: true });
+    // setTimeout(function() {
+    //   var contentElement = document.querySelector("#terms-and-conditions .tac-background .content");
+    //   console.log(contentElement); // Debugging statement
+    //   contentElement.addEventListener("scroll", function() {
+    //     var scrollTop = this.scrollTop;
+    //     var tcHeight = this.clientHeight;
+    //     var scrolled = Math.ceil(scrollTop + tcHeight + 2);
+    //     var scrollHeight = this.scrollHeight;
+    //     console.log(scrolled);
+    //     console.log(scrollHeight);
+    //     if (scrolled >= scrollHeight) {
+    //       document.querySelector('#accept-terms-and-conditions').disabled = false;
+    //       document.querySelector('#accept-eu').disabled = false;
+    //     }
+    //   });
+    // }, 1000);
   },
 
   'submit': function(element, event) {
@@ -87,9 +103,9 @@ export default Control.extend({
     this.updateControl(newPassword, passwordError);
 
     // institute email
-    var instituteName = $(element).find("[name='institute-mail']")
-    var instituteNameError = (instituteName.val() !== "" ? undefined : 'Must input the email of your institute supervisor/legal-representative')
-    this.updateControl(instituteName, instituteNameError);
+    var instituteEmail = $(element).find("[name='institute-mail']")
+    var instituteEmailError = (instituteEmail.val() !== "" ? undefined : 'Must input the email of your institute supervisor/legal-representative')
+    this.updateControl(instituteEmail, instituteEmailError);
 
     // institute name
     var instituteName = $(element).find("[name='institute-name']")
@@ -97,19 +113,19 @@ export default Control.extend({
     this.updateControl(instituteName, instituteNameError);
 
     // institute address
-    var instituteName = $(element).find("[name='institute-address1']")
-    var instituteNameError = (instituteName.val() !== "" ? undefined : 'Must input your institute address')
-    this.updateControl(instituteName, instituteNameError);
+    var instituteAddress1 = $(element).find("[name='institute-address1']")
+    var instituteAddress1Error = (instituteAddress1.val() !== "" ? undefined : 'Must input your institute address')
+    this.updateControl(instituteAddress1, instituteAddress1Error);
 
     // institute city
-    var instituteName = $(element).find("[name='institute-city']")
-    var instituteNameError = (instituteName.val() !== "" ? undefined : 'Must input your institute city')
-    this.updateControl(instituteName, instituteNameError);
+    var instituteCity = $(element).find("[name='institute-city']")
+    var instituteCityError = (instituteCity.val() !== "" ? undefined : 'Must input your institute city')
+    this.updateControl(instituteCity, instituteCityError);
 
     // institute postal code
-    var instituteName = $(element).find("[name='institute-postcode']")
-    var instituteNameError = (instituteName.val() !== "" ? undefined : 'Must input your institute postal code')
-    this.updateControl(instituteName, instituteNameError);
+    var institutePostCode = $(element).find("[name='institute-postcode']")
+    var institutePostCodeError = (institutePostCode.val() !== "" ? undefined : 'Must input your institute postal code')
+    this.updateControl(institutePostCode, institutePostCodeError);
 
     // institute country
     var instituteCountry = $(element).find("[name='institute-country']")
@@ -122,11 +138,16 @@ export default Control.extend({
     this.updateControl(termsAndConditions, termsAndConditionsError);
 
     // EU-/EAA-country
-    var termsAndConditions = $(element).find("[name='accept-eu']")
-    var termsAndConditionsError = (termsAndConditions[0].checked ? undefined : 'Must agree to only use the service within the EU-/EEA-country')
-    this.updateControl(termsAndConditions, termsAndConditionsError);
+    var termsAndConditionsCountry = $(element).find("[name='accept-eu']")
+    var termsAndConditionsCountryError = (termsAndConditionsCountry[0].checked ? undefined : 'Must agree to only use the service within the EU-/EEA-country')
+    this.updateControl(termsAndConditionsCountry, termsAndConditionsCountryError);
 
-    if (usernameError || fullnameError || mailError || passwordError || termsAndConditionsError || instituteNameError || instituteCountryError) {
+    // institute Permission
+    var termsAndConditionsPermission = $(element).find("[name='accept-permission']")
+    var termsAndConditionsPermissionError = (termsAndConditionsPermission[0].checked ? undefined : 'Must agree that you are a representative of your institute')
+    this.updateControl(termsAndConditionsPermission, termsAndConditionsPermissionError);
+
+    if (usernameError || fullnameError || mailError || passwordError || instituteEmailError || instituteNameError || instituteAddress1Error || instituteCityError || institutePostCodeError || instituteCountryError || termsAndConditionsError || termsAndConditionsCountryError || termsAndConditionsPermissionError) {
       return false;
     }
 

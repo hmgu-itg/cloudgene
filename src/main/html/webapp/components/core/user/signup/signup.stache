@@ -43,7 +43,7 @@
       <div class="col">
         <h3>Affiliation details</h3>
         <div class="form-group">
-          <label for="institute-mail" class="control-label">E-Mail:</label>
+          <label for="institute-mail" class="control-label">Supervisor or Legal-representative E-Mail:</label>
           <input id="institute-mail" name="institute-mail" type="text" class="form-control" autocomplete="off">
           <div class="invalid-feedback"></div>
         </div>
@@ -105,6 +105,14 @@
           {{! <label style="float: left;" for="accept-terms-and-conditions" class="control-label">I agree to the terms & conditions: </label> }}
           <span>I agree to only use HMIS within the EU-/EEA-country:</span>
           <input id="accept-eu" name="accept-eu" class="form-control"
+          type="checkbox" style="width: auto; height: auto; display: inline;" disabled data-tooltip="">
+          <span class="tooltip">You must first scroll to the end of the Terms of Service</span>
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group">
+          <span>I agree that I have been fully authorized by my affiliate institution to accept the Terms of Service on behalf of my institution:</span>
+          <input id="accept-permission" name="accept-permission" class="form-control"
           type="checkbox" style="width: auto; height: auto; display: inline;" disabled data-tooltip="">
           <span class="tooltip">You must first scroll to the end of the Terms of Service</span>
           <div class="invalid-feedback"></div>
