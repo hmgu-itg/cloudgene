@@ -45,7 +45,6 @@ export default Control.extend({
               var tcHeight = this.clientHeight;
               var scrolled = Math.ceil(scrollTop + tcHeight);
               var scrollHeight = this.scrollHeight;
-              console.log(scrolled)
               if (scrolled >= scrollHeight) {
                 document.querySelector('#accept-terms-and-conditions').disabled = false;
                 document.querySelector('#accept-eu').disabled = false;
@@ -142,12 +141,8 @@ export default Control.extend({
     var termsAndConditionsCountryError = (termsAndConditionsCountry[0].checked ? undefined : 'Must agree to only use the service within the EU-/EEA-country')
     this.updateControl(termsAndConditionsCountry, termsAndConditionsCountryError);
 
-    // institute Permission
-    var termsAndConditionsPermission = $(element).find("[name='accept-permission']")
-    var termsAndConditionsPermissionError = (termsAndConditionsPermission[0].checked ? undefined : 'Must agree that you are a representative of your institute')
-    this.updateControl(termsAndConditionsPermission, termsAndConditionsPermissionError);
 
-    if (usernameError || fullnameError || mailError || passwordError || instituteEmailError || instituteNameError || instituteAddress1Error || instituteCityError || institutePostCodeError || instituteCountryError || termsAndConditionsError || termsAndConditionsCountryError || termsAndConditionsPermissionError) {
+    if (usernameError || fullnameError || mailError || passwordError || instituteEmailError || instituteNameError || instituteAddress1Error || instituteCityError || institutePostCodeError || instituteCountryError || termsAndConditionsError || termsAndConditionsCountryError) {
       return false;
     }
 

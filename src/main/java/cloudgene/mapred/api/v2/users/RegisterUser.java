@@ -33,11 +33,22 @@ public class RegisterUser extends BaseResource {
 		String mail = form.getFirstValue("mail").toString();
 		String newPassword = form.getFirstValue("new-password");
 		String confirmNewPassword = form.getFirstValue("confirm-new-password");
+		String instituteEmail = form.getFirstValue("institute-mail");
+		String instituteName = form.getFirstValue("institute-name");
+		String instituteAddress1 = form.getFirstValue("institute-address1");
+		String instituteAddress2 = form.getFirstValue("institute-address2");
+		String instituteCity = form.getFirstValue("institute-city");
+		String institutePostCode = form.getFirstValue("institute-postcode");
+		String instituteCountry = form.getFirstValue("institute-country");
 		String termsAndConditions = form.getFirstValue("accept-terms-and-conditions");
+		String termsAndConditionsCountry = form.getFirstValue("accept-eu");
 
 		// check user accepted terms of service
 		if (!termsAndConditions.equals("on")) {
 			return new JSONAnswer("Must accept Terms of Service.", false);
+		}
+		if (!termsAndConditionsCountry.equals("on")) {
+			return new JSONAnswer("Must agree to only use within EU-/EEA-country.", false);
 		}
 
 		// check username
@@ -77,7 +88,16 @@ public class RegisterUser extends BaseResource {
 		newUser.setMail(mail);
 		newUser.setRoles(new String[] { DEFAULT_ROLE });
 		newUser.setPassword(HashUtil.hashPassword(newPassword));
+		newUser.setInstituteEmail(instituteEmail);
+		newUser.setInstituteName(instituteName);
+		newUser.setInstituteAddress1(instituteAddress1);
+		newUser.setInstituteAddress2(instituteAddress2);
+		newUser.setInstituteCity(instituteCity);
+		newUser.setInstitutePostCode(institutePostCode);
+		newUser.setInstituteCountry(instituteCountry);
 		newUser.setAcceptedTandC(new Date());
+		newUser.setAcceptedCountry(new Date());
+
 
 		try {
 

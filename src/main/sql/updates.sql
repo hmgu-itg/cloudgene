@@ -172,3 +172,15 @@ create    table    country    (
     display        boolean    not null    default false,
     allowed        boolean    not null    default false
 );
+
+
+--    2.3.10
+alter    table    `user`    add    column    institute_email    varchar(100)    not    null;
+alter    table    `user`    add    column    institute_name    varchar(100)    not    null;
+alter    table    `user`    add    column    institute_address1    varchar(300)    not    null;
+alter    table    `user`    add    column    institute_address2    varchar(300)    null default null;
+alter    table    `user`    add    column    institute_city    varchar(100)    not    null;
+alter    table    `user`    add    column    institute_state    varchar(100)    null default null;
+alter    table    `user`    add    column    institute_postcode    varchar(30)    not    null;
+alter    table    `user`    add    column    institute_country    varchar(100)    not    null;
+alter    table    `user`    add    column    accepted_eu_eea    timestamp    not    null;

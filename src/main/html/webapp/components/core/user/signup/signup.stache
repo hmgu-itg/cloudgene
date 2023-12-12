@@ -92,7 +92,7 @@
 
         <div class="form-group" style="position: relative;">
           {{! <label style="float: left;" for="accept-terms-and-conditions" class="control-label">I agree to the terms & conditions: </label> }}
-          I agree to the <a id="tos-view-btn">Terms of Service</a>:
+          After alignment with the responsible administrative personnel of my institution I confirm that I am fully authorized to accept these <a id="tos-view-btn">Terms of Service</a> including the Data Processing Agreement on behalf of my institution:
           <span class="tos-help">Click to open the Terms of Service</span>
 
           <input id="accept-terms-and-conditions" name="accept-terms-and-conditions" class="form-control"
@@ -102,17 +102,8 @@
         </div>
 
         <div class="form-group">
-          {{! <label style="float: left;" for="accept-terms-and-conditions" class="control-label">I agree to the terms & conditions: </label> }}
-          <span>I agree to only use HMIS within the EU-/EEA-country:</span>
+          <span>I herewith accept these Terms of Service including the Data Processing Agreement on behalf of my institution:</span>
           <input id="accept-eu" name="accept-eu" class="form-control"
-          type="checkbox" style="width: auto; height: auto; display: inline;" disabled data-tooltip="">
-          <span class="tooltip">You must first scroll to the end of the Terms of Service</span>
-          <div class="invalid-feedback"></div>
-        </div>
-
-        <div class="form-group">
-          <span>I agree that I have been fully authorized by my affiliate institution to accept the Terms of Service on behalf of my institution:</span>
-          <input id="accept-permission" name="accept-permission" class="form-control"
           type="checkbox" style="width: auto; height: auto; display: inline;" disabled data-tooltip="">
           <span class="tooltip">You must first scroll to the end of the Terms of Service</span>
           <div class="invalid-feedback"></div>
