@@ -241,15 +241,6 @@ public class User {
 		return acceptedCountry;
 	}
 
-	public void setAcceptedPermission(Date acceptedPermission) {
-		this.acceptedPermission = acceptedPermission;
-	}
-
-	public Date getAcceptedPermission() {
-		return acceptedPermission;
-	}
-
-
 	public static String checkUsername(String username) {
 
 		if (username == null || username.isEmpty()) {
