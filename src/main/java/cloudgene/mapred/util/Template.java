@@ -26,7 +26,7 @@ public class Template {
 					"Sorry, our service is currently under maintenance. Imputation Server is expected to be down until <b>Tuesday 08:00 AM EDT</b>."),
 
 			new Template(FOOTER,
-					"<p>powered by <a href=\"http://cloudgene.uibk.ac.at\">Cloudgene</a> and supported by the <a href=\"http://www.nih.gov\">U.S. National Institutes of Health</a> and the <a href=\"http://www.fwf.ac.at\">FWF Austrian Science Fund</a></p>"),
+					"<p>powered by <a href=\"http://cloudgene.uibk.ac.at\">Cloudgene</a> and supported by the <a href=\"https://www.helmholtz-munich.de/en/itg\">Institute of Translational Genomics (ITG)</a> and funded by <a href=\"https://www.helmholtz.ai/\">Helmholtz AI</a></p>"),
 
 			new Template(REGISTER_MAIL,
 					"Dear %s,\nThis email has been sent automatically by the \"%s\" system to confirm that your profile has now been registered.\n\n"

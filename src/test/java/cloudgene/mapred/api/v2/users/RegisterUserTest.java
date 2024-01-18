@@ -34,6 +34,8 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test-uniquent@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
+		
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -57,6 +59,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test-uniquent@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		resource.post(form);
@@ -74,6 +77,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test-uniquent@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		resource.post(form);
@@ -103,6 +107,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -127,6 +132,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -143,6 +149,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		resource.post(form);
@@ -158,6 +165,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		resource.post(form);
@@ -180,6 +188,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -203,6 +212,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -226,6 +236,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -320,6 +331,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -343,6 +355,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "password");
 		form.set("confirm-new-password", "password1");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -366,6 +379,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "pass");
 		form.set("confirm-new-password", "pass");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -389,6 +403,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "passwordword27");
 		form.set("confirm-new-password", "passwordword27");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -412,6 +427,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "PASSWORD2727");
 		form.set("confirm-new-password", "PASSWORD2727");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -435,6 +451,7 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "PASSWORDpassword");
 		form.set("confirm-new-password", "PASSWORDpassword");
+		form.set("accept-terms-and-conditions", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -447,4 +464,26 @@ public class RegisterUserTest extends JobsApiTestCase {
 		resource.release();
 	}
 
+
+	public void testTermsAndConditionsNotAccepted() throws JSONException, IOException {
+
+		// form data
+		Form form = new Form();
+		form.set("username", "usernameunique");
+		form.set("full-name", "full name");
+		form.set("mail", "test-uniquent@test.com");
+		form.set("new-password", "Password27");
+		form.set("confirm-new-password", "Password27");
+		form.set("accept-terms-and-conditions", "off");
+		
+
+		// register user
+		ClientResource resource = createClientResource("/api/v2/users/register");
+
+		resource.post(form);
+		assertEquals(200, resource.getStatus().getCode());
+		JSONObject object = new JSONObject(resource.getResponseEntity().getText());
+		assertEquals(false, object.get("success"));
+		assertEquals("Must accept Terms of Service.", object.get("message"));
+	}	
 }

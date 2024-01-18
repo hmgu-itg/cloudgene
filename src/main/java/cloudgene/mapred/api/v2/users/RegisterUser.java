@@ -1,10 +1,12 @@
 package cloudgene.mapred.api.v2.users;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.Date;
+
 import org.restlet.data.Form;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Post;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import cloudgene.mapred.core.User;
 import cloudgene.mapred.database.UserDao;
@@ -26,6 +28,8 @@ public class RegisterUser extends BaseResource {
 	@Post
 	public Representation post(Representation entity) {
 
+		Log log = LogFactory.getLog(RegisterUser.class);
+
 		String hostname = getSettings().getServerUrl();
 
 		Form form = new Form(entity);
@@ -34,6 +38,23 @@ public class RegisterUser extends BaseResource {
 		String mail = form.getFirstValue("mail");
 		String newPassword = form.getFirstValue("new-password");
 		String confirmNewPassword = form.getFirstValue("confirm-new-password");
+		String instituteEmail = form.getFirstValue("institute-mail");
+		String instituteName = form.getFirstValue("institute-name");
+		String instituteAddress1 = form.getFirstValue("institute-address1");
+		String instituteAddress2 = form.getFirstValue("institute-address2");
+		String instituteCity = form.getFirstValue("institute-city");
+		String institutePostCode = form.getFirstValue("institute-postcode");
+		String instituteCountry = form.getFirstValue("institute-country");
+		String termsAndConditions = form.getFirstValue("accept-terms-and-conditions");
+		String termsAndConditionsCountry = form.getFirstValue("accept-eu");
+
+		// check user accepted terms of service
+		if (!termsAndConditions.equals("on")) {
+			return new JSONAnswer("Must accept Terms of Service.", false);
+		}
+		if (!termsAndConditionsCountry.equals("on")) {
+			return new JSONAnswer("Must agree to only use within EU-/EEA-country.", false);
+		}
 
 		// check username
 		String error = User.checkUsername(username);
@@ -66,7 +87,7 @@ public class RegisterUser extends BaseResource {
 			return new JSONAnswer(error, false);
 		}
 
-		// check password
+		// check name
 		error = User.checkName(fullname);
 		if (error != null) {
 			return new JSONAnswer(error, false);
@@ -78,6 +99,16 @@ public class RegisterUser extends BaseResource {
 		newUser.setMail(mail);
 		newUser.setRoles(roles);
 		newUser.setPassword(HashUtil.hashPassword(newPassword));
+		newUser.setInstituteEmail(instituteEmail);
+		newUser.setInstituteName(instituteName);
+		newUser.setInstituteAddress1(instituteAddress1);
+		newUser.setInstituteAddress2(instituteAddress2);
+		newUser.setInstituteCity(instituteCity);
+		newUser.setInstitutePostCode(institutePostCode);
+		newUser.setInstituteCountry(instituteCountry);
+		newUser.setAcceptedTandC(new Date());
+		newUser.setAcceptedCountry(new Date());
+
 
 		try {
 

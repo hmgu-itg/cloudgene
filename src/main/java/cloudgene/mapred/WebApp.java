@@ -38,6 +38,7 @@ import cloudgene.mapred.api.v2.admin.server.BlockQueue;
 import cloudgene.mapred.api.v2.admin.server.EnterMaintenance;
 import cloudgene.mapred.api.v2.admin.server.ExitMaintenance;
 import cloudgene.mapred.api.v2.admin.server.GetClusterDetails;
+import cloudgene.mapred.api.v2.admin.server.GetCountries;
 import cloudgene.mapred.api.v2.admin.server.GetServerLogs;
 import cloudgene.mapred.api.v2.admin.server.GetSettings;
 import cloudgene.mapred.api.v2.admin.server.GetTemplates;
@@ -73,6 +74,8 @@ import cloudgene.mapred.api.v2.users.ResetPassword;
 import cloudgene.mapred.api.v2.users.UpdatePassword;
 import cloudgene.mapred.api.v2.users.UserProfile;
 import cloudgene.mapred.api.v2.users.VerifyApiToken;
+import cloudgene.mapred.api.v2.users.GetAllowedCountries;
+import cloudgene.mapred.apps.ApplicationRepository;
 import cloudgene.mapred.database.TemplateDao;
 import cloudgene.mapred.database.util.Database;
 import cloudgene.mapred.jobs.WorkflowEngine;
@@ -163,6 +166,9 @@ public class WebApp extends Application {
 		// create, delete, get api token
 		router.attach(prefix + "/api/v2/users/{user}/api-token", ApiTokens.class);
 
+		// get all allowed countries
+		router.attach(prefix + "/api/v2/users/countries", GetAllowedCountries.class);
+
 		// create, delete, get api token
 		router.attach(prefix + "/api/v2/tokens/verify", VerifyApiToken.class);
 
@@ -198,6 +204,9 @@ public class WebApp extends Application {
 		router.attach(prefix + "/api/v2/admin/users/{username}/delete", DeleteUser.class);
 		router.attach(prefix + "/api/v2/admin/users/changegroup", ChangeGroup.class);
 		router.attach(prefix + "/api/v2/admin/groups", GetGroups.class);
+
+		// admin countries
+		router.attach(prefix + "/api/v2/admin/countries", GetCountries.class);
 
 		// admin server management
 		router.attach(prefix + "/api/v2/admin/server/cluster", GetClusterDetails.class);

@@ -21,6 +21,7 @@ import SettingsServerControl from 'components/admin/settings/server/';
 import SettingsMailControl from 'components/admin/settings/mail/';
 import SettingsTemplatesControl from 'components/admin/settings/templates/';
 import SettingsLogsControl from 'components/admin/settings/logs/';
+import SettingsCountryControl from 'components/admin/settings/country/';
 
 
 $(document.links).filter(function() {
@@ -72,6 +73,9 @@ var routes = [{
 }, {
   path: 'pages/admin-settings-templates',
   control: SettingsTemplatesControl
+}, {
+  path: 'pages/admin-settings-country',
+  control: SettingsCountryControl
 }, {
   path: 'pages/admin-logs',
   control: SettingsLogsControl

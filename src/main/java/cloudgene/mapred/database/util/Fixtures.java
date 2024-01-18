@@ -1,5 +1,7 @@
 package cloudgene.mapred.database.util;
 
+import java.util.Date;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,6 +30,7 @@ public class Fixtures {
 			PASSWORD = HashUtil.hashPassword(PASSWORD);
 			user.setPassword(PASSWORD);
 			user.makeAdmin();
+			user.setAcceptedTandC(new Date());
 
 			dao.insert(user);
 			log.info("User " + USERNAME + " created.");

@@ -1,0 +1,64 @@
+<h2>Country</h2>
+<p>This page lists all <b>{{users.count}}</b> registered countries.<br><br></p>
+
+<p>
+	<form id="proband-search-form" class="form-inline">
+		Search:&nbsp;
+		<div class="input-group">
+			<input id="query" name="query" type="text" class="form-control" value="{{query}}" placeholder="country name" autocomplete="off">
+			&nbsp;
+				<span class="input-group-btn">
+						<button type="submit" class="btn btn-secondary">
+							<i class="fas fa-search"></i>
+						</button>
+				</span>
+		</div>
+	</form>
+</p>
+
+<table class="table table-striped table-bordered" id="user-list">
+    <thead>
+        <tr>
+            <th style="width: 150px;">Country</th>
+            <th style="width: 150px;">Display</th>
+            <th style="width: 150px;">Allowed</th>
+        </tr>
+    </thead>
+
+	<tbody>
+		{{#each countries }}
+			<tr {{data 'country' }}>
+				<td>
+					{{name}}
+				</td>
+				<td>
+					{{display}}
+				</td>
+				<td>
+					{{allowed}}
+				</td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table>
+
+
+<br>
+<div class="mx-auto">
+	<ul class="mx-auto pagination">
+		<li class="page-item {{^if(countries.prev)}}disabled{{/if}}">
+		<a class="page-link" href="#!pages/countries/pages/{{countries.prev}}" aria-label="Previous">
+			<span aria-hidden="true">&larr; Previous</span>
+		</a>
+		</li>
+		{{#users.pages}}
+		<li class="{{#is(., countries.page)}}page-item active{{/is}}"><a class="page-link" href="#!pages/countries/pages/{{.}}">{{.}}</a></li>
+		{{/users.pages}}
+		<li class="page-item {{^if(countries.next)}}disabled{{/if}}">
+		<a class="page-link" href="#!pages/countries/pages/{{countries.next}}" aria-label="Next">
+			<span aria-hidden="true">Next &rarr;</span>
+		</a>
+		</li>
+	</ul>
+</div>
+<br><br>
