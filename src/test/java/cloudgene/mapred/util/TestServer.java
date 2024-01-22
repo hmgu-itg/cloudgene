@@ -272,6 +272,12 @@ public class TestServer {
 
 			String username = "admin";
 			String password = "admin1978";
+			String instituteEmail = "itg-boss@helmholtz-munich.de";
+			String instituteName = "ITG";
+			String instituteAddress1 = "Ingolstädter Landstraße 1";
+			String instituteCity = "Munich";
+			String institutePostCode = "D-85764";
+			String instituteCountry = "Germany";
 
 			// insert user admin
 			UserDao dao = new UserDao(database);
@@ -281,6 +287,12 @@ public class TestServer {
 				adminUser.setUsername(username);
 				password = HashUtil.hashPassword(password);
 				adminUser.setPassword(password);
+				adminUser.setInstituteEmail(instituteEmail);
+				adminUser.setInstituteName(instituteName);
+				adminUser.setInstituteAddress1(instituteAddress1);
+				adminUser.setInstituteCity(instituteCity);
+				adminUser.setInstitutePostCode(institutePostCode);
+				adminUser.setInstituteCountry(instituteCountry);
 				adminUser.makeAdmin();
 				dao.insert(adminUser);
 			}
@@ -295,6 +307,12 @@ public class TestServer {
 				user.setUsername(usernameUser);
 				password = HashUtil.hashPassword(passwordUser);
 				user.setPassword(passwordUser);
+				user.setInstituteEmail(instituteEmail);
+				user.setInstituteName(instituteName);
+				user.setInstituteAddress1(instituteAddress1);
+				user.setInstituteCity(instituteCity);
+				user.setInstitutePostCode(institutePostCode);
+				user.setInstituteCountry(instituteCountry);
 				user.setRoles(new String[] { "public" });
 				dao.insert(user);
 			}

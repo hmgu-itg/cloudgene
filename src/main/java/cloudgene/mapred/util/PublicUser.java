@@ -14,6 +14,12 @@ public class PublicUser {
 			user.setUsername("public");
 			String password = HashUtil.getSha256("public-password");
 			user.setPassword(password);
+			user.setInstituteEmail("noreply@imputationserver.helmholtz-munich.de");
+			user.setInstituteName("ITG");
+			user.setInstituteAddress1("Ingolstädter Landstraße 1");
+			user.setInstituteCity("Munich");
+			user.setInstitutePostCode("D-85764");
+			user.setInstituteCountry("Germany");
 			user.setRoles(new String[]{"public"});
 			dao.insert(user);
 		}

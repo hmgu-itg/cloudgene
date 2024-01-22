@@ -80,7 +80,7 @@ public class UserDao extends JdbcDataAccessObject {
 		sql.append("where id = ?");
 
 		try {
-
+			// TODO: Update so that institute info can also be updated 
 			Object[] params = new Object[19];
 			params[0] = user.getUsername().toLowerCase();
 			params[1] = user.getPassword();
