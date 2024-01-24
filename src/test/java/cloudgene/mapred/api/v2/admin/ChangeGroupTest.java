@@ -34,6 +34,12 @@ public class ChangeGroupTest extends JobsApiTestCase {
 		testUser3.setRoles(new String[] { "User" });
 		testUser3.setActive(true);
 		testUser3.setPassword(HashUtil.hashPassword("oldpassword"));
+		testUser3.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser3.setInstituteName("ITG");
+		testUser3.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser3.setInstituteCity("Munich");
+		testUser3.setInstitutePostCode("D-85764");
+		testUser3.setInstituteCountry("Germany");
 		userDao.insert(testUser3);
 
 	}
