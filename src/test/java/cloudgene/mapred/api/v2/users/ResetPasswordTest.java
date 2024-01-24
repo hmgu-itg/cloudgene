@@ -36,6 +36,12 @@ public class ResetPasswordTest extends JobsApiTestCase {
 		testUser1.setActive(true);
 		testUser1.setActivationCode("");
 		testUser1.setPassword(HashUtil.hashPassword("oldpassword"));
+		testUser1.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser1.setInstituteName("ITG");
+		testUser1.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser1.setInstituteCity("Munich");
+		testUser1.setInstitutePostCode("D-85764");
+		testUser1.setInstituteCountry("Germany");
 		userDao.insert(testUser1);
 
 		User testUse2 = new User();
@@ -46,6 +52,12 @@ public class ResetPasswordTest extends JobsApiTestCase {
 		testUse2.setActive(false);
 		testUse2.setActivationCode("fdsfdsfsdfsdfsd");
 		testUse2.setPassword(HashUtil.hashPassword("oldpassword"));
+		testUse2.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUse2.setInstituteName("ITG");
+		testUse2.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUse2.setInstituteCity("Munich");
+		testUse2.setInstitutePostCode("D-85764");
+		testUse2.setInstituteCountry("Germany");
 		userDao.insert(testUse2);
 
 	}

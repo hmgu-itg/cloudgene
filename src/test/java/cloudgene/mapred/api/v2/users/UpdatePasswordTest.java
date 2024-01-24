@@ -34,6 +34,12 @@ public class UpdatePasswordTest extends JobsApiTestCase {
 		testUser1.setActive(true);
 		testUser1.setActivationCode("ACTIVATION-CODE-FROM-MAIL");
 		testUser1.setPassword(HashUtil.hashPassword("oldpassword"));
+		testUser1.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser1.setInstituteName("ITG");
+		testUser1.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser1.setInstituteCity("Munich");
+		testUser1.setInstitutePostCode("D-85764");
+		testUser1.setInstituteCountry("Germany");
 		userDao.insert(testUser1);
 
 		User testUse2 = new User();
@@ -44,6 +50,12 @@ public class UpdatePasswordTest extends JobsApiTestCase {
 		testUse2.setActive(false);
 		testUse2.setActivationCode("ACTIVATION-CODE-FROM-MAIL");
 		testUse2.setPassword(HashUtil.hashPassword("oldpassword"));
+		testUse2.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUse2.setInstituteName("ITG");
+		testUse2.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUse2.setInstituteCity("Munich");
+		testUse2.setInstitutePostCode("D-85764");
+		testUse2.setInstituteCountry("Germany");
 		userDao.insert(testUse2);
 
 		User testUser3 = new User();
@@ -54,6 +66,12 @@ public class UpdatePasswordTest extends JobsApiTestCase {
 		testUser3.setActive(true);
 		testUser3.setActivationCode("ACTIVATION-CODE-FROM-MAIL-3");
 		testUser3.setPassword(HashUtil.hashPassword("oldpassword"));
+		testUser3.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser3.setInstituteName("ITG");
+		testUser3.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser3.setInstituteCity("Munich");
+		testUser3.setInstitutePostCode("D-85764");
+		testUser3.setInstituteCountry("Germany");
 		userDao.insert(testUser3);
 
 	}

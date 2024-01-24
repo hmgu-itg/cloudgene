@@ -34,7 +34,15 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test-uniquent@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 		
 
 		// register user
@@ -59,7 +67,15 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test-uniquent@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		resource.post(form);
@@ -77,7 +93,16 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test-uniquent@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
+		
 
 		// register user
 		resource.post(form);
@@ -107,8 +132,17 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
+		
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
 		resource.post(form);
@@ -127,12 +161,21 @@ public class RegisterUserTest extends JobsApiTestCase {
 		int mailsBefore = mailServer.getReceivedEmailSize();
 
 		Form form = new Form();
-		form.set("username", "username-");
+		form.set("username", "username-"); // ending with -
 		form.set("full-name", "full name");
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
+
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -144,12 +187,20 @@ public class RegisterUserTest extends JobsApiTestCase {
 		assertEquals(mailsBefore, mailServer.getReceivedEmailSize());
 
 		form = new Form();
-		form.set("username", "username.");
+		form.set("username", "username."); // ending with .
 		form.set("full-name", "full name");
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		resource.post(form);
@@ -160,12 +211,20 @@ public class RegisterUserTest extends JobsApiTestCase {
 		assertEquals(mailsBefore, mailServer.getReceivedEmailSize());
 
 		form = new Form();
-		form.set("username", "username#");
+		form.set("username", "username#"); // ending with #
 		form.set("full-name", "full name");
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		resource.post(form);
@@ -188,7 +247,15 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -212,7 +279,15 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -236,14 +311,22 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
 		resource.post(form);
 		assertEquals(200, resource.getStatus().getCode());
 		JSONObject object = new JSONObject(resource.getResponseEntity().getText());
-		assertEquals(object.get("success"), false);
+		assertEquals(false, object.get("success"));
 		assertTrue(object.get("message").toString().contains("E-Mail is required."));
 		assertEquals(mailsBefore, mailServer.getReceivedEmailSize());
 		resource.release();
@@ -265,7 +348,16 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
-
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
+		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
+		
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
 		resource.post(form);
@@ -300,6 +392,17 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test-blabla@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
+		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
+
+
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -331,7 +434,15 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -355,7 +466,17 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "password");
 		form.set("confirm-new-password", "password1");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
+
+
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -379,7 +500,16 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "pass");
 		form.set("confirm-new-password", "pass");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
+
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -403,7 +533,16 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "passwordword27");
 		form.set("confirm-new-password", "passwordword27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
+
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -427,7 +566,15 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "PASSWORD2727");
 		form.set("confirm-new-password", "PASSWORD2727");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -451,7 +598,15 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test@test.com");
 		form.set("new-password", "PASSWORDpassword");
 		form.set("confirm-new-password", "PASSWORDpassword");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
@@ -464,7 +619,6 @@ public class RegisterUserTest extends JobsApiTestCase {
 		resource.release();
 	}
 
-
 	public void testTermsAndConditionsNotAccepted() throws JSONException, IOException {
 
 		// form data
@@ -474,8 +628,15 @@ public class RegisterUserTest extends JobsApiTestCase {
 		form.set("mail", "test-uniquent@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "off");
-		
+		form.set("accept-eu", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");

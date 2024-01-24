@@ -36,7 +36,15 @@ public class ActivateUserTest extends JobsApiTestCase {
 		form.set("mail", "new.user@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");
