@@ -190,8 +190,6 @@ alter    table    `user`    add    column    accepted_eu_eea    timestamp    not
 
 -- 2.6.0
 alter table `user` add column api_token_expires_on timestamp null default null;
-<<<<<<< HEAD
-=======
 
 -- 2.8.1
 CREATE INDEX idx_downloads_hash ON downloads(hash);
@@ -200,4 +198,3 @@ CREATE INDEX idx_downloads_path ON downloads(path);
 CREATE INDEX idx_user_username ON user(username);
 CREATE INDEX idx_user_mail ON user(mail);
 CREATE INDEX idx_user_fullname ON user(full_name);
->>>>>>> 674c8da5beb097f0f411aa5bbbf0b1566e5e72b8
