@@ -1,5 +1,7 @@
 package cloudgene.mapred.api.v2.users;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
@@ -9,7 +11,6 @@ import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 
-import cloudgene.mapred.core.ApiTokenVerifier;
 import cloudgene.mapred.core.User;
 import cloudgene.mapred.database.UserDao;
 import cloudgene.mapred.representations.JSONAnswer;
@@ -19,6 +20,7 @@ import cloudgene.mapred.util.JSONConverter;
 import net.sf.json.JSONObject;
 
 public class UserProfile extends BaseResource {
+	private static final Log log = LogFactory.getLog(UserProfile.class);
 
 	@Get
 	public Representation get() {
@@ -34,16 +36,7 @@ public class UserProfile extends BaseResource {
 		User updatedUser = dao.findByUsername(user.getUsername());
 
 		JSONObject object = JSONConverter.convert(updatedUser);
-		try {
-			if (object.getBoolean("hasApiToken")) {
-				org.json.JSONObject result = ApiTokenVerifier.verify(user.getApiToken(), getSettings().getSecretKey(),
-						getDatabase());
-				object.put("apiTokenValid", result.get("valid"));
-				object.put("apiTokenMessage", result.get("message"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
 		StringRepresentation representation = new StringRepresentation(object.toString(), MediaType.APPLICATION_JSON);
 
 		return representation;
@@ -75,6 +68,8 @@ public class UserProfile extends BaseResource {
 
 		// check if user is admin or it is his username
 		if (!user.getUsername().equals(username) && !user.isAdmin()) {
+			log.error(String.format("User: ID %s ('%s') attempted to change profile of a different user '%s'",
+					user.getId(), user.getUsername(), username));
 			return new JSONAnswer("You are not allowed to change this user profile.", false);
 		}
 
@@ -83,15 +78,39 @@ public class UserProfile extends BaseResource {
 			return new JSONAnswer(error, false);
 		}
 
-		error = User.checkMail(mail);
-		if (error != null) {
-			return new JSONAnswer(error, false);
+		boolean mailProvided = (mail != null && !mail.isEmpty());
+
+		if (getSettings().isEmailRequired() || mailProvided) {
+			error = User.checkMail(mail);
+			if (error != null) {
+				return new JSONAnswer(error, false);
+			}
 		}
 
 		UserDao dao = new UserDao(getDatabase());
 		User newUser = dao.findByUsername(username);
 		newUser.setFullName(fullname);
 		newUser.setMail(mail);
+
+		if (user.getMail() != null && !user.getMail().equals(newUser.getMail())) {
+			log.info(String.format("User: changed email address for user %s (ID %s)", newUser.getUsername(),
+					newUser.getId()));
+		}
+
+		String roleMessage = " ";
+		if (!getSettings().isEmailRequired()) {
+			if ((newUser.getMail() == null || newUser.getMail().isEmpty()) && user.hasRole(RegisterUser.DEFAULT_ROLE)) {
+				newUser.replaceRole(RegisterUser.DEFAULT_ROLE, RegisterUser.DEFAULT_ANONYMOUS_ROLE);
+				log.info(String.format("User: changed role to %s for user %s (ID %s)", RegisterUser.DEFAULT_ANONYMOUS_ROLE, newUser.getUsername(),
+						newUser.getId()));
+				roleMessage += "<br><br>Your account has been <b>downgraded</b>.<br>To apply these changes, please log out and log back in.";
+			} else if ((newUser.getMail() != null && !newUser.getMail().isEmpty()) && user.hasRole(RegisterUser.DEFAULT_ANONYMOUS_ROLE)) {
+				newUser.replaceRole(RegisterUser.DEFAULT_ANONYMOUS_ROLE, RegisterUser.DEFAULT_ROLE);
+				log.info(String.format("User: changed role to %s for user %s (ID %s)", RegisterUser.DEFAULT_ROLE, newUser.getUsername(),
+						newUser.getId()));
+				roleMessage += "<br><br>Your account has been <b>upgraded</b>.<br>To apply these changes, please log out and log back in.";
+			}
+		}
 
 		// update password only when it's not empty
 		if (newPassword != null && !newPassword.isEmpty()) {
@@ -103,11 +122,13 @@ public class UserProfile extends BaseResource {
 			}
 			newUser.setPassword(HashUtil.hashPassword(newPassword));
 
+			log.info(String.format("User: changed password for user %s (ID %s - email %s)", newUser.getUsername(),
+					newUser.getId(), newUser.getMail()));
 		}
 
 		dao.update(newUser);
 
-		return new JSONAnswer("User profile sucessfully updated.", true);
+		return new JSONAnswer("User profile successfully updated." + roleMessage , true);
 
 	}
 
@@ -126,13 +147,15 @@ public class UserProfile extends BaseResource {
 		String password = form.getFirstValue("password");
 
 		// check if user is admin or it is his username
-		if (!user.getUsername().equals(username) && !user.isAdmin()) {
+		if (!user.getUsername().equals(username)) {
 			return error401("You are not allowed to delete this user profile.");
 		}
 
 		if (HashUtil.checkPassword(password, user.getPassword())) {
 
 			UserDao dao = new UserDao(getDatabase());
+			log.info(String.format("User: requested deletion of account %s (ID %s - email %s)", user.getUsername(),
+					user.getId(), user.getMail()));
 			boolean deleted = dao.delete(user);
 			if (deleted) {
 				return new JSONAnswer("User profile sucessfully delete.", true);

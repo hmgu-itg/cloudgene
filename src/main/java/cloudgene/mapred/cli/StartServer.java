@@ -33,12 +33,12 @@ public class StartServer extends BaseTool {
 				username = getValue("user").toString();
 			}
 			System.out.println(
-					"Use Haddop configuration folder " + conf + (username != null ? " with username " + username : ""));
+					"Use Hadoop configuration folder " + conf + (username != null ? " with username " + username : ""));
 			HadoopCluster.setConfPath("Unknown", conf, username);
 
 		} else {
 			if (settings.getCluster() == null) {
-				System.out.println("No external Haddop cluster set.");
+				System.out.println("No external Hadoop cluster set.");
 			}
 		}
 

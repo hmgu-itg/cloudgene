@@ -9,10 +9,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import cloudgene.mapred.core.User;
+import cloudgene.mapred.database.util.Database;
+import cloudgene.mapred.database.util.IRowMapper;
+import cloudgene.mapred.database.util.JdbcDataAccessObject;
 import cloudgene.mapred.util.PublicUser;
-import genepi.db.Database;
-import genepi.db.IRowMapper;
-import genepi.db.JdbcDataAccessObject;
 
 public class UserDao extends JdbcDataAccessObject {
 
@@ -24,13 +24,11 @@ public class UserDao extends JdbcDataAccessObject {
 
 	public boolean insert(User user) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(
-				"insert into `user` (username, password, full_name, aws_key, aws_secret_key, save_keys, export_to_s3, s3_bucket, mail, role, export_input_to_s3, activation_code, active,api_token, last_login, locked_until, login_attempts, accepted_t_c) ");
-		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		sql.append("insert into `user` (username, password, full_name, aws_key, aws_secret_key, save_keys, export_to_s3, s3_bucket, mail, role, export_input_to_s3, activation_code, active, api_token, last_login, locked_until, login_attempts, institute_email, institute_name, institute_address1, institute_address2, institute_city, institute_postcode, institute_country, accepted_t_c, accepted_eu_eea, api_token_expires_on)");
+		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 		try {
-
-			Object[] params = new Object[18];
+			Object[] params = new Object[27];
 			params[0] = user.getUsername().toLowerCase();
 			params[1] = user.getPassword();
 			params[2] = user.getFullName();
@@ -41,7 +39,6 @@ public class UserDao extends JdbcDataAccessObject {
 			params[7] = null;
 			params[8] = user.getMail();
 			params[9] = String.join(User.ROLE_SEPARATOR, user.getRoles());
-			;
 			params[10] = false;
 			params[11] = user.getActivationCode();
 			params[12] = user.isActive();
@@ -49,7 +46,18 @@ public class UserDao extends JdbcDataAccessObject {
 			params[14] = user.getLastLogin();
 			params[15] = user.getLockedUntil();
 			params[16] = user.getLoginAttempts();
-			params[17] = user.getAcceptedTandC();
+
+			params[17] = user.getInstituteEmail();
+			params[18] = user.getInstituteName();
+			params[19] = user.getInstituteAddress1();
+			params[20] = user.getInstituteAddress2();
+			params[21] = user.getInstituteCity();
+			params[22] = user.getInstitutePostCode();
+			params[23] = user.getInstituteCountry();
+
+			params[24] = user.getAcceptedTandC();
+			params[25] = user.getAcceptedCountry();
+			params[26] = user.getApiTokenExpiresOn();
 
 			int id = insert(sql.toString(), params);
 
@@ -68,12 +76,12 @@ public class UserDao extends JdbcDataAccessObject {
 	public boolean update(User user) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"update `user` set username = ?, password = ?, full_name = ?, aws_key = ?, aws_secret_key = ?, save_keys = ? , export_to_s3 = ?, s3_bucket = ?, mail = ?, role = ?, export_input_to_s3 = ?, active = ?, activation_code = ?, api_token = ?, last_login = ?, locked_until = ?, login_attempts = ? ");
+				"update `user` set username = ?, password = ?, full_name = ?, aws_key = ?, aws_secret_key = ?, save_keys = ? , export_to_s3 = ?, s3_bucket = ?, mail = ?, role = ?, export_input_to_s3 = ?, active = ?, activation_code = ?, api_token = ?, last_login = ?, locked_until = ?, login_attempts = ?, api_token_expires_on = ? ");
 		sql.append("where id = ?");
 
 		try {
-
-			Object[] params = new Object[18];
+			// TODO: Update so that institute info can also be updated 
+			Object[] params = new Object[19];
 			params[0] = user.getUsername().toLowerCase();
 			params[1] = user.getPassword();
 			params[2] = user.getFullName();
@@ -91,7 +99,8 @@ public class UserDao extends JdbcDataAccessObject {
 			params[14] = user.getLastLogin();
 			params[15] = user.getLockedUntil();
 			params[16] = user.getLoginAttempts();
-			params[17] = user.getId();
+			params[17] = user.getApiTokenExpiresOn();
+			params[18] = user.getId();
 
 			update(sql.toString(), params);
 
@@ -318,6 +327,7 @@ public class UserDao extends JdbcDataAccessObject {
 			user.setActivationCode(rs.getString("user.activation_code"));
 			user.setActive(rs.getBoolean("user.active"));
 			user.setApiToken(rs.getString("user.api_token"));
+			user.setApiTokenExpiresOn(rs.getTimestamp("user.api_token_expires_on"));
 			user.setLastLogin(rs.getTimestamp("user.last_login"));
 			user.setLockedUntil(rs.getTimestamp("user.locked_until"));
 			user.setLoginAttempts(rs.getInt("user.login_attempts"));

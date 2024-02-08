@@ -14,12 +14,12 @@ import org.restlet.resource.ClientResource;
 
 import cloudgene.mapred.core.User;
 import cloudgene.mapred.database.UserDao;
+import cloudgene.mapred.database.util.Database;
 import cloudgene.mapred.jobs.AbstractJob;
 import cloudgene.mapred.util.HashUtil;
 import cloudgene.mapred.util.JobsApiTestCase;
 import cloudgene.mapred.util.LoginToken;
 import cloudgene.mapred.util.TestServer;
-import genepi.db.Database;
 import genepi.io.FileUtil;
 
 public class ApiTokensTest extends JobsApiTestCase {
@@ -40,6 +40,12 @@ public class ApiTokensTest extends JobsApiTestCase {
 		testUser1.setActive(true);
 		testUser1.setActivationCode("");
 		testUser1.setPassword(HashUtil.hashPassword("Test1Password"));
+		testUser1.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser1.setInstituteName("ITG");
+		testUser1.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser1.setInstituteCity("Munich");
+		testUser1.setInstitutePostCode("D-85764");
+		testUser1.setInstituteCountry("Germany");
 		userDao.insert(testUser1);
 		
 		
@@ -51,6 +57,12 @@ public class ApiTokensTest extends JobsApiTestCase {
 		testUser2.setActive(true);
 		testUser2.setActivationCode("");
 		testUser2.setPassword(HashUtil.hashPassword("Test2Password"));
+		testUser2.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser2.setInstituteName("ITG");
+		testUser2.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser2.setInstituteCity("Munich");
+		testUser2.setInstitutePostCode("D-85764");
+		testUser2.setInstituteCountry("Germany");
 		userDao.insert(testUser2);
 
 	}

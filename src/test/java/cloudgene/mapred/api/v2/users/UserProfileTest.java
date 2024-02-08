@@ -9,11 +9,11 @@ import org.restlet.resource.ClientResource;
 
 import cloudgene.mapred.core.User;
 import cloudgene.mapred.database.UserDao;
+import cloudgene.mapred.database.util.Database;
 import cloudgene.mapred.util.HashUtil;
 import cloudgene.mapred.util.JobsApiTestCase;
 import cloudgene.mapred.util.LoginToken;
 import cloudgene.mapred.util.TestServer;
-import genepi.db.Database;
 
 public class UserProfileTest extends JobsApiTestCase {
 
@@ -33,6 +33,12 @@ public class UserProfileTest extends JobsApiTestCase {
 		testUser1.setActive(true);
 		testUser1.setActivationCode("");
 		testUser1.setPassword(HashUtil.hashPassword("Test1Password"));
+		testUser1.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser1.setInstituteName("ITG");
+		testUser1.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser1.setInstituteCity("Munich");
+		testUser1.setInstitutePostCode("D-85764");
+		testUser1.setInstituteCountry("Germany");
 		userDao.insert(testUser1);
 
 		User testUser2 = new User();
@@ -43,6 +49,12 @@ public class UserProfileTest extends JobsApiTestCase {
 		testUser2.setActive(true);
 		testUser2.setActivationCode("");
 		testUser2.setPassword(HashUtil.hashPassword("Test2Password"));
+		testUser2.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser2.setInstituteName("ITG");
+		testUser2.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser2.setInstituteCity("Munich");
+		testUser2.setInstitutePostCode("D-85764");
+		testUser2.setInstituteCountry("Germany");
 		userDao.insert(testUser2);
 
 	}
@@ -96,7 +108,7 @@ public class UserProfileTest extends JobsApiTestCase {
 		assertEquals(200, resource.getStatus().getCode());
 		JSONObject object = new JSONObject(resource.getResponseEntity().getText());
 		assertEquals(object.get("success"), true);
-		assertTrue(object.get("message").toString().contains("User profile sucessfully updated"));
+		assertTrue(object.get("message").toString().contains("User profile successfully updated"));
 		resource.release();
 
 		// try login with old password
@@ -268,6 +280,80 @@ public class UserProfileTest extends JobsApiTestCase {
 		assertEquals(object.get("success"), false);
 		assertTrue(object.get("message").toString().contains("least one uppercase"));
 		resource.release();
+	}
+
+	public void testUpdateWithEmptyEmail() throws JSONException, IOException {
+
+		// login as user test1
+		LoginToken token = login("test1", "Test1Password");
+
+		ClientResource resource = createClientResource("/api/v2/users/me/profile", token);
+		Form form = new Form();
+
+		// try to update with wrong password
+		form.set("username", "test1");
+		form.set("full-name", "test1 new");
+		form.set("mail", "");
+
+		resource.post(form);
+		assertEquals(200, resource.getStatus().getCode());
+		JSONObject object = new JSONObject(resource.getResponseEntity().getText());
+		assertEquals(object.get("success"), false);
+		assertTrue(object.get("message").toString().contains("E-Mail is required."));
+		resource.release();
+	}
+
+	public void testDowngradeAndUpgradeAccount() throws JSONException, IOException {
+
+		TestServer.getInstance().getSettings().setEmailRequired(false);
+
+		// login as user test1
+		LoginToken token = login("test1", "Test1Password");
+
+		ClientResource resource = createClientResource("/api/v2/users/me/profile", token);
+		Form form = new Form();
+
+		// downgrade by removing email
+		form.set("username", "test1");
+		form.set("full-name", "test1 new");
+		form.set("mail", "");
+
+		resource.post(form);
+		assertEquals(200, resource.getStatus().getCode());
+		JSONObject object = new JSONObject(resource.getResponseEntity().getText());
+		assertEquals(object.get("success"), true);
+		assertTrue(object.get("message").toString().contains("downgraded"));
+		resource.release();
+
+		//check role
+		UserDao dao = new UserDao(TestServer.getInstance().getDatabase());
+		User user = dao.findByUsername("test1");
+		assertEquals(1, user.getRoles().length);
+		assertEquals(RegisterUser.DEFAULT_ANONYMOUS_ROLE, user.getRoles()[0]);
+
+		//upgrade by adding email
+
+		form = new Form();
+
+		// downgrade by removing email
+		form.set("username", "test1");
+		form.set("full-name", "test1 new");
+		form.set("mail", "test1@test.com");
+
+		resource.post(form);
+		assertEquals(200, resource.getStatus().getCode());
+		object = new JSONObject(resource.getResponseEntity().getText());
+		assertEquals(object.get("success"), true);
+		assertTrue(object.get("message").toString().contains("upgraded"));
+		resource.release();
+
+		//check role
+		user = dao.findByUsername("test1");
+		assertEquals(1, user.getRoles().length);
+		assertEquals(RegisterUser.DEFAULT_ROLE, user.getRoles()[0]);
+
+		TestServer.getInstance().getSettings().setEmailRequired(true);
+
 	}
 
 }

@@ -5,6 +5,10 @@ import java.util.regex.Pattern;
 
 public class User {
 
+	public static final String ROLE_SEPARATOR = ",";
+
+	public static final String ROLE_ADMIN = "admin";
+
 	private String username;
 
 	private String password;
@@ -29,11 +33,27 @@ public class User {
 
 	private int loginAttempts;
 
+	private Date apiTokenExpiresOn = null;
+
+	private String instituteEmail;
+
+	private String instituteName;
+
+	private String instituteAddress1;
+
+	private String instituteAddress2;
+
+	private String instituteCity;
+
+	private String institutePostCode;
+
+	private String instituteCountry;
+
 	private Date acceptedTandC = new Date();
 
-	public static final String ROLE_SEPARATOR = ",";
+	private Date acceptedCountry = new Date();
 
-	public static final String ROLE_ADMIN = "admin";
+	private Date acceptedPermission = new Date();
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -95,6 +115,18 @@ public class User {
 		return false;
 	}
 
+	public boolean hasRole(String[] roles) {
+		if (this.roles == null || roles == null) {
+			return false;
+		}
+		for (int i = 0; i < roles.length; i++) {
+			if (hasRole(roles[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean isAdmin() {
 		return hasRole(ROLE_ADMIN);
 	}
@@ -150,6 +182,70 @@ public class User {
 	public int getLoginAttempts() {
 		return loginAttempts;
 	}
+	
+	public void setApiTokenExpiresOn(Date apiTokenExpiresOn) {
+		this.apiTokenExpiresOn = apiTokenExpiresOn;
+	}
+	
+	public Date getApiTokenExpiresOn() {
+		return apiTokenExpiresOn;
+	}
+
+	public void setInstituteEmail(String instituteEmail) {
+		this.instituteEmail = instituteEmail;
+	}
+
+	public String getInstituteEmail() {
+		return instituteEmail;
+	}
+
+	public void setInstituteName(String instituteName) {
+		this.instituteName = instituteName;
+	}
+
+	public String getInstituteName() {
+		return instituteName;
+	}
+
+	public void setInstituteAddress1(String instituteAddress1) {
+		this.instituteAddress1 = instituteAddress1;
+	}
+
+	public String getInstituteAddress1() {
+		return instituteAddress1;
+	}
+
+	public void setInstituteAddress2(String instituteAddress2) {
+		this.instituteAddress2 = instituteAddress2;
+	}
+
+	public String getInstituteAddress2() {
+		return instituteAddress2;
+	}
+
+	public void setInstituteCity(String instituteCity) {
+		this.instituteCity = instituteCity;
+	}
+
+	public String getInstituteCity() {
+		return instituteCity;
+	}
+
+	public void setInstitutePostCode(String institutePostCode) {
+		this.institutePostCode = institutePostCode;
+	}
+
+	public String getInstitutePostCode() {
+		return institutePostCode;
+	}
+
+	public void setInstituteCountry(String instituteCountry) {
+		this.instituteCountry = instituteCountry;
+	}
+
+	public String getInstituteCountry() {
+		return instituteCountry;
+	}
 
 	public void setAcceptedTandC(Date acceptedTandC) {
 		this.acceptedTandC = acceptedTandC;
@@ -157,6 +253,14 @@ public class User {
 
 	public Date getAcceptedTandC() {
 		return acceptedTandC;
+	}
+
+	public void setAcceptedCountry(Date acceptedCountry) {
+		this.acceptedCountry = acceptedCountry;
+	}
+
+	public Date getAcceptedCountry() {
+		return acceptedCountry;
 	}
 
 	public static String checkUsername(String username) {
@@ -234,4 +338,12 @@ public class User {
 		return ((User) obj).getUsername().equals(username);
 	}
 
+	public void replaceRole(String oldRole, String newRole) {
+		for (int i = 0; i < roles.length; i++) {
+			if (roles[i].equalsIgnoreCase(oldRole)) {
+				roles[i] = newRole;
+				return;
+			}
+		}
+	}
 }

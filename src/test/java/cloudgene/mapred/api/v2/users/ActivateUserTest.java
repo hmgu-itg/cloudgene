@@ -2,11 +2,11 @@ package cloudgene.mapred.api.v2.users;
 
 import java.io.IOException;
 
+import cloudgene.mapred.database.util.Database;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.restlet.data.Form;
 import org.restlet.resource.ClientResource;
-
 import com.dumbster.smtp.SmtpMessage;
 
 import cloudgene.mapred.core.User;
@@ -14,7 +14,6 @@ import cloudgene.mapred.database.UserDao;
 import cloudgene.mapred.util.JobsApiTestCase;
 import cloudgene.mapred.util.TestMailServer;
 import cloudgene.mapred.util.TestServer;
-import genepi.db.Database;
 
 public class ActivateUserTest extends JobsApiTestCase {
 
@@ -37,7 +36,15 @@ public class ActivateUserTest extends JobsApiTestCase {
 		form.set("mail", "new.user@test.com");
 		form.set("new-password", "Password27");
 		form.set("confirm-new-password", "Password27");
+		form.set("institute-mail", "big-boss@test.com");
+		form.set("institute-name", "ITG");
+		form.set("institute-address1", "Ingolstädter Landstraße 1");
+		form.set("institute-city", "Munich");
+		form.set("institute-state", "Bavaria");
+		form.set("institute-postcode", "D-85764");
+		form.set("institute-country", "Germany");
 		form.set("accept-terms-and-conditions", "on");
+		form.set("accept-eu", "on");
 
 		// register user
 		ClientResource resource = createClientResource("/api/v2/users/register");

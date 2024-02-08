@@ -1,5 +1,7 @@
 package cloudgene.mapred.api.v2.users;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.restlet.data.Form;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Post;
@@ -13,6 +15,7 @@ import cloudgene.mapred.util.MailUtil;
 import cloudgene.mapred.util.Template;
 
 public class ResetPassword extends BaseResource {
+	private static final Log log = LogFactory.getLog(ResetPassword.class);
 
 	@Post
 	public Representation get(Representation entity) {
@@ -22,7 +25,7 @@ public class ResetPassword extends BaseResource {
 		Form form = new Form(entity);
 		String username = form.getFirstValue("username");
 
-		if (username == null || username.isEmpty()) {
+		if (username == null || username.trim().isEmpty()) {
 			return new JSONAnswer("Please enter a valid username or email address.", false);
 		}
 
@@ -64,12 +67,16 @@ public class ResetPassword extends BaseResource {
 
 			try {
 
-				MailUtil.notifySlack(getSettings(), "Hi! " + username + " asked for a new password :key:");
+				if (user.getMail()!= null && !user.getMail().isEmpty()) {
+					log.info(String.format("Password reset link requested for user '%s'", username));
+					MailUtil.notifySlack(getSettings(), "Hi! " + username + " asked for a new password :key:");
+					MailUtil.send(getSettings(), user.getMail(), subject, body);
 
-				MailUtil.send(getSettings(), user.getMail(), subject, body);
-
-				return new JSONAnswer(
-						"Email sent to " + user.getMail() + " with instructions on how to reset your password.", true);
+					return new JSONAnswer(
+							"We sent you an email with instructions on how to reset your password.", true);
+				} else {
+					return new JSONAnswer("No email address is associated with the provided username. Therefore, password recovery cannot be completed.", false);
+				}
 
 			} catch (Exception e) {
 

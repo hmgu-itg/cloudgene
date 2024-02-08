@@ -21,23 +21,29 @@ import net.sf.json.JsonConfig;
 
 public class JSONConverter {
 
+	public static final String MESSAGE_VALID_TOKEN = "API Token was created by %s and is valid until %s.";
+
+	public static final String MESSAGE_EXPIRED_TOKEN = "API Token was created by %s and expired on %s.";
+
+	public static final String MESSAGE_INVALID_TOKEN = "API Token was created with a previous version and is therefore invalid. Please recreate.";
+
 	public static JSONObject convert(AbstractJob job) {
 
 		JsonConfig config = new JsonConfig();
-		config.setExcludes(new String[] { "user", "inputParams", "output", "error", "s3Url", "task", "config",
+		config.setExcludes(new String[]{"user", "inputParams", "output", "error", "s3Url", "task", "config",
 				"mapReduceJob", "job", "step", "context", "hdfsWorkspace", "localWorkspace", "logOutFiles",
 				"removeHdfsWorkspace", "settings", "setupComplete", "stdOutFile", "workingDirectory", "parameter",
 				"logOutFile", "map", "reduce", "mapProgress", "reduceProgress", "jobId", "makeAbsolute", "mergeOutput",
 				"removeHeader", "value", "autoExport", "download", "tip", "apiToken", "parameterId", "count",
-				"username" });
-		
-		//create tree
-		for (CloudgeneParameterOutput param: job.getOutputParams()) {
+				"username"});
+
+		// create tree
+		for (CloudgeneParameterOutput param : job.getOutputParams()) {
 			String hash = param.createHash();
 			param.setHash(hash);
 			param.setTree(JobResultsTreeUtil.createTree(param.getFiles()));
 		}
-		
+
 		return JSONObject.fromObject(job, config);
 	}
 
@@ -97,18 +103,16 @@ public class JSONConverter {
 		if (input.isFolder()) {
 			object.put("source", "upload");
 		}
-		
+
 		if (input.getEmptySelection() != null) {
 			object.put("emptySelection", input.getEmptySelection());
 		}
-
 
 		if (input.getTypeAsEnum() == WdlParameterInputType.LIST && input.hasDataBindung()) {
 			JSONArray array = new JSONArray();
 			String category = input.getValues().get("category");
 			String property = input.getValues().get("property");
 			String bind = input.getValues().get("bind");
-			System.out.println(property);
 			for (WdlApp app : apps) {
 				if (category != null && !category.isEmpty()) {
 					// filter by category
@@ -118,18 +122,14 @@ public class JSONConverter {
 						valuesObject.put("key", "apps@" + app.getId());
 						valuesObject.put("label", app.getName());
 						// TODO: check null and instance of map
-						Map values = (Map) app.getProperties().get(property);
-						JSONArray array2 = new JSONArray();
-						for (Object key : values.keySet()) {
-							JSONObject valuesObject2 = new JSONObject();
-							String value = values.get(key).toString();
-							valuesObject2.put("key", key.toString());
-							valuesObject2.put("value", value);
-							valuesObject2.put("enabled", false);
-							array2.add(valuesObject2);
+						Object values = app.getProperties().get(property);
+						if (values instanceof Map){
+							JSONArray array2 = buildFromMap((Map)values);
+							valuesObject.put("values", array2);
+						} else if (values instanceof List){
+							JSONArray array2 = buildFromList((List)values);
+							valuesObject.put("values", array2);
 						}
-
-						valuesObject.put("values", array2);
 						array.add(valuesObject);
 
 					}
@@ -228,7 +228,23 @@ public class JSONConverter {
 		object.put("role", String.join(User.ROLE_SEPARATOR, user.getRoles()).toLowerCase());
 		object.put("mail", user.getMail());
 		object.put("admin", user.isAdmin());
-		object.put("hasApiToken", user.getApiToken() != null && !user.getApiToken().isEmpty());
+		boolean hasApiToken = user.getApiToken() != null && !user.getApiToken().isEmpty();
+		object.put("hasApiToken", hasApiToken);
+		if (hasApiToken) {
+			if (user.getApiTokenExpiresOn() == null) {
+				object.put("apiTokenValid", false);
+				object.put("apiTokenMessage", MESSAGE_INVALID_TOKEN);
+			} else if (user.getApiTokenExpiresOn().getTime() > System.currentTimeMillis()) {
+				object.put("apiTokenValid", true);
+				object.put("apiTokenMessage",
+						String.format(MESSAGE_VALID_TOKEN, user.getUsername(), user.getApiTokenExpiresOn()));
+			} else {
+				object.put("apiTokenValid", false);
+				object.put("apiTokenMessage",
+						String.format(MESSAGE_EXPIRED_TOKEN, user.getUsername(), user.getApiTokenExpiresOn()));
+			}
+		}
+
 		return object;
 
 	}
@@ -248,6 +264,33 @@ public class JSONConverter {
 			object.put("source", FileUtil.readFileAsString(application.getFilename()));
 		}
 		return object;
+	}
+
+	private static JSONArray buildFromMap(Map values){
+		JSONArray array = new JSONArray();
+		for(Object key :values.keySet()){
+			JSONObject valuesObject2 = new JSONObject();
+			String value = values.get(key).toString();
+			valuesObject2.put("key", key.toString());
+			valuesObject2.put("value", value);
+			valuesObject2.put("enabled", false);
+			array.add(valuesObject2);
+		}
+		return array;
+	}
+
+	private static JSONArray buildFromList(List<Map> values){
+		JSONArray array = new JSONArray();
+		for (Map object : values) {
+			if (object.containsKey("id") && object.containsKey("name")) {
+				JSONObject valuesObject2 = new JSONObject();
+				valuesObject2.put("key",object.get("id").toString());
+				valuesObject2.put("value", object.get("name").toString());
+				valuesObject2.put("enabled", false);
+				array.add(valuesObject2);
+			}
+		}
+		return array;
 	}
 
 }

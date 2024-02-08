@@ -158,6 +158,9 @@ create    index    idx_job_user_id    on    job(user_id,state);
 --    2.3.4
 ALTER    TABLE    html_snippets    MODIFY    COLUMN    text    VARCHAR    (8000);
 
+-- 2.0.0
+ALTER TABLE log_messages MODIFY COLUMN message TEXT;
+
 --    2.3.7
 alter    table    job    add    column    user_agent    VARCHAR    (400);
 
@@ -172,3 +175,26 @@ create    table    country    (
     display        boolean    not null    default false,
     allowed        boolean    not null    default false
 );
+
+--    2.3.10
+alter    table    `user`    add    column    institute_email    varchar(100)    not    null;
+alter    table    `user`    add    column    institute_name    varchar(100)    not    null;
+alter    table    `user`    add    column    institute_address1    varchar(300)    not    null;
+alter    table    `user`    add    column    institute_address2    varchar(300)    null default null;
+alter    table    `user`    add    column    institute_city    varchar(100)    not    null;
+alter    table    `user`    add    column    institute_state    varchar(100)    null default null;
+alter    table    `user`    add    column    institute_postcode    varchar(30)    not    null;
+alter    table    `user`    add    column    institute_country    varchar(100)    not    null;
+alter    table    `user`    add    column    accepted_eu_eea    timestamp    not    null;
+
+
+-- 2.6.0
+alter table `user` add column api_token_expires_on timestamp null default null;
+
+-- 2.8.1
+CREATE INDEX idx_downloads_hash ON downloads(hash);
+CREATE INDEX idx_downloads_path ON downloads(path);
+
+CREATE INDEX idx_user_username ON user(username);
+CREATE INDEX idx_user_mail ON user(mail);
+CREATE INDEX idx_user_fullname ON user(full_name);

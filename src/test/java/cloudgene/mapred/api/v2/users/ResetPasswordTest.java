@@ -11,11 +11,11 @@ import com.dumbster.smtp.SmtpMessage;
 
 import cloudgene.mapred.core.User;
 import cloudgene.mapred.database.UserDao;
+import cloudgene.mapred.database.util.Database;
 import cloudgene.mapred.util.HashUtil;
 import cloudgene.mapred.util.JobsApiTestCase;
 import cloudgene.mapred.util.TestMailServer;
 import cloudgene.mapred.util.TestServer;
-import genepi.db.Database;
 
 public class ResetPasswordTest extends JobsApiTestCase {
 
@@ -36,6 +36,12 @@ public class ResetPasswordTest extends JobsApiTestCase {
 		testUser1.setActive(true);
 		testUser1.setActivationCode("");
 		testUser1.setPassword(HashUtil.hashPassword("oldpassword"));
+		testUser1.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser1.setInstituteName("ITG");
+		testUser1.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser1.setInstituteCity("Munich");
+		testUser1.setInstitutePostCode("D-85764");
+		testUser1.setInstituteCountry("Germany");
 		userDao.insert(testUser1);
 
 		User testUse2 = new User();
@@ -46,6 +52,12 @@ public class ResetPasswordTest extends JobsApiTestCase {
 		testUse2.setActive(false);
 		testUse2.setActivationCode("fdsfdsfsdfsdfsd");
 		testUse2.setPassword(HashUtil.hashPassword("oldpassword"));
+		testUse2.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUse2.setInstituteName("ITG");
+		testUse2.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUse2.setInstituteCity("Munich");
+		testUse2.setInstitutePostCode("D-85764");
+		testUse2.setInstituteCountry("Germany");
 		userDao.insert(testUse2);
 
 	}
@@ -140,7 +152,7 @@ public class ResetPasswordTest extends JobsApiTestCase {
 		assertEquals(200, resource.getStatus().getCode());
 		JSONObject object = new JSONObject(resource.getResponseEntity().getText());
 		assertEquals(object.get("success"), true);
-		assertTrue(object.get("message").toString().contains("Email sent to"));
+		assertTrue(object.get("message").toString().contains("We sent you an email"));
 		assertEquals(mailsBefore + 1, mailServer.getReceivedEmailSize());
 
 		// try it a second time (nervous user)
@@ -150,7 +162,7 @@ public class ResetPasswordTest extends JobsApiTestCase {
 		object = new JSONObject(resource.getResponseEntity().getText());
 		assertEquals(object.get("success"), true);
 
-		assertTrue(object.get("message").toString().contains("Email sent to"));
+		assertTrue(object.get("message").toString().contains("We sent you an email"));
 		assertEquals(mailsBefore + 2, mailServer.getReceivedEmailSize());
 
 		// check correct activtion code is in mail

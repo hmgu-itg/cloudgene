@@ -1,8 +1,6 @@
 package cloudgene.mapred.apps;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,15 +16,13 @@ import org.apache.commons.logging.LogFactory;
 
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.esotericsoftware.yamlbeans.YamlReader;
-import com.esotericsoftware.yamlbeans.YamlWriter;
 
 import cloudgene.mapred.core.User;
+import cloudgene.mapred.database.util.DatabaseUpdater;
 import cloudgene.mapred.util.GitHubException;
 import cloudgene.mapred.util.GitHubUtil;
 import cloudgene.mapred.util.GitHubUtil.Repository;
 import cloudgene.mapred.wdl.WdlApp;
-import genepi.db.DatabaseUpdater;
 import genepi.hadoop.S3Util;
 import genepi.io.FileUtil;
 import net.lingala.zip4j.ZipFile;
@@ -91,7 +87,7 @@ public class ApplicationRepository {
 		if (app != null && app.isEnabled() && app.isLoaded() && !app.hasSyntaxError()) {
 
 			if (user == null) {
-				if (app.getPermission().toLowerCase().equals("public")) {
+				if (app.hasPermission(("public"))) {
 					if (app.getWdlApp().getWorkflow() != null) {
 						return app;
 					} else {
@@ -102,8 +98,8 @@ public class ApplicationRepository {
 				}
 			}
 
-			if (user.isAdmin() || user.hasRole(app.getPermission())
-					|| app.getPermission().toLowerCase().equals("public")) {
+			if (user.isAdmin() || user.hasRole(app.getPermissions())
+					|| app.hasPermission("public")) {
 				if (app.getWdlApp().getWorkflow() != null) {
 					return app;
 				} else {
@@ -179,16 +175,16 @@ public class ApplicationRepository {
 			boolean using = true;
 
 			if (user == null) {
-				if (application.getPermission().toLowerCase().equals("public")) {
+				if (application.hasPermission("public")) {
 					using = true;
 				} else {
 					using = false;
 				}
 			} else {
 
-				if (!user.isAdmin() && !application.getPermission().toLowerCase().equals("public")) {
+				if (!user.isAdmin() && !application.hasPermission("public")) {
 
-					if (!user.hasRole(application.getPermission())) {
+					if (!user.hasRole(application.getPermissions())) {
 						using = false;
 					}
 				}

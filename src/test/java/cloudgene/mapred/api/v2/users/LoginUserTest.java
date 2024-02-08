@@ -10,10 +10,10 @@ import org.restlet.resource.ClientResource;
 
 import cloudgene.mapred.core.User;
 import cloudgene.mapred.database.UserDao;
+import cloudgene.mapred.database.util.Database;
 import cloudgene.mapred.util.HashUtil;
 import cloudgene.mapred.util.JobsApiTestCase;
 import cloudgene.mapred.util.TestServer;
-import genepi.db.Database;
 
 public class LoginUserTest extends JobsApiTestCase {
 
@@ -33,6 +33,12 @@ public class LoginUserTest extends JobsApiTestCase {
 		testUser1.setActive(true);
 		testUser1.setActivationCode("");
 		testUser1.setPassword(HashUtil.hashPassword("test1"));
+		testUser1.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser1.setInstituteName("ITG");
+		testUser1.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser1.setInstituteCity("Munich");
+		testUser1.setInstitutePostCode("D-85764");
+		testUser1.setInstituteCountry("Germany");
 		testUser1.setAcceptedTandC(new Date());
 		userDao.insert(testUser1);
 
@@ -44,6 +50,12 @@ public class LoginUserTest extends JobsApiTestCase {
 		testUser2.setActive(false);
 		testUser2.setActivationCode("some-activation-code");
 		testUser2.setPassword(HashUtil.hashPassword("test2"));
+		testUser2.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser2.setInstituteName("ITG");
+		testUser2.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser2.setInstituteCity("Munich");
+		testUser2.setInstitutePostCode("D-85764");
+		testUser2.setInstituteCountry("Germany");
 		testUser2.setAcceptedTandC(new Date());
 		userDao.insert(testUser2);
 
@@ -55,6 +67,12 @@ public class LoginUserTest extends JobsApiTestCase {
 		testUser3.setActive(true);
 		testUser3.setActivationCode("");
 		testUser3.setPassword(HashUtil.hashPassword("lockedpasssord"));
+		testUser3.setInstituteEmail("itg-boss@helmholtz-munich.de");
+		testUser3.setInstituteName("ITG");
+		testUser3.setInstituteAddress1("Ingolstädter Landstraße 1");
+		testUser3.setInstituteCity("Munich");
+		testUser3.setInstitutePostCode("D-85764");
+		testUser3.setInstituteCountry("Germany");
 		testUser3.setAcceptedTandC(new Date());
 		userDao.insert(testUser3);
 
@@ -105,7 +123,7 @@ public class LoginUserTest extends JobsApiTestCase {
 		int oldLoginAttempts = dao.findByUsername("lockeduser").getLoginAttempts();
 
 		// login should work xx times
-		for (int i = 1; i < LoginUser.MAX_LOGIN_ATTEMMPTS + 10; i++) {
+		for (int i = 1; i < LoginUser.MAX_LOGIN_ATTEMPTS + 10; i++) {
 			ClientResource resource = createClientResource("/login");
 			Form form = new Form();
 			form.set("loginUsername", "lockeduser");
@@ -117,7 +135,7 @@ public class LoginUserTest extends JobsApiTestCase {
 
 			int newLoginAttempts = dao.findByUsername("lockeduser").getLoginAttempts();
 
-			if (i <= LoginUser.MAX_LOGIN_ATTEMMPTS) {
+			if (i <= LoginUser.MAX_LOGIN_ATTEMPTS) {
 				// check login counter
 				assertEquals(oldLoginAttempts + 1, newLoginAttempts);
 				oldLoginAttempts = newLoginAttempts;
