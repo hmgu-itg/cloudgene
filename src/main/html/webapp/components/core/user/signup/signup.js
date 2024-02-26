@@ -74,40 +74,11 @@ export default Control.extend({
     // }, 1000);
   },
 
-  "#anonymous1 click" : function(){
-    this.updateEmailControl();
-  },
-
-  "#anonymous2 click" : function(){
-    this.updateEmailControl();
-  },
-
-  "updateEmailControl": function() {
-      if (!this.emailRequired){
-        var anonymousControl = $(this.element).find("[name='anonymous']:checked");
-        var anonymous = (anonymousControl.val() == "1");
-        var mail = $(this.element).find("[name='mail']");
-        if (anonymous){
-          mail.attr('disabled','disabled');
-        } else {
-          mail.removeAttr('disabled');
-        }
-      }
-   },
-
   'submit': function(element, event) {
     event.preventDefault();
 
     var that = this;
     var user = new User();
-
-    // anonymous radiobutton
-    var anonymous = false;
-
-    if (!this.emailRequired){
-      var anonymousControl = $(element).find("[name='anonymous']:checked");
-      anonymous = (anonymousControl.val() == "1");
-    }
 
     // username
     var username = $(element).find("[name='username']");
@@ -189,13 +160,7 @@ export default Control.extend({
       success: function(data) {
         if (data.success == true) {
           // shows success
-
-          var message = "";
-          if (!anonymous){
-            message = "Well done!</b> An email including the activation code has been sent to your address."
-          } else {
-            message = "<b>Well done!</b> Your account is now active. <a href=\"/\">Login now</a>."
-          }
+          var message = "Well done!</b> An email including the activation code has been sent to your address.";
 
           $('#signon-form').hide();
           $('#success-message').html(message);
