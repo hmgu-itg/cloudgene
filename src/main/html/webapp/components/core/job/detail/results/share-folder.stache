@@ -14,7 +14,7 @@
 <div class="card-body">
 <div id="myTabContent" class="tab-content">
 	<div class="tab-pane active" id="wget">
-	<textarea class="form-control form-control-sm code-font" id="message" rows="5" wrap="off">{{#files}}wget {{../hostname}}/share/results/{{hash}}/{{name}}
+	<textarea class="form-control form-control-sm code-font" id="message" rows="5" wrap="off">{{#files}}wget --tries=0 {{../hostname}}/share/results/{{hash}}/{{name}}
 {{/files}}</textarea><br>
 <small>Use the following command to download all results at once:</small>
   <div class="input-group mb-3">

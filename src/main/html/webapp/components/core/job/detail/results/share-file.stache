@@ -15,6 +15,6 @@ The private link for this file is:<br><br>
 		<textarea class="form-control form-control-sm code-font" id="message" rows="3">{{hostname}}/share/results/{{output.hash}}/{{output.name}}</textarea>
 	</div>
 	<div class="tab-pane" id="wget">
-		<textarea class="form-control form-control-sm code-font" id="message" rows="3">wget {{hostname}}/share/results/{{output.hash}}/{{output.name}}</textarea>
+		<textarea class="form-control form-control-sm code-font" id="message" rows="3">wget --tries=0 {{hostname}}/share/results/{{output.hash}}/{{output.name}}</textarea>
 	</div>
 </div>
