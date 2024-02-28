@@ -92,12 +92,8 @@ export default Control.extend({
 
     // mail
     var mail = $(element).find("[name='mail']");
-    if (!anonymous){
-      var mailError = user.checkMail(mail.val());
-      this.updateControl(mail, mailError);
-    } else {
-      this.updateControl(mail, undefined);
-    }
+    var mailError = user.checkMail(mail.val());
+    this.updateControl(mail, mailError);
 
     // password
     var newPassword = $(element).find("[name='new-password']");
