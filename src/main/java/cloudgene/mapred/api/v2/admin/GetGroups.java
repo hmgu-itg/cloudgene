@@ -12,6 +12,7 @@ import org.restlet.resource.Get;
 import cloudgene.mapred.apps.Application;
 import cloudgene.mapred.apps.ApplicationRepository;
 import cloudgene.mapred.core.User;
+import cloudgene.mapred.database.UserDao;
 import cloudgene.mapred.util.BaseResource;
 import net.sf.json.JSONArray;
 
@@ -21,7 +22,8 @@ public class GetGroups extends BaseResource {
 	public Representation get() {
 
 		User user = getAuthUser();
-
+		UserDao dao = new UserDao(getDatabase());
+		
 		if (user == null) {
 
 			setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
@@ -37,6 +39,12 @@ public class GetGroups extends BaseResource {
 		List<Group> groups = new Vector<Group>();
 		groups.add(new Group("admin"));
 		groups.add(new Group("user"));
+		for (String r:dao.findAllRoles()){
+		    Group group = new Group(r);
+		    if (!groups.contains(group)) {
+			groups.add(group);
+		    }
+		}
 		groups.add(new Group(RegisterUser.DEFAULT_ANONYMOUS_ROLE.toLowerCase()));
 		
 		ApplicationRepository repository = getApplicationRepository();
