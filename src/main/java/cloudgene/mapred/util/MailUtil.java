@@ -1,5 +1,7 @@
 package cloudgene.mapred.util;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -56,9 +58,10 @@ public class MailUtil {
 		props.put("mail.smtp.port", port);
 
 		Session session = null;
-
+		log.debug(username != null);
+		log.debug(!username.isEmpty());
 		if (username != null && !username.isEmpty()) {
-
+			log.debug("Inside authentication block : ");
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.starttls.enable", "true");
 			session = Session.getInstance(props, new javax.mail.Authenticator() {
@@ -71,7 +74,18 @@ public class MailUtil {
 			session = Session.getInstance(props);
 
 		}
+		log.debug("Printing props: ");
+		log.debug(props);
 
+		try {
+          // Get the local host InetAddress object
+          InetAddress inetAddress = InetAddress.getLocalHost();
+          String ipAddress = inetAddress.getHostAddress();
+          log.debug("IP Address: " + ipAddress);
+        } catch (UnknownHostException e) {
+          log.debug("Unable to determine IP address.");
+        }
+		
 		try {
 
 			InternetAddress[] addresses = InternetAddress.parse(tos);
@@ -82,6 +96,7 @@ public class MailUtil {
 			message.setSubject(subject);
 			message.setText(text);
 
+			log.debug("Sending E-Mail to " + tos + ".");
 			Transport.send(message);
 
 			log.debug("E-Mail sent to " + tos + ".");
