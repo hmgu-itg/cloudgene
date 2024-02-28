@@ -133,12 +133,12 @@ export default Control.extend({
 
     // terms & conditions
     var termsAndConditions = $(element).find("[name='accept-terms-and-conditions']") // document.querySelector('#accept-terms-and-conditions').checked;
-    var termsAndConditionsError = (termsAndConditions[0].checked ? undefined : 'Must accept the terms & conditions')
+    var termsAndConditionsError = (termsAndConditions[0].checked ? undefined : 'Must acknowledge that you are fully authorized to accept these Terms of Service on behalf of your institute')
     this.updateControl(termsAndConditions, termsAndConditionsError);
 
     // EU-/EAA-country
     var termsAndConditionsCountry = $(element).find("[name='accept-eu']")
-    var termsAndConditionsCountryError = (termsAndConditionsCountry[0].checked ? undefined : 'Must agree to only use the service within the EU-/EEA-country')
+    var termsAndConditionsCountryError = (termsAndConditionsCountry[0].checked ? undefined : 'Must agree to accept the Terms of Service including the Data Processing Agreement')
     this.updateControl(termsAndConditionsCountry, termsAndConditionsCountryError);
 
 
