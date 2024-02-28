@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -275,6 +277,19 @@ public class UserDao extends JdbcDataAccessObject {
 
 		}
 		return result;
+	}
+
+    /* all unique roles from 'user' table */
+	@SuppressWarnings("unchecked")
+	public Set<String> findAllRoles() {
+	    List<User> users=findAll();
+	    Set<String> roles=new HashSet<String>();
+	    for (User user:users){
+		for (String role:user.getRoles()){
+		    roles.add(role.toLowerCase());
+		}
+	    }
+	    return roles;
 	}
 
 	public boolean delete(User user) {
