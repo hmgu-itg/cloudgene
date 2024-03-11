@@ -74,40 +74,11 @@ export default Control.extend({
     // }, 1000);
   },
 
-  "#anonymous1 click" : function(){
-    this.updateEmailControl();
-  },
-
-  "#anonymous2 click" : function(){
-    this.updateEmailControl();
-  },
-
-  "updateEmailControl": function() {
-      if (!this.emailRequired){
-        var anonymousControl = $(this.element).find("[name='anonymous']:checked");
-        var anonymous = (anonymousControl.val() == "1");
-        var mail = $(this.element).find("[name='mail']");
-        if (anonymous){
-          mail.attr('disabled','disabled');
-        } else {
-          mail.removeAttr('disabled');
-        }
-      }
-   },
-
   'submit': function(element, event) {
     event.preventDefault();
 
     var that = this;
     var user = new User();
-
-    // anonymous radiobutton
-    var anonymous = false;
-
-    if (!this.emailRequired){
-      var anonymousControl = $(element).find("[name='anonymous']:checked");
-      anonymous = (anonymousControl.val() == "1");
-    }
 
     // username
     var username = $(element).find("[name='username']");
@@ -121,12 +92,8 @@ export default Control.extend({
 
     // mail
     var mail = $(element).find("[name='mail']");
-    if (!anonymous){
-      var mailError = user.checkMail(mail.val());
-      this.updateControl(mail, mailError);
-    } else {
-      this.updateControl(mail, undefined);
-    }
+    var mailError = user.checkMail(mail.val());
+    this.updateControl(mail, mailError);
 
     // password
     var newPassword = $(element).find("[name='new-password']");
@@ -166,12 +133,12 @@ export default Control.extend({
 
     // terms & conditions
     var termsAndConditions = $(element).find("[name='accept-terms-and-conditions']") // document.querySelector('#accept-terms-and-conditions').checked;
-    var termsAndConditionsError = (termsAndConditions[0].checked ? undefined : 'Must accept the terms & conditions')
+    var termsAndConditionsError = (termsAndConditions[0].checked ? undefined : 'Must acknowledge that you are fully authorized to accept these Terms of Service on behalf of your institute')
     this.updateControl(termsAndConditions, termsAndConditionsError);
 
     // EU-/EAA-country
     var termsAndConditionsCountry = $(element).find("[name='accept-eu']")
-    var termsAndConditionsCountryError = (termsAndConditionsCountry[0].checked ? undefined : 'Must agree to only use the service within the EU-/EEA-country')
+    var termsAndConditionsCountryError = (termsAndConditionsCountry[0].checked ? undefined : 'Must agree to accept the Terms of Service including the Data Processing Agreement')
     this.updateControl(termsAndConditionsCountry, termsAndConditionsCountryError);
 
 
@@ -189,13 +156,7 @@ export default Control.extend({
       success: function(data) {
         if (data.success == true) {
           // shows success
-
-          var message = "";
-          if (!anonymous){
-            message = "Well done!</b> An email including the activation code has been sent to your address."
-          } else {
-            message = "<b>Well done!</b> Your account is now active. <a href=\"/\">Login now</a>."
-          }
+          var message = "Well done!</b> An email including the activation code has been sent to your address.";
 
           $('#signon-form').hide();
           $('#success-message').html(message);

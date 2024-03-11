@@ -67,7 +67,7 @@ public class RegisterUser extends BaseResource {
 		}
 
 		boolean mailProvided = (mail != null && !mail.isEmpty());
-
+		log.debug("Email required: " + getSettings().isEmailRequired());
 		if (getSettings().isEmailRequired() || mailProvided) {
 			// check email
 			error = User.checkMail(mail);
@@ -79,7 +79,8 @@ public class RegisterUser extends BaseResource {
 			}
 		}
 
-		String[] roles = new String[] { mailProvided ? DEFAULT_ROLE : DEFAULT_ANONYMOUS_ROLE};
+		// String[] roles = new String[] { mailProvided ? DEFAULT_ROLE : DEFAULT_ANONYMOUS_ROLE};
+		String[] roles = new String[] { DEFAULT_ROLE };
 
 		// check password
 		error = User.checkPassword(newPassword, confirmNewPassword);
@@ -109,7 +110,7 @@ public class RegisterUser extends BaseResource {
 		newUser.setAcceptedTandC(new Date());
 		newUser.setAcceptedCountry(new Date());
 
-
+		log.debug("New user '" + username + "' being created");
 		try {
 
 			// if email server configured, send mails with activation link. Else
@@ -126,7 +127,7 @@ public class RegisterUser extends BaseResource {
 				String subject = "[" + application + "] Signup activation";
 				String activationLink = hostname + "/#!activate/" + username + "/" + activationKey;
 				String body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
-
+				log.debug("Sending email with activation code");
 				MailUtil.send(getSettings(), mail, subject, body);
 
 			} else {
