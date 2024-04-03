@@ -3,6 +3,7 @@ package cloudgene.mapred.cron;
 import java.io.File;
 import java.util.List;
 
+import cloudgene.mapred.database.ParameterDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -52,6 +53,7 @@ public class CleanUpTasks {
 
 				job.setState(AbstractJob.STATE_RETIRED);
 				dao.update(job);
+
 
 				log.info("Job " + job.getId() + " retired.");
 				deleted++;

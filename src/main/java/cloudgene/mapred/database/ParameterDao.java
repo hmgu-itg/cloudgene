@@ -183,7 +183,7 @@ public class ParameterDao extends JdbcDataAccessObject {
 		}
 	}
 
-	class ParameterInputMapper implements IRowMapper {
+    class ParameterInputMapper implements IRowMapper {
 
 		@Override
 		public Object mapRow(ResultSet rs, int row) throws SQLException {

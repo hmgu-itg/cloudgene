@@ -3,6 +3,7 @@ package cloudgene.mapred.api.v2.jobs;
 import java.util.List;
 import java.util.Vector;
 
+import cloudgene.mapred.database.ParameterDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.restlet.data.MediaType;
