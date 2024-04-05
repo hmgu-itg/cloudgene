@@ -61,6 +61,7 @@ public class SubmitJob extends BaseResource {
 		} catch (UnsupportedEncodingException e2) {
 			return error404("Application '" + appId + "' is not in valid format.");
 		}
+		log.info("post: Application ID: "+appId);
 
 		ApplicationRepository repository = getApplicationRepository();
 		Application application = repository.getByIdAndUser(appId, user);
@@ -77,6 +78,24 @@ public class SubmitJob extends BaseResource {
 
 		WorkflowEngine engine = getWorkflowEngine();
 		Settings settings = getSettings();
+
+		/* report some settings */
+		log.info("\npost: cloudgene settings");
+		log.info("post: Settings: getTempPath: "+settings.getTempPath());
+		log.info("post: Settings: getHdfsWorkspace: "+settings.getHdfsWorkspace());
+		log.info("post: Settings: getLocalWorkspace "+settings.getLocalWorkspace());
+		log.info("post: Settings: getHdfsAppWorkspace: "+settings.getHdfsAppWorkspace());
+		log.info("post: Settings: getName: "+settings.getName());
+		for (String key: settings.getCluster().keySet()){
+		    log.info("post: Settings: getCluster: "+key+" = "+settings.getCluster().get(key));
+		}
+		if (settings.getExternalWorkspace()!=null){
+		    for (String key: settings.getExternalWorkspace().keySet()){
+			log.info("post: Settings: getExternalWorkspace: "+key+" = "+settings.getExternalWorkspace().get(key));
+		    }
+		}
+		log.info("");
+		/* -- */
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HHmmss-SSS");
 		String id = "job-" + sdf.format(new Date());
@@ -110,6 +129,8 @@ public class SubmitJob extends BaseResource {
 			log.warn("Hadoop not found in classpath. Ignore HDFS Workspace.");
 		}
 
+		log.info("HDFS Workspace: "+hdfsWorkspace);
+		
 		String localWorkspace = FileUtil.path(getSettings().getLocalWorkspace(), id);
 		FileUtil.createDirectory(localWorkspace);
 
@@ -125,6 +146,11 @@ public class SubmitJob extends BaseResource {
 
 		if (inputParams == null) {
 			return error400("Error during input parameter parsing.");
+		}
+		else{
+		    for (String key: inputParams.keySet()){
+			log.info("post: inputParams: "+key+" = "+inputParams.get(key));
+		    }
 		}
 
 		String name = id;
@@ -185,6 +211,7 @@ public class SubmitJob extends BaseResource {
 				String entryName = StringEscapeUtils.escapeHtml(item.getName());
 
 				if (entryName != null) {
+				    log.info("parseAndUpdateInputParams: entryName: "+entryName);
 
 					File file = null;
 
@@ -192,12 +219,15 @@ public class SubmitJob extends BaseResource {
 						// file parameter
 						// write local file
 						String tmpFile = getSettings().getTempFilename(entryName);
+						log.info("parseAndUpdateInputParams: tmpFile: "+tmpFile);
 						file = new File(tmpFile);
 
+						// read file from stream
 						FileUtils.copyInputStreamToFile(item.openStream(), file);
 
 						// remove upload indentification!
 						String fieldName = item.getFieldName().replace("-upload", "").replace("input-", "");
+						log.info("parseAndUpdateInputParams: fieldName: "+fieldName);
 
 						// boolean hdfs = false;
 						// boolean folder = false;
@@ -214,6 +244,10 @@ public class SubmitJob extends BaseResource {
 
 							String cleandEntryName = new File(entryName).getName();
 							String target = HdfsUtil.path(targetPath, cleandEntryName);
+
+							log.info("parseAndUpdateInputParams: HDFS: targetPath: "+targetPath);
+							log.info("parseAndUpdateInputParams: HDFS: cleandEntryName: "+cleandEntryName);
+							log.info("parseAndUpdateInputParams: HDFS: target: "+target);
 
 							HdfsUtil.put(tmpFile, target);
 
@@ -236,6 +270,10 @@ public class SubmitJob extends BaseResource {
 							String cleandEntryName = new File(entryName).getName();
 							String target = FileUtil.path(targetPath, cleandEntryName);
 
+							log.info("parseAndUpdateInputParams: local: targetPath: "+targetPath);
+							log.info("parseAndUpdateInputParams: local: cleandEntryName: "+cleandEntryName);
+							log.info("parseAndUpdateInputParams: local: target: "+target);
+							
 							FileUtil.copy(tmpFile, target);
 
 							if (inputParam.isFolder()) {
@@ -278,6 +316,7 @@ public class SubmitJob extends BaseResource {
 					}
 
 					String value = StringEscapeUtils.escapeHtml(Streams.asString(item.openStream()));
+					log.info("parseAndUpdateInputParams: entryName=null: key="+key+", value="+value);
 
 					if (input != null && input.isFileOrFolder() && ImporterFactory.needsImport(value)) {
 						throw new FileUploadException("Parameter '" + input.getId()
@@ -330,6 +369,10 @@ public class SubmitJob extends BaseResource {
 		}
 
 		params.put(PARAM_JOB_NAME, props.get(PARAM_JOB_NAME));
+		
+		for (String key: params.keySet()){
+		    log.info("parseAndUpdateInputParams: params: key="+key+", value="+params.get(key));
+		}
 
 		return params;
 	}
