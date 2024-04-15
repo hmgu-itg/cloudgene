@@ -233,7 +233,7 @@ public class SubmitJob extends BaseResource {
 						WdlParameterInput inputParam = getInputParamByName(app, fieldName);
 
 						if (inputParam == null) {
-							throw new Exception("Parameter '" + fieldName + "' not found.");
+							throw new Exception("after calling getInputParamByName, parameter '" + fieldName + "' not found.");
 						}
 
 						if (inputParam.isHdfs()) {
@@ -300,7 +300,7 @@ public class SubmitJob extends BaseResource {
 
 					}
 
-				} else {
+				} else { // entryName == null
 
 					String key = StringEscapeUtils.escapeHtml(item.getFieldName());
 					if (key.startsWith("input-")) {
@@ -309,8 +309,9 @@ public class SubmitJob extends BaseResource {
 
 					WdlParameterInput input = getInputParamByName(app, key);
 
-					if (!key.equals(PARAM_JOB_NAME) && input == null) {
-						throw new FileUploadException("Parameter '" + key + "' not found.");
+					if (!key.equals(PARAM_JOB_NAME) && input == null && key!="total_chunks" && key!="cur_chunk") {
+					    log.info("parseAndUpdateInputParams: entryName=null: key='"+key+"' not found");
+					    throw new FileUploadException("entryName==null, parameter '" + key + "' not found.");
 					}
 
 					String value = StringEscapeUtils.escapeHtml(Streams.asString(item.openStream()));
