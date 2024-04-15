@@ -309,7 +309,7 @@ public class SubmitJob extends BaseResource {
 
 					WdlParameterInput input = getInputParamByName(app, key);
 
-					if (!key.equals(PARAM_JOB_NAME) && input == null && key!="total_chunks" && key!="cur_chunk") {
+					if (!key.equals(PARAM_JOB_NAME) && input == null && !key.equals("total_chunks") && !key.equals("cur_chunk")) {
 					    log.info("parseAndUpdateInputParams: entryName=null: key='"+key+"' not found");
 					    throw new FileUploadException("entryName==null, parameter '" + key + "' not found.");
 					}
