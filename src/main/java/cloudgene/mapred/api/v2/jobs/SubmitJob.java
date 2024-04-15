@@ -169,10 +169,8 @@ public class SubmitJob extends BaseResource {
 		job.setRemoveHdfsWorkspace(getSettings().isRemoveHdfsWorkspace());
 		job.setApplication(app.getName() + " " + app.getVersion());
 		job.setApplicationId(appId);
-
 		String userAgent = getRequest().getClientInfo().getAgent();
 		job.setUserAgent(userAgent);
-
 		engine.submit(job);
 
 		Map<String, Object> params = new HashMap<String, Object>();
