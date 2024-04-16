@@ -150,8 +150,17 @@ public class SubmitJob extends BaseResource {
 		else{
 		    for (String key: inputParams.keySet()){
 			log.info("post: inputParams: "+key+" = "+inputParams.get(key));
+			if (key.equals("files")){
+			    File D=new File(inputParams.get(key));
+			    File flist[] = D.listFiles();
+			    log.info("List of files and directories in "+D);
+			    for(File file : flist) {
+				log.info("File name: "+file.getName());
+			    }
+			}
 		    }
 		}
+
 
 		String name = id;
 		if (!publicMode) {
@@ -317,6 +326,11 @@ public class SubmitJob extends BaseResource {
 					String value = StringEscapeUtils.escapeHtml(Streams.asString(item.openStream()));
 					log.info("parseAndUpdateInputParams: entryName=null: key="+key+", value="+value);
 
+					/* add chunk information */
+					if (key.equals("total_chunks") || key.equals("cur_chunk")){
+					    params.put(key,value);
+					}
+
 					if (input != null && input.isFileOrFolder() && ImporterFactory.needsImport(value)) {
 						throw new FileUploadException("Parameter '" + input.getId()
 								+ "': URL-based uploads are no longer supported. Please use direct file uploads instead.");
@@ -342,7 +356,6 @@ public class SubmitJob extends BaseResource {
 		for (WdlParameterInput input : app.getWorkflow().getInputs()) {
 			if (!params.containsKey(input.getId())) {
 				if (props.containsKey(input.getId())) {
-
 					if (input.isFolder() && input.getPattern() != null && !input.getPattern().isEmpty()) {
 						String pattern = props.get(input.getId() + "-pattern");
 						String value = props.get(input.getId());
@@ -370,7 +383,7 @@ public class SubmitJob extends BaseResource {
 		params.put(PARAM_JOB_NAME, props.get(PARAM_JOB_NAME));
 		
 		for (String key: params.keySet()){
-		    log.info("parseAndUpdateInputParams: params: key="+key+", value="+params.get(key));
+		    log.info("parseAndUpdateInputParams: output params: key="+key+", value="+params.get(key));
 		}
 
 		return params;
