@@ -25,20 +25,30 @@ public class Fixtures {
 		UserDao dao = new UserDao(database);
 		User user = dao.findByUsername(USERNAME);
 		if (user == null) {
+			log.info("Creating Admin user");
 			user = new User();
 			user.setUsername(USERNAME);
 			PASSWORD = HashUtil.hashPassword(PASSWORD);
 			user.setPassword(PASSWORD);
 			user.makeAdmin();
+			user.setFullName("Admin");
+			user.setMail("admin@example.com");
+			user.setInstituteEmail("supervisor@example.com");
+			user.setInstituteName("Institute");
+			user.setInstituteAddress1("Institute Address1");
+			user.setInstituteCity("City");
+			user.setInstitutePostCode("Postcode");
+			user.setInstituteCountry("Germany");
 			user.setAcceptedTandC(new Date());
+			user.setAcceptedCountry(new Date());
 
 			dao.insert(user);
 			log.info("User " + USERNAME + " created.");
-		} else {	
-			
+		} else {
+
 			log.info("User " + USERNAME + " already exists.");
-			
-			if (!user.isAdmin()){
+
+			if (!user.isAdmin()) {
 				user.makeAdmin();
 				dao.update(user);
 				log.info("User " + USERNAME + " has admin rights now.");
