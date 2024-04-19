@@ -22,181 +22,283 @@ import templateTermsCheckbox from './controls/terms-checkbox.stache';
 import templateText from './controls/text.stache';
 import templateTextarea from './controls/textarea.stache';
 
-function get_start_index(files,n,chunk_sz){
-    var x=0;
-    var z=chunk_sz*n;
-    for (let i=0;i<files.length;i++) {
-        if (z>=x && z<x+files[i].size){
-            return {"index":i,"offset":z-x};
-        }
-        x+=files[i].size;
+function add_input(ID,value,form){
+    var el=document.getElementById(ID);
+    if (el==null){
+	el=document.createElement("input");
+	form.appendChild(el);
     }
-    return {"index":null,"offset":null};
+    el.setAttribute("type","hidden");
+    el.setAttribute("value",value);
+    el.setAttribute("name",ID);
+    el.setAttribute("id",ID);
 }
 
-function get_end_index(files,n,chunk_sz){
-    var x=0;
-    var z=chunk_sz*(n+1);
-    for (let i=0;i<files.length;i++) {
-        if (z>=x && z<x+files[i].size){
-            return {"index":i,"offset":z-x};
-        }
-        x+=files[i].size;
-    }
-    return {"index":files.length-1,"offset":files[files.length-1].size};
-}
-
-function get_max_parts(files,n_chunks,chunk_sz){
-    var part=1;
-    var max_parts=1;
-
-    for (let i=0;i<n_chunks;i++) {
-        var z=get_start_index(inputFile.files,i,chunk_sz);
-	var z2=get_end_index(inputFile.files,i,chunk_sz);
-
-        if (z.index===z2.index){
-            part++;
-            if (part>max_parts){
-                max_parts=part;
-            }
-        }
-        else{
-	    part=1;
-            if (z2.offset!=0){
-                part++;
-                if (part>max_parts){
-                    max_parts=part;
-                }
-            }
+function createFormData(form,cc,nc,chunks,uploads,width){
+    add_input("cur_chunk",cc+1,form);	
+    add_input("total_chunks",nc,form);	
+    var fd=new FormData(form);
+    fd.set("files",[]);
+    for (const r of chunks){
+	if (r.chunk==cc){
+	    console.log("chunk: "+r.chunk+" index="+r.index+" "+r.start+":"+r.end+", name="+r.name+", part="+r.part);
+	    if (r.part==0)
+		fd.append("files",uploads.files[r.index].slice(r.start,r.end),r.name);
+	    else{
+		var str=r.part;
+		fd.append("files",uploads.files[r.index].slice(r.start,r.end),r.name+".part"+str.toString().padStart(width,'0'));
+	    }
 	}
     }
 
-    return max_parts;
+    return fd;
+}
+
+//--------------
+
+function sendChunks(F,nc,uploads,chunks,width,token){
+    let promise=Promise.resolve();
+    var new_loc;
+    for (let i=0;i<nc;i++)
+	promise=promise.then(()=>fetch(F.action,{headers:{"X-CSRF-Token":token},method:"post",body:createFormData(F,i,nc,chunks,uploads,width)}).then(response => {return response.text();}).then(data => {console.log("i: "+i+" DATA: "+data);console.log("i: "+i+" Received ID: "+JSON.parse(data).id);if (i==nc-1){new_loc='#!jobs/'+JSON.parse(data).id;console.log("new location: "+new_loc);window.location.href=new_loc;} else {add_input("jobid",JSON.parse(data).id,F);add_input("lws",JSON.parse(data).lws,F);add_input("hws",JSON.parse(data).hws,F);}}).catch((error) => ("Something went wrong!", error)) );
+}
+
+//----------------
+
+function getBaseLog(base,x) {
+    return Math.log(x)/Math.log(base);
+}
+
+function split_files(files,chunk_sz){
+    var r=new Array();
+    var cur_c=0;
+    var C;
+    var sz_left=chunk_sz;
+    var p=1;
+
+    for (let i=0;i<files.length;i++){
+        var off=0;
+        if (files[i].size<=sz_left){
+            r.push({"chunk":cur_c,"index":i,"start":0,"end":files[i].size,"name":files[i].name,"part":0});
+            sz_left-=files[i].size;
+        }
+	else{
+            if (sz_left>0){
+	        r.push({"chunk":cur_c,"index":i,"start":0,"end":sz_left,"name":files[i].name,"part":p});
+                p++;
+            }
+            var fsz=files[i].size-sz_left;
+            off=sz_left;
+            cur_c++;
+            sz_left=chunk_sz;
+            while(fsz>0){
+		if (sz_left>=fsz){
+                    r.push({"chunk":cur_c,"index":i,"start":off,"end":off+fsz,"name":files[i].name,"part":p});
+                    p=1;
+                    sz_left-=fsz;
+                    fsz=0;
+                }
+                else{
+                    r.push({"chunk":cur_c,"index":i,"start":off,"end":off+sz_left,"name":files[i].name,"part":p});
+                    off+=sz_left;
+                    fsz-=sz_left;
+                    p++;
+	            cur_c++;
+                    sz_left=chunk_sz;
+		}
+            }
+        }
+    }
+
+    return r;
 }
 
 export default Control.extend({
-
     "init": function(element, options) {
-	
 	var that = this;
 	
-	var MAX_SIZE=1000*1024;
-	// var total_size=0;
-	// for (const file of inputFile.files)
-	//     total_size+=file.size;
+	Application.findOne({
+	    tool: options.app
+	}, function(application) {
+	    that.application = application;
+	    $(element).hide();
+	    $(element).html(template({
+		application: application,
+		controls_label: templateLabel,
+		controls_select: templateSelect,
+		controls_radio: templateRadio,
+		controls_text: templateText,
+		controls_checkbox: templateCheckbox,
+		controls_file: templateFile,
+		controls_folder: templateFolder,
+		controls_folder_pattern: templateFolderPattern,
+		controls_terms_checkbox: templateTermsCheckbox,
+		controls_textarea: templateTextarea,
+		controls_select_binded: templateSelectBinded
+	    }));
+	    $(element).fadeIn();
+	    $("select").change();
 
-	// n_chunks=Math.floor(total_size/max_size);
-	// if (total_size%max_size!=0){
-	//     n_chunks+=1;
-	// }
-
-	// console.log("Total size: "+total_size+" bytes");
-	// console.log("Chunks: "+n_chunks);
-
-	// var starts=[];
-	// var ends=[];
-	// var part=1;
-	// var max_parts=1;
-
-
-    Application.findOne({
-      tool: options.app
-    }, function(application) {
-      that.application = application;
-      $(element).hide();
-      $(element).html(template({
-        application: application,
-        controls_label: templateLabel,
-        controls_select: templateSelect,
-        controls_radio: templateRadio,
-        controls_text: templateText,
-        controls_checkbox: templateCheckbox,
-        controls_file: templateFile,
-        controls_folder: templateFolder,
-        controls_folder_pattern: templateFolderPattern,
-        controls_terms_checkbox: templateTermsCheckbox,
-        controls_textarea: templateTextarea,
-        controls_select_binded: templateSelectBinded
-      }));
-      $(element).fadeIn();
-      $("select").change();
-
-    }, function(response) {
-      new ErrorPage(element, response);
-    });
-
-
-
+	}, function(response) {
+	    new ErrorPage(element, response);
+	});
     },
 
-  '#parameters submit': function(form, event) {
+    '#parameters submit': function(form, event) {
+	event.preventDefault();
 
-      event.preventDefault();
+	var MAX_SIZE=1000*1024;
+	var total_size=0;
+	var n_chunks=0;
+	var new_location=null;
       
-    // check required parameters.
-    if (form.checkValidity() === false) {
-      form.classList.add('was-validated');
-      return false;
-    }
+	// check required parameters.
+	if (form.checkValidity() === false) {
+	    form.classList.add('was-validated');
+	    return false;
+	}
 
-    //show upload dialog
-    var uploadDialog = bootbox.dialog({
-      message: templateUploadingDialog(),
-      closeButton: false,
-      className: 'upload-dialog',
-      shown: false
-    });
+	console.log("-----------");
+	console.log("FORM ID: "+form.id);
+	var fileUpload=null;
+	for (const x of form.elements){
+	    console.log("element ID: "+x.id);
+	    if (x.id==="files")
+		fileUpload=x;
+	}
+	console.log("TOTAL FILES: "+fileUpload.files.length);
+	console.log("-----------");
 
-    //start uploading when dialog is shown
-      uploadDialog.on('shown.bs.modal', function() {
+	console.log("MAX_SIZE: "+MAX_SIZE);
+	total_size=0;
+	for (const file of fileUpload.files)
+	    total_size+=file.size;
+	console.log("total size: "+total_size);
+	n_chunks=Math.floor(total_size/MAX_SIZE);
+	if (total_size%MAX_SIZE!=0){
+	    n_chunks+=1;
+	}
+	console.log("chunks: "+n_chunks);
+	
+	add_input("total_chunks",n_chunks,form);
+	
+	var csrfToken;
+	if (localStorage.getItem("cloudgene")) {
+            try {
+		// get data
+		var data = JSON.parse(localStorage.getItem("cloudgene"));	    
+		csrfToken = data.csrf;
+            } catch (e) {
+		//do nothing.
+            }
+	}
 
-      var csrfToken;
-      if (localStorage.getItem("cloudgene")) {
-        try {
-          // get data
-            var data = JSON.parse(localStorage.getItem("cloudgene"));	    
-            csrfToken = data.csrf;
-        } catch (e) {
-          //do nothing.
-        }
-      }
+	var R2=split_files(fileUpload.files,MAX_SIZE);
+	var max_parts=1;
+	for (const r of R2){
+            if (r.part>max_parts)
+		max_parts=r.part;
+	}
+	var w=Math.floor(getBaseLog(10,max_parts))+1;
+	console.log("max_parts: "+max_parts);
+	console.log("width: "+w);
+	console.log("----------------------------------------------");
+	
+	add_input("jobid","NA",form);	
+	add_input("lws","NA",form);	
+	add_input("hws","NA",form);	
+	if (n_chunks==1){	    
+	    add_input("cur_chunk",1,form);
+	    
+	    var fd=new FormData(form);
+	    //console.log(JSON.stringify(Object.fromEntries(fd)));
+	    console.log("no of files: "+fd.get("files").length);
+	    fd.set("files",[]);
+	    //console.log(JSON.stringify(Object.fromEntries(fd)));
+	    console.log("after resetting: no of files: "+fd.get("files").length);
 
-	  // we do several uploads, each time we upload different file parts
-	  
-	  
-      //submit form and upload files
-      $(form).ajaxSubmit({
-        dataType: 'json',
-        headers: {
-          "X-CSRF-Token": csrfToken
-        },
+	    for (const r of R2){
+	        console.log("chunk: "+r.chunk+" index="+r.index+" "+r.start+":"+r.end+", name="+r.name+", part="+r.part);
+                if (r.part==0)
+		    fd.append("files",fileUpload.files[r.index].slice(r.start,r.end),r.name);
+                else{
+		    var str=r.part;
+		    fd.append("files",fileUpload.files[r.index].slice(r.start,r.end),r.name+".part"+str.toString().padStart(w,'0'));
+                }		
+	    }
 
-        success: function(answer) {
-          uploadDialog.modal('hide');
-          if (answer.success) {
-              window.location.href = '#!jobs/' + answer.id;
-          } else {
-            new ErrorPage("#content", {
-              status: "",
-              message: answer.message
+	    console.log("before fetch: no of files: "+fd.get("files").length);
+            var P=fetch(form.action, {
+		headers: {
+		    "X-CSRF-Token": csrfToken
+		},
+		method: "post",
+		body: fd
             });
-          }
-        },
+	    P.then(response => {return response.text();}).then(data => {new_location='#!jobs/'+JSON.parse(data).id;window.location.href=new_location;}).catch((error) => ("Something went wrong!", error));
+	}else{
+	    sendChunks(form,n_chunks,fileUpload,R2,w,csrfToken);
+	}
 
-        error: function(response) {
-          uploadDialog.modal('hide');
-            new ErrorPage("#content", response);
-        },
+	// else
+	 //    sendChunks(form,n_chunks,fileUpload,R2,w,csrfToken).then(response => {return response.text();}).then(data => {console.log("final: DATA: "+data);console.log("final: Received ID: "+JSON.parse(data).id);new_location='#!jobs/'+JSON.parse(data).id;window.location.href=new_location;}).catch((error) => ("Something went wrong!", error));
+	
+      // var uploadDialog = bootbox.dialog({
+      // 	  message: templateUploadingDialog(),
+      // 	  closeButton: false,
+      // 	  className: 'upload-dialog',
+      // 	  shown: false
+      // });
+      
+      //start uploading when dialog is shown
+      // uploadDialog.on('shown.bs.modal', function() {
+      // 	  var csrfToken;
+      // 	  if (localStorage.getItem("cloudgene")) {
+      //         try {
+      // 		  // get data
+      // 		  var data = JSON.parse(localStorage.getItem("cloudgene"));	    
+      // 		  csrfToken = data.csrf;
+      //         } catch (e) {
+      // 		  //do nothing.
+      //         }
+      // 	  }
+      // 	  //submit form and upload files
+      // 	  $(form).ajaxSubmit({
+      //         dataType: 'json',
+      //         headers: {
+      // 		  "X-CSRF-Token": csrfToken
+      //         },
 
-        //upade progress bar
-        uploadProgress: function(event, position, total, percentComplete) {
-          $("#waiting-progress").css("width", percentComplete + "%");
-        }
-      });
-    });
-    //show upload dialog. fires uploading files.
-    uploadDialog.modal('show');
-  },
+      //         success: function(answer) {
+      // 		  uploadDialog.modal('hide');
+      // 		  if (answer.success) {
+      // 		      window.location.href = '#!jobs/' + answer.id;
+      // 		  } else {
+      // 		      new ErrorPage("#content", {
+      // 			  status: "",
+      // 			  message: answer.message
+      // 		      });
+      // 		  }
+      //         },
+
+      //         error: function(response) {
+      // 		  uploadDialog.modal('hide');
+      // 		  new ErrorPage("#content", response);
+      //         },
+
+      //         //upade progress bar
+      //         uploadProgress: function(event, position, total, percentComplete) {
+      // 		  $("#waiting-progress").css("width", percentComplete + "%");
+      //         }
+      // 	  }); // ajaxSubmit
+      // });
+      
+      // //show upload dialog. fires uploading files.
+      // for (CUR_CHUNK=0;CUR_CHUNK<n_chunks;CUR_CHUNK++) {
+      // 	  console.log("uploading chunk "+CUR_CHUNK+"/"+n_chunks);
+      // 	  uploadDialog.modal('show');
+      // }
+  }, // # parameters submit
 
   // custom file upload controls for single files
   '.select-control change': function(){
@@ -225,33 +327,37 @@ export default Control.extend({
     '#select-files-btn click': function(button) {
 	console.log("#select-files-btn click");
     // trigger click to open file dialog
-    var fileUpload = $(button).parent().find(":file");
+	var fileUpload = $(button).parent().find(":file");
+	this.input_files=fileUpload;
       fileUpload.trigger("click");
   },
 
     // 2.
     '.file-upload-field-multiple change': function(fileUpload) {
 	console.log(".file-upload-field-multiple change");
-    //update list of files
-    var fileList = $(fileUpload).parent().find(".file-list");
-    fileList.empty();
-    for (var i = 0; i < fileUpload.files.length; i++) {
-	fileList.append('<li><span class="fa-li"><i class="fas fa-file"></i></span>' + fileUpload.files[i].name + '</li>');
-	console.log("file "+i+":"+fileUpload.files[i].name);
-    }
+	//update list of files
+	var fileList = $(fileUpload).parent().find(".file-list");
+	fileList.empty();
+	for (var i = 0; i < fileUpload.files.length; i++) {
+	    fileList.append('<li><span class="fa-li"><i class="fas fa-file"></i></span>' + fileUpload.files[i].name + '</li>');
+	    //console.log("file "+i+":"+fileUpload.files[i].name);
+	}
+	
+	// this part doesn't do anything
+	// -------------------------------
+	// fileUpload.parent().find("#change-files");
 
-    fileUpload.parent().find("#change-files");
-
-    if (fileUpload.files.length > 0) {
-      fileUpload.parent().find("#select-files").hide();
-      fileUpload.parent().find("#change-files").show();
-      fileUpload.parent().find("#remove-all-files").show();
-    } else {
-      fileUpload.parent().find("#select-files").show();
-      fileUpload.parent().find("#change-files").hide();
-      fileUpload.parent().find("#remove-all-files").hide();
-    }
-  },
+	// if (fileUpload.files.length > 0) {
+	//   fileUpload.parent().find("#select-files").hide();
+	//   fileUpload.parent().find("#change-files").show();
+	//   fileUpload.parent().find("#remove-all-files").show();
+	// } else {
+	//   fileUpload.parent().find("#select-files").show();
+	//   fileUpload.parent().find("#change-files").hide();
+	//   fileUpload.parent().find("#remove-all-files").hide();
+	// }
+	// -------------------------------	
+    },
 
   '#change-files-btn click': function(button) {
     // trigger click to open file dialog
