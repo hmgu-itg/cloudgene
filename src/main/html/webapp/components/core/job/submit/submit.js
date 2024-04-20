@@ -220,60 +220,7 @@ export default Control.extend({
 	add_input("hws","NA",form);
 	add_input("total_chunks",n_chunks,form);
 	
-	sendChunks(form,n_chunks,fileUpload,R2,csrfToken);
-	
-      // var uploadDialog = bootbox.dialog({
-      // 	  message: templateUploadingDialog(),
-      // 	  closeButton: false,
-      // 	  className: 'upload-dialog',
-      // 	  shown: false
-      // });
-      
-      //start uploading when dialog is shown
-      // uploadDialog.on('shown.bs.modal', function() {
-      // 	  var csrfToken;
-      // 	  if (localStorage.getItem("cloudgene")) {
-      //         try {
-      // 		  // get data
-      // 		  var data = JSON.parse(localStorage.getItem("cloudgene"));	    
-      // 		  csrfToken = data.csrf;
-      //         } catch (e) {
-      // 		  //do nothing.
-      //         }
-      // 	  }
-      // 	  //submit form and upload files
-      // 	  $(form).ajaxSubmit({
-      //         dataType: 'json',
-      //         headers: {
-      // 		  "X-CSRF-Token": csrfToken
-      //         },
-
-      //         success: function(answer) {
-      // 		  uploadDialog.modal('hide');
-      // 		  if (answer.success) {
-      // 		      window.location.href = '#!jobs/' + answer.id;
-      // 		  } else {
-      // 		      new ErrorPage("#content", {
-      // 			  status: "",
-      // 			  message: answer.message
-      // 		      });
-      // 		  }
-      //         },
-
-      //         error: function(response) {
-      // 		  uploadDialog.modal('hide');
-      // 		  new ErrorPage("#content", response);
-      //         },
-
-      //         //upade progress bar
-      //         uploadProgress: function(event, position, total, percentComplete) {
-      // 		  $("#waiting-progress").css("width", percentComplete + "%");
-      //         }
-      // 	  }); // ajaxSubmit
-      // });
-      
-      // 	  uploadDialog.modal('show');
-      // 
+	sendChunks(form,n_chunks,fileUpload,R2,csrfToken);	
   }, // # parameters submit
 
   // custom file upload controls for single files
@@ -301,7 +248,7 @@ export default Control.extend({
     // custom file upload controls for multiple files
     // 1.
     '#select-files-btn click': function(button) {
-	console.log("#select-files-btn click");
+	//console.log("#select-files-btn click");
     // trigger click to open file dialog
 	var fileUpload = $(button).parent().find(":file");
 	this.input_files=fileUpload;
@@ -310,7 +257,7 @@ export default Control.extend({
 
     // 2.
     '.file-upload-field-multiple change': function(fileUpload) {
-	console.log(".file-upload-field-multiple change");
+	//console.log(".file-upload-field-multiple change");
 	//update list of files
 	var fileList = $(fileUpload).parent().find(".file-list");
 	fileList.empty();
@@ -338,7 +285,7 @@ export default Control.extend({
   '#change-files-btn click': function(button) {
     // trigger click to open file dialog
       var fileUpload = $(button).parent().find(":file");
-      console.log("#change-files-btn click");
+      //console.log("#change-files-btn click");
     fileUpload.trigger("click");
   },
 
