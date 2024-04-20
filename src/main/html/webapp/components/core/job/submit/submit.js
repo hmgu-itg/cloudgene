@@ -22,6 +22,10 @@ import templateTermsCheckbox from './controls/terms-checkbox.stache';
 import templateText from './controls/text.stache';
 import templateTextarea from './controls/textarea.stache';
 
+function getBaseLog(base,x) {
+    return Math.log(x)/Math.log(base);
+}
+
 function add_input(ID,value,form){
     var el=document.getElementById(ID);
     if (el==null){
@@ -36,9 +40,13 @@ function add_input(ID,value,form){
 
 function createFormData(form,cc,nc,chunks,uploads,width){
     add_input("cur_chunk",cc+1,form);	
-    add_input("total_chunks",nc,form);	
+    add_input("total_chunks",nc,form);
     var fd=new FormData(form);
+    //console.log(JSON.stringify(Object.fromEntries(fd)));
+    //console.log("no of files: "+fd.get("files").length);
     fd.set("files",[]);
+    //console.log(JSON.stringify(Object.fromEntries(fd)));
+    //console.log("after resetting: no of files: "+fd.get("files").length);
     for (const r of chunks){
 	if (r.chunk==cc){
 	    console.log("chunk: "+r.chunk+" index="+r.index+" "+r.start+":"+r.end+", name="+r.name+", part="+r.part);
@@ -51,23 +59,39 @@ function createFormData(form,cc,nc,chunks,uploads,width){
 	}
     }
 
+    //console.log("after updating: no of files: "+fd.get("files").length);
     return fd;
 }
 
 //--------------
 
-function sendChunks(F,nc,uploads,chunks,width,token){
+function sendChunks(F,nc,uploads,chunks,token){
+    let uploadDialog = bootbox.dialog({
+	  message: templateUploadingDialog(),
+	  closeButton: false,
+	  className: 'upload-dialog',
+	  shown: true
+    });
+    
     let promise=Promise.resolve();
-    var new_loc;
+    let new_loc;
+    
+    let max_parts=1;
+    for (const r of chunks){
+        if (r.part>max_parts)
+	    max_parts=r.part;
+    }
+    let width=Math.floor(getBaseLog(10,max_parts))+1;
+    // console.log("max_parts: "+max_parts);
+    // console.log("width: "+w);
+    // console.log("----------------------------------------------");
+    // const delay = (fn, ms, ...args) => setTimeout(fn, ms, ...args);
+    
     for (let i=0;i<nc;i++)
-	promise=promise.then(()=>fetch(F.action,{headers:{"X-CSRF-Token":token},method:"post",body:createFormData(F,i,nc,chunks,uploads,width)}).then(response => {return response.text();}).then(data => {console.log("i: "+i+" DATA: "+data);console.log("i: "+i+" Received ID: "+JSON.parse(data).id);if (i==nc-1){new_loc='#!jobs/'+JSON.parse(data).id;console.log("new location: "+new_loc);window.location.href=new_loc;} else {add_input("jobid",JSON.parse(data).id,F);add_input("lws",JSON.parse(data).lws,F);add_input("hws",JSON.parse(data).hws,F);}}).catch((error) => ("Something went wrong!", error)) );
+	promise=promise.then(()=>fetch(F.action,{headers:{"X-CSRF-Token":token},method:"post",body:createFormData(F,i,nc,chunks,uploads,width)}).then(response => {return response.text();}).then(data => {console.log("i: "+i+" DATA: "+data);console.log("i: "+i+" Received ID: "+JSON.parse(data).id);if (i==nc-1){$("#waiting-progress").css("width",100 + "%");uploadDialog.modal('hide');new_loc='#!jobs/'+JSON.parse(data).id;console.log("new location: "+new_loc);window.location.href=new_loc;} else {$("#waiting-progress").css("width",(i/(nc-1))*100 + "%");add_input("jobid",JSON.parse(data).id,F);add_input("lws",JSON.parse(data).lws,F);add_input("hws",JSON.parse(data).hws,F);}}).catch((error) => ("Something went wrong!", error)) );
 }
 
 //----------------
-
-function getBaseLog(base,x) {
-    return Math.log(x)/Math.log(base);
-}
 
 function split_files(files,chunk_sz){
     var r=new Array();
@@ -121,6 +145,7 @@ export default Control.extend({
 	    tool: options.app
 	}, function(application) {
 	    that.application = application;
+	    //console.log(application);
 	    $(element).hide();
 	    $(element).html(template({
 		application: application,
@@ -150,7 +175,6 @@ export default Control.extend({
 	var MAX_SIZE=1000*1024;
 	var total_size=0;
 	var n_chunks=0;
-	var new_location=null;
       
 	// check required parameters.
 	if (form.checkValidity() === false) {
@@ -168,7 +192,6 @@ export default Control.extend({
 	}
 	console.log("TOTAL FILES: "+fileUpload.files.length);
 	console.log("-----------");
-
 	console.log("MAX_SIZE: "+MAX_SIZE);
 	total_size=0;
 	for (const file of fileUpload.files)
@@ -179,8 +202,6 @@ export default Control.extend({
 	    n_chunks+=1;
 	}
 	console.log("chunks: "+n_chunks);
-	
-	add_input("total_chunks",n_chunks,form);
 	
 	var csrfToken;
 	if (localStorage.getItem("cloudgene")) {
@@ -194,54 +215,12 @@ export default Control.extend({
 	}
 
 	var R2=split_files(fileUpload.files,MAX_SIZE);
-	var max_parts=1;
-	for (const r of R2){
-            if (r.part>max_parts)
-		max_parts=r.part;
-	}
-	var w=Math.floor(getBaseLog(10,max_parts))+1;
-	console.log("max_parts: "+max_parts);
-	console.log("width: "+w);
-	console.log("----------------------------------------------");
-	
 	add_input("jobid","NA",form);	
 	add_input("lws","NA",form);	
-	add_input("hws","NA",form);	
-	if (n_chunks==1){	    
-	    add_input("cur_chunk",1,form);
-	    
-	    var fd=new FormData(form);
-	    //console.log(JSON.stringify(Object.fromEntries(fd)));
-	    console.log("no of files: "+fd.get("files").length);
-	    fd.set("files",[]);
-	    //console.log(JSON.stringify(Object.fromEntries(fd)));
-	    console.log("after resetting: no of files: "+fd.get("files").length);
-
-	    for (const r of R2){
-	        console.log("chunk: "+r.chunk+" index="+r.index+" "+r.start+":"+r.end+", name="+r.name+", part="+r.part);
-                if (r.part==0)
-		    fd.append("files",fileUpload.files[r.index].slice(r.start,r.end),r.name);
-                else{
-		    var str=r.part;
-		    fd.append("files",fileUpload.files[r.index].slice(r.start,r.end),r.name+".part"+str.toString().padStart(w,'0'));
-                }		
-	    }
-
-	    console.log("before fetch: no of files: "+fd.get("files").length);
-            var P=fetch(form.action, {
-		headers: {
-		    "X-CSRF-Token": csrfToken
-		},
-		method: "post",
-		body: fd
-            });
-	    P.then(response => {return response.text();}).then(data => {new_location='#!jobs/'+JSON.parse(data).id;window.location.href=new_location;}).catch((error) => ("Something went wrong!", error));
-	}else{
-	    sendChunks(form,n_chunks,fileUpload,R2,w,csrfToken);
-	}
-
-	// else
-	 //    sendChunks(form,n_chunks,fileUpload,R2,w,csrfToken).then(response => {return response.text();}).then(data => {console.log("final: DATA: "+data);console.log("final: Received ID: "+JSON.parse(data).id);new_location='#!jobs/'+JSON.parse(data).id;window.location.href=new_location;}).catch((error) => ("Something went wrong!", error));
+	add_input("hws","NA",form);
+	add_input("total_chunks",n_chunks,form);
+	
+	sendChunks(form,n_chunks,fileUpload,R2,csrfToken);
 	
       // var uploadDialog = bootbox.dialog({
       // 	  message: templateUploadingDialog(),
@@ -293,11 +272,8 @@ export default Control.extend({
       // 	  }); // ajaxSubmit
       // });
       
-      // //show upload dialog. fires uploading files.
-      // for (CUR_CHUNK=0;CUR_CHUNK<n_chunks;CUR_CHUNK++) {
-      // 	  console.log("uploading chunk "+CUR_CHUNK+"/"+n_chunks);
       // 	  uploadDialog.modal('show');
-      // }
+      // 
   }, // # parameters submit
 
   // custom file upload controls for single files
