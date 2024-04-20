@@ -172,7 +172,8 @@ export default Control.extend({
     '#parameters submit': function(form, event) {
 	event.preventDefault();
 
-	var MAX_SIZE=1000*1024;
+	// max chunk size, bytes
+	var MAX_CHUNK_SIZE=1000*1024;
 	var total_size=0;
 	var n_chunks=0;
       
@@ -192,13 +193,13 @@ export default Control.extend({
 	}
 	console.log("TOTAL FILES: "+fileUpload.files.length);
 	console.log("-----------");
-	console.log("MAX_SIZE: "+MAX_SIZE);
+	console.log("MAX_CHUNK_SIZE: "+MAX_CHUNK_SIZE);
 	total_size=0;
 	for (const file of fileUpload.files)
 	    total_size+=file.size;
 	console.log("total size: "+total_size);
-	n_chunks=Math.floor(total_size/MAX_SIZE);
-	if (total_size%MAX_SIZE!=0){
+	n_chunks=Math.floor(total_size/MAX_CHUNK_SIZE);
+	if (total_size%MAX_CHUNK_SIZE!=0){
 	    n_chunks+=1;
 	}
 	console.log("chunks: "+n_chunks);
@@ -214,7 +215,7 @@ export default Control.extend({
             }
 	}
 
-	var R2=split_files(fileUpload.files,MAX_SIZE);
+	var R2=split_files(fileUpload.files,MAX_CHUNK_SIZE);
 	add_input("jobid","NA",form);	
 	add_input("lws","NA",form);	
 	add_input("hws","NA",form);
