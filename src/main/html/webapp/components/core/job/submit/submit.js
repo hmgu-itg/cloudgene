@@ -42,11 +42,19 @@ function createFormData(form,cc,nc,chunks,uploads,width){
     add_input("cur_chunk",cc+1,form);	
     add_input("total_chunks",nc,form);
     var fd=new FormData(form);
-    //console.log(JSON.stringify(Object.fromEntries(fd)));
-    //console.log("no of files: "+fd.get("files").length);
-    fd.set("files",[]);
-    //console.log(JSON.stringify(Object.fromEntries(fd)));
-    //console.log("after resetting: no of files: "+fd.get("files").length);
+    // console.log(JSON.stringify(Object.fromEntries(fd)));
+    // console.log(...fd);
+    // for (const pair of fd.entries()) {
+    // 	console.log("FormData: "+pair[0]+" - "+pair[1]);
+    // }
+    // console.log("Start: no of files: "+fd.get("files").length);
+    fd.set("files",new Array());
+    // console.log(JSON.stringify(Object.fromEntries(fd)));
+    // console.log(...fd);
+    // for (const pair of fd.entries()) {
+    // 	console.log("FormData: "+pair[0]+" - "+pair[1]);
+    // }
+    // console.log("after resetting: no of files: "+fd.get("files").length);
     for (const r of chunks){
 	if (r.chunk==cc){
 	    console.log("chunk: "+r.chunk+" index="+r.index+" "+r.start+":"+r.end+", name="+r.name+", part="+r.part);
@@ -59,7 +67,12 @@ function createFormData(form,cc,nc,chunks,uploads,width){
 	}
     }
 
-    //console.log("after updating: no of files: "+fd.get("files").length);
+    // console.log(JSON.stringify(Object.fromEntries(fd)));
+    // console.log(...fd);
+    // for (const pair of fd.entries()) {
+    // 	console.log("FormData: "+pair[0]+" - "+pair[1]);
+    // }
+    // console.log("after updating: no of files: "+fd.get("files").length);
     return fd;
 }
 
@@ -144,8 +157,7 @@ export default Control.extend({
 	Application.findOne({
 	    tool: options.app
 	}, function(application) {
-	    that.application = application;
-	    //console.log(application);
+	    that.application=application;
 	    $(element).hide();
 	    $(element).html(template({
 		application: application,
@@ -173,7 +185,8 @@ export default Control.extend({
 	event.preventDefault();
 
 	// max chunk size, bytes
-	var MAX_CHUNK_SIZE=1000*1024;
+	// 1GB
+	var MAX_CHUNK_SIZE=1024*1024*1024;
 	var total_size=0;
 	var n_chunks=0;
       
