@@ -2,6 +2,7 @@ import Control from 'can-control';
 import domData from 'can-util/dom/data/data';
 import $ from 'jquery';
 import bootbox from 'bootbox';
+//import md5File from 'md5-file';
 import 'jquery-form';
 import 'helpers/helpers';
 
@@ -183,7 +184,7 @@ export default Control.extend({
 
     '#parameters submit': function(form, event) {
 	event.preventDefault();
-
+	//const md5File = require('md5-file')
 	// max chunk size, bytes
 	// 1GB
 	var MAX_CHUNK_SIZE=1024*1024*1024;
@@ -208,8 +209,10 @@ export default Control.extend({
 	console.log("-----------");
 	console.log("MAX_CHUNK_SIZE: "+MAX_CHUNK_SIZE);
 	total_size=0;
-	for (const file of fileUpload.files)
+	for (const file of fileUpload.files){
+	    //md5File(file).then((hash) => {console.log("The MD5 sum of "+file.name+"is: "+hash);});
 	    total_size+=file.size;
+	}
 	console.log("total size: "+total_size);
 	n_chunks=Math.floor(total_size/MAX_CHUNK_SIZE);
 	if (total_size%MAX_CHUNK_SIZE!=0){

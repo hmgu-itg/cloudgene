@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 // import java.util.Comparator;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
 import java.io.*;
 
@@ -229,6 +231,28 @@ public class SubmitJob extends BaseResource {
 		}
 	}
 
+    private static String checksum(MessageDigest digest,File file) throws IOException{
+        FileInputStream fis = new FileInputStream(file);
+ 
+        // Create byte array to read data in chunks
+        byte[] byteArray = new byte[1024];
+        int bytesCount = 0;
+ 
+        while ((bytesCount = fis.read(byteArray)) != -1){
+	    digest.update(byteArray, 0, bytesCount);
+	}
+	fis.close();
+ 
+	byte[] bytes = digest.digest();
+        StringBuilder sb = new StringBuilder();
+       
+        for (int i = 0; i < bytes.length; i++) {
+            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+	
+        return sb.toString();
+    }
+    
     private boolean mergeFileList(List <String> files,String output){
 	log.info("Merging "+files+" to "+output);
 	try{
@@ -263,12 +287,6 @@ public class SubmitJob extends BaseResource {
     
     private boolean mergeFileParts(String dir){
 	File D=new File(dir);
-	// File flist[] = D.listFiles();
-	// log.info("List of files and directories in "+D);
-	// for(File file : flist) {
-	//     log.info("File name: "+file.getName());
-	// }
-	// log.info("");
 	FileFilter fileFilter = new WildcardFileFilter("*.vcf.gz.part*");
 	File flist [] = D.listFiles(fileFilter);
 	log.info("Found "+flist.length+" files matching *.vcf.gz.part*");
@@ -299,6 +317,24 @@ public class SubmitJob extends BaseResource {
 		log.info("Deleted "+f.getName());
 	    else
 		log.error("Deleting "+f.getName()+" failed");
+	}
+	// report MD5 sums
+	try{
+	    MessageDigest mdigest = MessageDigest.getInstance("MD5");
+	    fileFilter = new WildcardFileFilter("*.vcf.gz");
+	    flist = D.listFiles(fileFilter);
+	    log.info("Found "+flist.length+" files matching *.vcf.gz");
+	    for(File file : flist) {
+		try{
+		    log.info("checksum: "+file.getName()+" "+checksum(mdigest,file));
+		}catch (IOException ex) {
+		    log.error(ex.toString());
+		}
+		log.info("");
+	    }
+	}catch (NoSuchAlgorithmException ex) {
+	    log.error(ex.toString());
+	    return false;
 	}
 
 	return true;
