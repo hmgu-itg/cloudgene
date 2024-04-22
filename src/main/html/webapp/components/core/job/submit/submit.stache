@@ -76,7 +76,7 @@
 						{{../controls_select(.)}}
 					{{/case}}
 
-          {{#case("binded_list")}}
+	            	{{#case("binded_list")}}
 						{{../controls_select_binded(.)}}
 					{{/case}}
 
@@ -113,11 +113,11 @@
 					{{/case}}
 
 					{{#case("local_folder")}}
-            {{#is(pattern, undefined)}}
-              {{../controls_folder(.)}}
-            {{else}}
-              {{../controls_folder_pattern(.)}}
-            {{/is}}
+            			{{#is(pattern, undefined)}}
+              				{{../controls_folder(.)}}
+            			{{else}}
+              				{{../controls_folder_pattern(.)}}
+            			{{/is}}
 					{{/case}}
 
 					{{#case("hdfs_folder")}}
