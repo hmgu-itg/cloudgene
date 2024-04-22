@@ -234,6 +234,7 @@ public class SubmitJob extends BaseResource {
 	try{
 	    DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(new File(output))));
 	    for (String fname: files.stream().sorted().collect(Collectors.toList())){
+		log.info("File: "+fname);
 		try{
 		    byte fileBytes [] = FileUtils.readFileToByteArray(new File(fname));
 		    out.write(fileBytes);
@@ -246,6 +247,7 @@ public class SubmitJob extends BaseResource {
 	    }
 	    try{
 		out.close();
+		log.info("");
 	    }
 	    catch (IOException ex){
 		log.error(ex.toString());
@@ -268,7 +270,7 @@ public class SubmitJob extends BaseResource {
 	// }
 	// log.info("");
 	FileFilter fileFilter = new WildcardFileFilter("*.vcf.gz.part*");
-	File flist [] =D.listFiles(fileFilter);
+	File flist [] = D.listFiles(fileFilter);
 	log.info("Found "+flist.length+" files matching *.vcf.gz.part*");
 	for(File file : flist) {
 	    log.info("File name: "+file.getName());
@@ -290,6 +292,13 @@ public class SubmitJob extends BaseResource {
 	for (Map.Entry<String, List <String>> entry: M.entrySet()){
 	    log.info(entry.getKey()+" -- "+entry.getValue());
 	    mergeFileList(entry.getValue(),FileUtil.path(dir,entry.getKey()+".vcf.gz"));	    
+	}
+	// delete all *part* files
+	for (File f: flist){
+	    if (f.delete())
+		log.info("Deleted "+f.getName());
+	    else
+		log.error("Deleting "+f.getName()+" failed");
 	}
 
 	return true;
