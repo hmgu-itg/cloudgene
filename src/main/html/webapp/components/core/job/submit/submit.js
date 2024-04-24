@@ -100,9 +100,11 @@ function sendChunks(F,nc,uploads,chunks,token){
     // console.log("width: "+w);
     // console.log("----------------------------------------------");
     // const delay = (fn, ms, ...args) => setTimeout(fn, ms, ...args);
-    
-    for (let i=0;i<nc;i++)
-	promise=promise.then(()=>fetch(F.action,{headers:{"X-CSRF-Token":token},method:"post",body:createFormData(F,i,nc,chunks,uploads,width)}).then(response => {return response.text();}).then(data => {console.log("i: "+i+" DATA: "+data);console.log("i: "+i+" Received ID: "+JSON.parse(data).id);if (i==nc-1){$("#waiting-progress").css("width",100 + "%");uploadDialog.modal('hide');new_loc='#!jobs/'+JSON.parse(data).id;console.log("new location: "+new_loc);window.location.href=new_loc;} else {$("#waiting-progress").css("width",(i/(nc-1))*100 + "%");add_input("jobid",JSON.parse(data).id,F);add_input("lws",JSON.parse(data).lws,F);add_input("hws",JSON.parse(data).hws,F);}}).catch((error) => ("Something went wrong!", error)) );
+
+    for (let i=0;i<nc;i++){
+	promise=promise.then(()=>fetch(F.action,{headers:{"X-CSRF-Token":token},method:"post",body:createFormData(F,i,nc,chunks,uploads,width)}).then(response => {if (response.ok){console.log("RESPONSE OK i="+i);}else{console.log("RESPONSE NOT OK i="+i);}return response.text();}).then(data => {console.log("i: "+i+" DATA: "+data);if (!JSON.parse(data).success){console.log("ERROR on "+i+" "+JSON.parse(data).message);uploadDialog.modal('hide');throw new Error(JSON.parse(data).message);}console.log("i: "+i+" Received ID: "+JSON.parse(data).id); if (i==nc-1){$("#waiting-progress").css("width",100 + "%");uploadDialog.modal('hide');new_loc='#!jobs/'+JSON.parse(data).id;console.log("new location: "+new_loc);window.location.href=new_loc;} else {$("#waiting-progress").css("width",(i/(nc-1))*100 + "%");add_input("jobid",JSON.parse(data).id,F);add_input("lws",JSON.parse(data).lws,F);add_input("hws",JSON.parse(data).hws,F);}}));
+    }
+    promise.catch((error) => {console.log(error);new ErrorPage("#content",{"status":500,"responseText":error});}) 
 }
 
 //----------------
@@ -187,7 +189,7 @@ export default Control.extend({
 	//const md5File = require('md5-file')
 	// max chunk size, bytes
 	// 1GB
-	var MAX_CHUNK_SIZE=1024*1024*1024;
+	var MAX_CHUNK_SIZE=1000*1024;//1024*1024*1024;
 	var total_size=0;
 	var n_chunks=0;
       
