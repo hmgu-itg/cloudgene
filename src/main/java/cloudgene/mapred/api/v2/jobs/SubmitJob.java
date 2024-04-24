@@ -110,16 +110,6 @@ public class SubmitJob extends BaseResource {
 		log.info("");
 		/* -- */
 
-		// String jobid=null;
-		// try {
-		// 	jobid=getJobID(entity);
-		// } catch (FileUploadIOException e) {
-		// 	return error400("Upload limit reached.");
-		// } catch (FileUploadException e) {
-		// 	return error400(e.getMessage());
-		// }
-		// log.info("Found jobid="+jobid);
-
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HHmmss-SSS");
 		String id = "job-" + sdf.format(new Date());
 
@@ -179,6 +169,9 @@ public class SubmitJob extends BaseResource {
 		    }
 		}
 
+		if (inputParams.get("cur_chunk").equals("10")) {
+		    return error400("Test error");
+		}
 
 		String jobid_report=inputParams.get("jobid");
 		String hws_report=inputParams.get("hws");
