@@ -16,6 +16,9 @@
       {{#case(404)}}
         <i class="fas fa-exclamation-triangle"></i>
       {{/case}}
+      {{#case(413)}}
+        <i class="fas fa-exclamation-triangle"></i>
+      {{/case}}
       {{#case(500)}}
         <i class="fas fa-exclamation-triangle"></i>
       {{/case}}
