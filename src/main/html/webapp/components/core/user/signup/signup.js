@@ -8,17 +8,17 @@ import template from './signup.stache';
 import "./signup.css";
 
 export default Control.extend({
-  "init": function(element, options) {
+  "init": function (element, options) {
     var params = {};
     Country.findAll(
       params,
-      function(countries) {
+      function (countries) {
         $(element).html(template({
           countries: countries
         }));
         $(element).fadeIn();
       },
-      function(response) {
+      function (response) {
         new ErrorPage(element, response);
       });
 
@@ -35,15 +35,15 @@ export default Control.extend({
     });
 
     // We use the MutationObserver to detect that the .content under #terms-and-conditions has been added to the DOM
-    var observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
         if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
           var contentElement = document.querySelector("#terms-and-conditions .tac-background .content");
           if (contentElement) {
-            contentElement.addEventListener("scroll", function() {
+            contentElement.addEventListener("scroll", function () {
               var scrollTop = this.scrollTop;
               var tcHeight = this.clientHeight;
-              var scrolled = Math.ceil(scrollTop + tcHeight);
+              var scrolled = Math.ceil(scrollTop + tcHeight) + 5;
               var scrollHeight = this.scrollHeight;
               if (scrolled >= scrollHeight) {
                 document.querySelector('#accept-terms-and-conditions').disabled = false;
@@ -74,7 +74,7 @@ export default Control.extend({
     // }, 1000);
   },
 
-  'submit': function(element, event) {
+  'submit': function (element, event) {
     event.preventDefault();
 
     var that = this;
@@ -153,7 +153,7 @@ export default Control.extend({
       type: "POST",
       data: $(element).find("#signon-form").serialize(),
       dataType: 'json',
-      success: function(data) {
+      success: function (data) {
         if (data.success == true) {
           // shows success
           var message = "Well done!</b> An email including the activation code has been sent to your address.";
@@ -169,7 +169,7 @@ export default Control.extend({
 
         }
       },
-      error: function(message) {
+      error: function (message) {
         alert('failure: ' + message);
         $('#save').button('reset');
       }
@@ -177,7 +177,7 @@ export default Control.extend({
 
   },
 
-  updateControl: function(control, error) {
+  updateControl: function (control, error) {
     if (error) {
       control.removeClass('is-valid');
       control.addClass('is-invalid');

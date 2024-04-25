@@ -19,14 +19,14 @@ public class Template {
 	public static final String USER_EMAIL_DESCRIPTION = "USER_EMAIL_DESCRIPTION";
 
 	public static final String USER_WITHOUT_EMAIL_DESCRIPTION = "USER_WITHOUT_EMAIL_DESCRIPTION";
-	
+
 	public static final Template[] SNIPPETS = new Template[] {
 
 			new Template(MAINTENANCE_MESSAGE,
 					"Sorry, our service is currently under maintenance. Imputation Server is expected to be down until <b>Tuesday 08:00 AM EDT</b>."),
 
 			new Template(FOOTER,
-					"<p>powered by <a href=\"http://cloudgene.uibk.ac.at\">Cloudgene</a> and supported by the <a href=\"https://www.helmholtz-munich.de/en/itg\">Institute of Translational Genomics (ITG)</a> and funded by <a href=\"https://www.helmholtz.ai/\">Helmholtz AI</a></p>"),
+					"<p>powered by <a href=\"https://www.cloudgene.io/\">Cloudgene</a> and supported by the <a href=\"https://www.helmholtz-munich.de/en/itg\">Institute of Translational Genomics (ITG)</a> and funded by <a href=\"https://www.helmholtz.ai/\">Helmholtz AI</a></p>"),
 
 			new Template(REGISTER_MAIL,
 					"Dear %s,\nThis email has been sent automatically by the \"%s\" system to confirm that your profile has now been registered.\n\n"
@@ -41,13 +41,14 @@ public class Template {
 							+ "To reset your password, please click on this link %s. "),
 
 			new Template(FOOTER_SUBMIT_JOB, ""),
-			
-			new Template(TERMS, "I will not attempt to re-identify or contact research participants.<br>" + 
+
+			new Template(TERMS, "I will not attempt to re-identify or contact research participants.<br>" +
 					"I will report any inadvertent data release, security breach or other data management incident of which I become aware."),
 
 			new Template(USER_EMAIL_DESCRIPTION, "Receive email notifications when jobs are completed."),
 
-			new Template(USER_WITHOUT_EMAIL_DESCRIPTION, "You can enter your email address at any time to upgrade your account.")
+			new Template(USER_WITHOUT_EMAIL_DESCRIPTION,
+					"You can enter your email address at any time to upgrade your account.")
 
 	};
 
