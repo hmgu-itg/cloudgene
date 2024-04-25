@@ -659,6 +659,23 @@ public class SubmitJob extends BaseResource {
 	}
 
 	// ---------------
+
+	// if jobid is not in input, add jobid --> "NA" mapping
+	if (!params.containsKey("jobid")){
+	    params.put("jobid","NA");
+	}
+	if (!params.containsKey("lws")){
+	    params.put("lws","NA");
+	}
+	if (!params.containsKey("hws")){
+	    params.put("hws","NA");
+	}
+	if (!params.containsKey("cur_chunk")){
+	    params.put("cur_chunk","1");
+	}
+	if (!params.containsKey("total_chunks")){
+	    params.put("total_chunks","1");
+	}
 	
 	String jobid=params.get("jobid");
 	if (!jobid.equals("NA")){
@@ -708,7 +725,7 @@ public class SubmitJob extends BaseResource {
 	    for (Map.Entry<String, String> entry: props_tmp_local_files.entrySet()){
 		props.put(entry.getKey(),new File(FileUtil.path(FileUtil.path(newLocalWorkspace,"input",entry.getKey()),entry.getValue())).getAbsolutePath());
 	    }
-	}
+	} // jobid != NA
 	
 	// ---------------
 	
@@ -746,39 +763,7 @@ public class SubmitJob extends BaseResource {
 
 	return params;
     }
-
-	// private String getJobID(Representation entity) throws FileUploadIOException, FileUploadException {
-	//     FileItemIterator iterator = null;
-	    
-	//     try {
-	// 	iterator = parseRequest(entity);
-	//     } catch (Exception e) {
-	// 	e.printStackTrace();
-	// 	return null;
-	//     }
-		
-	//     try {
-	// 	while (iterator.hasNext()) {
-	// 	    FileItemStream item = iterator.next();
-	// 	    String entryName = StringEscapeUtils.escapeHtml(item.getName());
-
-	// 	    if (entryName==null){
-	// 		String key = StringEscapeUtils.escapeHtml(item.getFieldName());
-	// 		if (key.equals("jobid"))
-	// 		    return StringEscapeUtils.escapeHtml(Streams.asString(item.openStream()));
-	// 	    }
-	// 	}
-	//     } catch (FileUploadIOException e) {
-	// 	throw e;
-	//     } catch (FileUploadException e) {
-	// 	throw e;
-	//     } catch (Exception e) {
-	// 	return null;
-	//     }
-
-	//     return null;
-	// }
-
+    
 	private FileItemIterator parseRequest(Representation entity) throws FileUploadException, IOException {
 
 		// 1/ Create a factory for disk-based file items
