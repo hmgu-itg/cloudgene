@@ -79,14 +79,7 @@ function createFormData(form,cc,nc,chunks,uploads,width){
 
 //--------------
 
-function sendChunks(F,nc,uploads,chunks,token){
-    let uploadDialog = bootbox.dialog({
-	  message: templateUploadingDialog(),
-	  closeButton: false,
-	  className: 'upload-dialog',
-	  shown: true
-    });
-    
+function sendChunks(F,nc,uploads,chunks,token,UD){
     let promise=Promise.resolve();
     let new_loc;
     
@@ -101,10 +94,12 @@ function sendChunks(F,nc,uploads,chunks,token){
     // console.log("----------------------------------------------");
     // const delay = (fn, ms, ...args) => setTimeout(fn, ms, ...args);
 
+    // custom errors from SubmitJob.post have JSON data
+    // errors from proxy server have HTML data
     for (let i=0;i<nc;i++){
-	promise=promise.then(()=>fetch(F.action,{headers:{"X-CSRF-Token":token},method:"post",body:createFormData(F,i,nc,chunks,uploads,width)}).then(response => {if (response.ok){console.log("RESPONSE OK i="+i);}else{console.log("RESPONSE NOT OK i="+i);}return response.text();}).then(data => {console.log("i: "+i+" DATA: "+data);if (!JSON.parse(data).success){console.log("ERROR on "+i+" "+JSON.parse(data).message);uploadDialog.modal('hide');throw new Error(JSON.parse(data).message);}console.log("i: "+i+" Received ID: "+JSON.parse(data).id); if (i==nc-1){$("#waiting-progress").css("width",100 + "%");uploadDialog.modal('hide');new_loc='#!jobs/'+JSON.parse(data).id;console.log("new location: "+new_loc);window.location.href=new_loc;} else {$("#waiting-progress").css("width",(i/(nc-1))*100 + "%");add_input("jobid",JSON.parse(data).id,F);add_input("lws",JSON.parse(data).lws,F);add_input("hws",JSON.parse(data).hws,F);}}));
+	promise=promise.then(()=>fetch(F.action,{headers:{"X-CSRF-Token":token},method:"post",body:createFormData(F,i,nc,chunks,uploads,width)}).then(response => {if (!response.ok){console.log("RESPONSE NOT OK i="+i+" status="+response.status);UD.modal('hide');return response.text().then(text => {let z=true;let x=null;try {x=JSON.parse(text);console.log("message: "+x.message);} catch(err){z=false;}if (z){throw new Error(x.message,{cause:response.status});}else{throw new Error(response.statusText,{cause:response.status});} } )}return response.text();}).then(data => {console.log("i: "+i+" DATA: "+data);console.log("i: "+i+" Received ID: "+JSON.parse(data).id); if (i==nc-1){$("#waiting-progress").css("width",100 + "%");UD.modal('hide');new_loc='#!jobs/'+JSON.parse(data).id;console.log("new location: "+new_loc);window.location.href=new_loc;} else {$("#waiting-progress").css("width",(i/(nc-1))*100 + "%");add_input("jobid",JSON.parse(data).id,F);add_input("lws",JSON.parse(data).lws,F);add_input("hws",JSON.parse(data).hws,F);}}));
     }
-    promise.catch((error) => {console.log(error);new ErrorPage("#content",{"status":500,"responseText":error});}) 
+    promise.catch((error) => {UD.modal('hide');console.log("caught error: "+error);new ErrorPage("#content",{"status":error.cause,"responseText":error.message});}) 
 }
 
 //----------------
@@ -186,19 +181,23 @@ export default Control.extend({
 
     '#parameters submit': function(form, event) {
 	event.preventDefault();
+    
+	let cs_mapping={"1GB":1073741824,"100MB":104857600,"10MB":10485760,"1MB":1024000};
 	//const md5File = require('md5-file')
 	// max chunk size, bytes
 	// 1GB
-	var MAX_CHUNK_SIZE=1000*1024;//1024*1024*1024;
+	var cs_selector=null;
+	for (const x of form.elements){
+	    console.log("element ID: "+x.id);
+	    if (x.id==="chunksize")
+		cs_selector=x;
+	}
+	console.log(cs_selector.value);
+	
+	var MAX_CHUNK_SIZE=cs_mapping[cs_selector.value];
 	var total_size=0;
 	var n_chunks=0;
       
-	// check required parameters.
-	if (form.checkValidity() === false) {
-	    form.classList.add('was-validated');
-	    return false;
-	}
-
 	console.log("-----------");
 	console.log("FORM ID: "+form.id);
 	var fileUpload=null;
@@ -239,7 +238,24 @@ export default Control.extend({
 	add_input("hws","NA",form);
 	add_input("total_chunks",n_chunks,form);
 	
-	sendChunks(form,n_chunks,fileUpload,R2,csrfToken);	
+	// check required parameters.
+	if (form.checkValidity() === false) {
+	    form.classList.add('was-validated');
+	    console.log("Validity check failed");
+	    return false;
+	}else{
+	    let uploadDialog = bootbox.dialog({
+		message: templateUploadingDialog(),
+		closeButton: false,
+		className: 'upload-dialog',
+		shown: false
+	    });
+	    uploadDialog.on('shown.bs.modal', function() {	
+		sendChunks(form,n_chunks,fileUpload,R2,csrfToken,uploadDialog);
+	    });
+	    console.log("Show upload window");
+	    uploadDialog.modal("show");
+	}
   }, // # parameters submit
 
   // custom file upload controls for single files
