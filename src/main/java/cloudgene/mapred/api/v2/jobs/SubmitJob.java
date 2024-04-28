@@ -169,9 +169,9 @@ public class SubmitJob extends BaseResource {
 		    }
 		}
 
-		if (inputParams.get("cur_chunk").equals("10")) {
-		    return error400("Test error");
-		}
+		// if (inputParams.get("cur_chunk").equals("10")) {
+		//     return error400("Test error");
+		// }
 
 		String jobid_report=inputParams.get("jobid");
 		String hws_report=inputParams.get("hws");
@@ -312,23 +312,24 @@ public class SubmitJob extends BaseResource {
 		log.error("Deleting "+f.getName()+" failed");
 	}
 	// report MD5 sums
-	try{
-	    MessageDigest mdigest = MessageDigest.getInstance("MD5");
-	    fileFilter = new WildcardFileFilter("*.vcf.gz");
-	    flist = D.listFiles(fileFilter);
-	    log.info("Found "+flist.length+" files matching *.vcf.gz");
-	    for(File file : flist) {
-		try{
-		    log.info("checksum: "+file.getName()+" "+checksum(mdigest,file));
-		}catch (IOException ex) {
-		    log.error(ex.toString());
-		}
-		log.info("");
-	    }
-	}catch (NoSuchAlgorithmException ex) {
-	    log.error(ex.toString());
-	    return false;
-	}
+	// log.info("Saving MD5 checksums of the input files");
+	// try{
+	//     MessageDigest mdigest = MessageDigest.getInstance("MD5");
+	//     fileFilter = new WildcardFileFilter("*.vcf.gz");
+	//     flist = D.listFiles(fileFilter);
+	//     log.info("Found "+flist.length+" files matching *.vcf.gz");
+	//     for(File file : flist) {
+	// 	try{
+	// 	    log.info("checksum: "+file.getName()+" "+checksum(mdigest,file));
+	// 	}catch (IOException ex) {
+	// 	    log.error(ex.toString());
+	// 	}
+	// 	log.info("");
+	//     }
+	// }catch (NoSuchAlgorithmException ex) {
+	//     log.error(ex.toString());
+	//     return false;
+	// }
 
 	return true;
     }
