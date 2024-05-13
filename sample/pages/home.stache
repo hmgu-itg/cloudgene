@@ -99,7 +99,7 @@
 	<div class="container  ">
 
 
-		<h2 class="text-center pb-5">The <b><u>easiest</u></b> way to impute genotypes</h2>
+		<h2 class="text-center pb-5">The easiest way to impute genotypes</h2>
 
 		<!-- Workflow Description -->
 
@@ -129,7 +129,7 @@
 
 <div class="py-5 bg-light">
 	<div class="container">
-		<h2 class="text-center pb-5">Up to date and <b><u>accurate</u></b> reference panels</h2>
+		<h2 class="text-center pb-5">Up to date and accurate reference panels</h2>
 		<div class="card-deck  text-center">
 
 			<div class="card " style="border-top-color: #76c2af; border-top-width: 5px;">
@@ -151,20 +151,5 @@
 			</div>
 		</div>
 
-	</div>
-</div>
-
-<div class="py-5 bg-light">
-	<div class="container">
-		<h2 class="text-center pb-5">Funded by</h2>
-		<div class="card box-shadow">
-			<div class="card-body">
-				<p style="text-align: center">
-					<a href="https://www.helmholtz.ai">
-						<img src="/static/images/helmholtz-ai-logo.png">
-					</a>
-				</p>
-			</div>
-		</div>
 	</div>
 </div>
