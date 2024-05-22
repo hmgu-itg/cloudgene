@@ -46,6 +46,12 @@ var routes = [{
     template: 'static/legal.stache'
   }
 }, {
+  path: 'pages/privacy',
+  control: StaticPage,
+  options: {
+    template: 'static/privacy.stache'
+  }
+}, {
   path: 'pages/login',
   control: UserLoginControl,
 }, {

@@ -110,6 +110,9 @@
     <p class="float-right">
       <small><a href="#pages/legal">Legal notice</a></small>
     </p>
+    <p class="float-right">
+      <small><a href="#pages/privacy">Privacy Policy</a></small>
+    </p>
     <p><small>{{{footer}}}</small></p>
   </div>
 </footer>
