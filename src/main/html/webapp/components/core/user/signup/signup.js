@@ -64,8 +64,8 @@ export default Control.extend({
               var tcHeight = this.clientHeight;
               var scrolled = Math.ceil(scrollTop + tcHeight) + 5;
               var scrollHeight = this.scrollHeight;
-              console.log(scrolled);
-              console.log(scrollHeight);
+              // console.log(scrolled);
+              // console.log(scrollHeight);
               if (scrolled >= scrollHeight) {
                 document.querySelector('#accept-eu').disabled = false;
               }
