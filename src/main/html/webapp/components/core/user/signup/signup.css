@@ -11,18 +11,22 @@ h2 {
     width: 80%;
 }
 
-#tos-view-btn {
+#tos-view-btn,
+#dpa-view-btn {
     color: #007bff;
 }
 
-#tos-view-btn:hover {
+#tos-view-btn:hover,
+#dpa-view-btn:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.tos-help {
+.tos-help,
+.dpa-help {
+    z-index: 1;
     position: absolute;
-    top: 100%;
+    top: 90%;
     left: 0;
     background-color: #333;
     color: #fff;
@@ -35,17 +39,22 @@ h2 {
     white-space: nowrap;
 }
 
-#tos-view-btn:hover + .tos-help {
+#tos-view-btn:hover+.tos-help {
     visibility: visible;
     opacity: 1;
 }
 
-input[data-tooltip]:disabled:hover + .tooltip {
+#dpa-view-btn:hover+.dpa-help {
     visibility: visible;
     opacity: 1;
 }
 
-input[data-tooltip]:disabled + .tooltip {
+input[data-tooltip]:disabled:hover+.tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+input[data-tooltip]:disabled+.tooltip {
     position: absolute;
     background-color: #333;
     color: #fff;
@@ -62,18 +71,18 @@ input[data-tooltip]:disabled + .tooltip {
     width: 100%;
 }
 
-#terms-and-conditions {
+.agreement-page {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
 }
-  
+
 .hidden {
     display: none;
 }
-  
+
 .overlay {
     position: absolute;
     top: 0;
@@ -84,7 +93,7 @@ input[data-tooltip]:disabled + .tooltip {
     z-index: 1;
 }
 
-#terms-and-conditions > .tac-background {
+.agreement-page>.tac-background {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -100,12 +109,12 @@ input[data-tooltip]:disabled + .tooltip {
     z-index: 2;
 }
 
-#terms-and-conditions > .tac-background > .header > h2 {
+.agreement-page>.tac-background>.header>h2 {
     font-size: 27px;
     margin-bottom: 1.5rem;
 }
 
-#terms-and-conditions > .tac-background > .content {
+.agreement-page>.tac-background>.content {
     overflow-y: scroll;
     padding: 20px;
     height: calc(100% - 40px);
@@ -119,4 +128,26 @@ input[data-tooltip]:disabled + .tooltip {
     right: 10px;
     z-index: 2;
     cursor: pointer;
+}
+
+.content-section {
+    display: flex;
+    margin-bottom: 15px;
+    /* Space between sections */
+}
+
+.content-section>.block-label,
+.content-subsection>.block-label {
+    flex: 0 0 80px;
+    /* Width of the label column, similar to col-1 in Bootstrap */
+    padding-right: 10px;
+    /* Space between label and content */
+    text-align: right;
+    /* Aligns the text to the right */
+}
+
+.content-section>.block-content,
+.content-subsection>.block-content {
+    flex: 1;
+    /* Takes up the rest of the space, similar to col-11 in Bootstrap */
 }

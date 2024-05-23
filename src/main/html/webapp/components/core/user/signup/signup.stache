@@ -100,10 +100,11 @@
         </div>
 
         <div class="form-group">
-          <span>I herewith accept these Terms of Service including the Data Processing Agreement on behalf of my institution:</span>
+          I herewith accept these Terms of Service including the <a id="dpa-view-btn">Data Processing Agreement</a> on behalf of my institution:
+          <span class="dpa-help">Click to open the Data Processing Agreement</span>
           <input id="accept-eu" name="accept-eu" class="form-control"
           type="checkbox" style="width: auto; height: auto; display: inline;" disabled data-tooltip="">
-          <span class="tooltip">You must first scroll to the end of the Terms of Service</span>
+          <span class="tooltip">You must first scroll to the end of the Data Processing Agreement</span>
           <div class="invalid-feedback"></div>
         </div>
 
@@ -116,7 +117,7 @@
 </div>
 
 
-<div id="terms-and-conditions" class="hidden">
+<div id="terms-and-conditions" class="agreement-page hidden">
   <div class="overlay"></div>
   <div class="tac-background">
     <div class="header">
@@ -153,6 +154,357 @@
         <li>Nothing in these terms shall limit or exclude liability for cases in which liability cannot be limited according to applicable law and/or for personal injury or death. </li>
         <li>The User agrees that German law without regard to its conflicts of laws rules and regulations applies to usage of the HMIS and the resulting relationship between User and Helmholtz Munich.  </li>
       </ul>
+    </div>
+  </div>
+</div>
+
+
+<div id="data-processing-agreement" class="agreement-page hidden">
+  <div class="overlay"></div>
+  <div class="tac-background">
+    <div class="header">
+      <span class="close-btn">Close &times;</span>
+      <h2>Data Processing Agreement pursuant to Art. 28 GDPR</h2>
+    </div>
+    <div class="content dpa-content">
+      <section class="content-section">
+          <div class="block-label"></div>
+          <div class="block-content">
+              <p>
+                  between<br><br>
+                  the User of the Helmholtz Munich Imputation Server<br>
+                  (hereinafter referred to as “Controller”)<br><br>
+                  and<br><br>
+                  Helmholtz Zentrum München Deutsches Forschungszentrum für Gesundheit und Umwelt (GmbH),
+                  Ingolstädter Landstr. 1, D-85764 Neuherberg, Germany<br>
+                  (hereinafter referred to as “Processor”)
+              </p>
+          </div>
+      </section>
+      <h1>
+        <section class="content-section">
+            <div class="block-label">1.</div>
+            <div class="block-content">
+                Subject matter of this agreement
+            </div>
+        </section>
+      </h1>
+      <section class="content-section">
+          <div class="block-label">1.1</div>
+          <div class="block-content">
+              The Controller uses the genotype imputation and phasing service provided by the Processor (Helmholtz Munich Imputation Server). The service is aimed at researchers wanting to impute many thousands of GWAS samples against a consistent reference in a consistent manner. This agreement (hereinafter referred to as “Data Processing Agreement”) adds provisions on processing on behalf of a controller pursuant to Article 28 GDPR to the Terms of Service agreed between the Controller and the Processor.
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">1.2</div>
+          <div class="block-content">
+              If the Processor, as part of his imputation service processes personal data (hereinafter referred to as “Data”) that he receives from the Controller the processing shall, without exception, be undertaken on behalf of the Controller and in accordance with the data processing rules set forth in Article 28 GDPR.
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">1.3</div>
+          <div class="block-content">
+              The Controller continues therefore, under data protection rules, to be the controller, i.e. the “Master of Data” and shall, with regard to the data subject, be responsible for evaluating the admissibility of data processing and safeguarding the rights of the data subjects.
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">1.4</div>
+          <div class="block-content">
+              This Agreement stipulates the details of data processing pursuant to Article 28 and 29 GDPR and takes priority over all other regulations agreed between the parties (hereinafter referred to as “Parties”) as far as the processing of Data by the Processor is concerned.
+          </div>
+      </section>
+
+      <h1>
+        <section class="content-section">
+            <div class="block-label">2.</div>
+            <div class="block-content">
+                Details on data processing by the Processor on behalf of the Controller
+            </div>
+        </section>
+      </h1>
+      <section class="content-section">
+          <div class="block-label">2.1</div>
+          <div class="block-content">
+            <p>The Processor offers a genotype imputation and phasing service where the Controller can upload GWAS data in VCF format on the imputation server of the Processor and receive imputed and phased genomes back. In this context, Data (genetic data), originating from patients/participants in clinical trials, uploaded by the Controller, is subject to the service offered by the Processor. The uploaded Data will be processed at the Processor's premises in Neuherberg and automatically deleted from the servers after 7 days.	 </p>
+            <p>On the Controller's side, it is the user of the services, i.e. the one who registers and uploads the data, who can give instructions to the Processor. On the part of the Processor, the recipients of instructions are those employees who are directly responsible for the support of the server. </p>
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.2</div>
+          <div class="block-content">
+            <p>The Processor shall process the data exclusively for the purposes specified in section 2.1; deviations are not permitted.	   </p>
+            <p>The Processor may process the Data in other ways only if, according to laws of the EU or the EU member state that he is subject to, he is legally obliged to do so; in such a case the Processor shall notify the Controller in writing of these legal requirements prior to processing unless the law in question forbids such notifications due to an important public interest. With the exception of the aforementioned legal obligations the Processor must not use the Data for other and, in particular, his own purposes and must not produce any copies or duplicates thereof. </p>
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.3</div>
+          <div class="block-content">
+            The Processor may rectify or erase the Data or restrict the processing of Data only if instructed to do so by the Controller or if it is part of his services under section 2.1. In order to erase Data, the Processor must use safe, state-of-the-art methods for which he must provide proof to the Controller upon his request. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.4</div>
+          <div class="block-content">
+            If the data subject were to turn directly to the Processor to obtain information under data protection laws or due to other rights that the data subject is entitled to, the Processor must inform the Controller directly and await his specific instructions prior to any further action and communication. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.5</div>
+          <div class="block-content">
+            The Processor warrants to strictly limit access to the Data to those persons who need to access the Data in order to render the agreed services. The Processor furthermore warrants to familiarise the persons engaged in performing the tasks, prior to their commencing the work, with the relevant data protection regulations and to ensure that they, while carrying out their work as well as thereafter, keep any information confidential and to oblige them to refrain from processing the data without due authorisation. To prove execution of this duty, the Processor shall send the Controller, following his request, the corresponding evidence, in particular copies of the declarations of obligation. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.6</div>
+          <div class="block-content">
+              The Processor regularly controls and documents his own correct processing of the Data and compliance with the privacy regulations by the respective employees as well as the fulfilment of the duties under this Data Processing Agreement. Upon the request of the Controller, the Processor shall prove to him in writing all inspections undertaken by him and submit the corresponding documentation. The Processor shall furthermore ensure that all processing work performed by him under this Data Processing Agreement on behalf of the Controller is documented pursuant to Article 30(2) GDPR. At the request of the Controller, the Processor shall provide the Controller with the relevant documents. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.7</div>
+          <div class="block-content">
+            <p>The Processor shall notify the Controller forthwith and in writing, providing all the necessary details in the event of </p>
+            <div class="content-section">
+              <div class="block-label">(1)</div><div class="block-content">suspected violations of the protection of personal Data,</div>
+            </div>
+            <div class="content-section">
+              <div class="block-label">(2)</div><div class="block-content">breaches by him or his staff or third parties of data protection regulations or of stipulations included in the Contract,</div>
+            </div>
+            <div class="content-section">
+              <div class="block-label">(3)</div><div class="block-content">deviations of the technical and organisational measures of the Processor from the requirements agreed with the Controller, </div>
+            </div>
+            <div class="content-section">
+              <div class="block-label">(4)</div><div class="block-content">irregularities concerning the processing of Data,</div>
+            </div>
+            <div class="content-section">
+              <div class="block-label">(5)</div><div class="block-content">unauthorised access or unauthorised processing of Data and/or</div>
+            </div>
+            <div class="content-section">
+              <div class="block-label">(6)</div><div class="block-content">enquiries, inspection measures, investigations or other measures by a supervisory authority for data protection or another authority (e.g. police or court) directed at the Processor.</div>
+            </div>
+            <p>The Processor must, at the very latest, inform the Controller within 24 hours of becoming aware of a violation, deviation or irregularity. </p>
+            <p>The aforementioned notification duties shall also apply above all to any potential reporting and notification duties of the Controller pursuant to Articles 33 and 34 GDPR. The Processor warrants to duly assist the Controller with the performance of his duties pursuant to Articles 33 and 34 GDPR by, for example, providing the Controller with expert staff, making available relevant documents and answering his questions.  </p>
+            <p>The Processor must not undertake, on behalf of the Controller, notifications according to Articles 33 and 34 GDPR unless he has been expressly instructed by the Controller to do so. </p>
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.8</div>
+          <div class="block-content">
+            <p>Notifications by the Processor according to section 2.8. above contain </p>
+            <div class="content-section">
+              <div class="block-label">(1)</div><div class="block-content">a description of the type of violation, deviation or irregularity, which must, as far as possible, be accompanied by an indication of the categories and an approximate number of the affected persons, the affected categories and an approximate number of the affected data sets; </div>
+            </div>
+            <div class="content-section">
+              <div class="block-label">(2)</div><div class="block-content">a description of the likely consequences of the violation, deviation or irregularity; and  </div>
+            </div>
+            <div class="content-section">
+              <div class="block-label">(3)</div><div class="block-content">a description of the measures taken or suggested by the Processor in order to stop the violation, deviation or irregularity and, wherever necessary, a description of the measures to mitigate their potential adverse effects. </div>
+            </div>
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.9</div>
+          <div class="block-content">
+            The Data Protection Officer of the Processor can be contacted under: Datenschutzbeauftragter des Helmholtz Zentrum München, Ingolstädter Landstr. 1, D-85764 Neuherberg, Germany, e-mail: datenschutz@helmholtz-muenchen.de 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.10</div>
+          <div class="block-content">
+            As far as the Data is concerned, the Processor shall assist the Controller with the appropriate technical and organisational measures to ensure that the rights of the data subject set forth in Articles 12 to 23 GDPR are upheld and to warrant compliance with the obligations of the Controller listed in Articles 32 to 36 GDPR regarding the security of personal Data, the potentially necessary assessment of consequences resulting from the privacy rules and any prior consultations with the supervisory authorities. The Processor must furthermore provide the Controller, at the Controller’s request, with all information and details required by the Controller to meet other legal requirements affecting him (i.e. in order to draw up the list of processing activities). 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">2.11</div>
+          <div class="block-content">
+            The Processor warrants that the Data from other data bases (the Processor’s own or those of other customers of the Processor) is strictly separated.  
+          </div>
+      </section>
+
+      <h1>
+        <section class="content-section">
+            <div class="block-label">3.</div>
+            <div class="block-content">
+                Place of data processing by the Processor
+            </div>
+        </section>
+      </h1>
+      <section class="content-section">
+          <div class="block-label">3.1</div>
+          <div class="block-content">
+            The Processor processes the Data only in a member state of the European Union (EU) or in another country that has signed the Treaty on the European Economic Area (EEA); what matters is the status of the country at the time of processing. This also applies to simply accessing the data from such countries.
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">3.2</div>
+          <div class="block-content">
+            The Data may only be processed by the Processor at its registered office and its business branches. Access to the Data from outside (e.g. in the case of teleworking, home office, mobile working or similar) is only permitted if the Processor ensures through suitable technical and organisational measures that the level of data protection and data security is not impaired; this may include, for example, VPN connections and the exclusive use of terminal devices which the Processor has made available to its employees. 
+          </div>
+      </section>
+
+      <h1>
+        <section class="content-section">
+            <div class="block-label">4.</div>
+            <div class="block-content">
+                Engagement of sub-processors
+            </div>
+        </section>
+      </h1>
+      <section class="content-section">
+          <div class="block-label"></div>
+          <div class="block-content">
+            The Processor will not use any sub-processors to perform the services agreed. The services shall be provided exclusively on the Processor's server environment, to which only employees of the Processor have access. 
+          </div>
+      </section>
+
+      <h1>
+        <section class="content-section">
+            <div class="block-label">5.</div>
+            <div class="block-content">
+                Technical and organisational security measures undertaken by the Processor
+            </div>
+        </section>
+      </h1>
+      <section class="content-section">
+          <div class="block-label">5.1</div>
+          <div class="block-content">
+            The Processor must ensure the security of processing pursuant to Article 32 GDPR especially in connection with Article 5(1)(2) GDPR. The Processor warrants therefore a level of security concerning the rendering of his services that is appropriate to the risk to the rights and freedoms enjoyed by the natural data subjects affected by the processing. To this end the Processor meets the security goals listed in Article 32 GDPR such as confidentiality, integrity and availability of the systems and services as well as their resilience regarding the type, scope, circumstances and purpose of the processing, by undertaking the appropriate technical and organisational measures, which, in the long run, exclude the risk as far as possible. An overview of the general technical and organisational measures taken by the Processor can be found here (<a href="https://imputationserver.helmholtz-munich.de/pdf/PR_TOMs_Public_v2.6_202308_engl.pdf">https://imputationserver.helmholtz-munich.de/pdf/PR_TOMs_Public_v2.6_202308_engl.pdf</a>). 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">5.2</div>
+          <div class="block-content">
+            <p>The specific measures concerning the Helmholtz Munich Imputation Server are listed under Security - Helmholtz Munich Imputation Server (imputationserver-doc.readthedocs.io).	 </p>
+            <p>The Processor is obliged to maintain the measures during the term of this Data Processing Agreement. He shall furthermore observe the principles of due data processing.  </p>
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">5.3</div>
+          <div class="block-content">
+            For reasons of technical progress and development the Processor is permitted and, in the event of technical necessity, obliged to adjust individual measures as far as such measures are adequate and as far as the security level of the measures is not undercut. At the request of the Controller, the Processor shall inform the Controller of such changes while material changes must be mutually agreed prior to their introduction. 
+          </div>
+      </section>
+
+      <h1>
+        <section class="content-section">
+            <div class="block-label">6.</div>
+            <div class="block-content">
+                Inspections by the Controller
+            </div>
+        </section>
+      </h1>
+      <section class="content-section">
+          <div class="block-label">6.1</div>
+          <div class="block-content">
+            The Processor agrees that the Controller may, at any time, monitor compliance with data protection regulations and with this Data Processing Agreement either himself or have it monitored by third parties by, in particular, obtaining information and viewing stored Data and data processing programs and undertake inspections, with an appropriate advance notice, on the premises of the Processor. The Controller is therefore obliged to treat all knowledge about business secrets and data protection measures of the Processor confidentially. This obligation shall remain even after termination of this Agreement. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">6.2</div>
+          <div class="block-content">
+            The Processor warrants that he will, as far as necessary, join the Controller during his inspections, assist him and in particular allow him access and provide the relevant documents (records, reports of the Data Protection Officer, certifications, etc.).  
+          </div>
+      </section>
+
+      <h1>
+        <section class="content-section">
+            <div class="block-label">7.</div>
+            <div class="block-content">
+                Termination of data processing
+            </div>
+        </section>
+      </h1> 
+      <section class="content-section">
+          <div class="block-label">7.1</div>
+          <div class="block-content">
+            Upon the request of the Controller, which may take place at any time, but at the latest upon termination of the data processing, the Processor must forthwith return to the Controller his Data in readable, commonly used, electronic format or physically erase it in line with data protection regulations if instructed to do so. This obligation does not apply if the Data has already been deleted due to the automatic deletion routines of the server. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">7.2</div>
+          <div class="block-content">
+            Documentation produced by the Processor in order to prove that the Data has been processed duly and in line with contractual obligations as well as documents that are subject to the statutory safeguarding obligations of the Processor are excluded from the aforementioned rules to the extent necessary. It they contain Data the Processor must inform the Controller at the latest upon termination of the Data Processing Agreement. 
+          </div>
+      </section>
+
+      <h1>
+        <section class="content-section">
+            <div class="block-label">8.</div>
+            <div class="block-content">
+                Liability and mutual information
+            </div>
+        </section>
+      </h1>
+      <section class="content-section">
+          <div class="block-label">8.1</div>
+          <div class="block-content">
+            According to the statutory liability laws, the Processor shall be liable for any damage/loss caused to the Controller through the Processor’s breaches of this Agreement and/or the statutory data protection rules applicable to him.  
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">8.2</div>
+          <div class="block-content">
+            If, in connection with the data processing being performed hereunder, someone threatens or claims damages (Article 82 GDPR), fines (Article 83 GDPR) or other sanctions (Article 84 GDPR) against the Processor or the Controller, both must immediately inform one another thereof. Without prior agreement with the respective other party, the party concerned must not issue any statements or acknowledgements or declarations concerning a settlement; if the Processor and the Controller fail to come to an agreement as to how to defend themselves against such claims, the Controller as “Master of the Data” shall ultimately have the right to make the decision. In addition, both Parties must support each other in the defence of any claims made against them. 
+          </div>
+      </section>
+
+
+      <h1>
+        <section class="content-section">
+            <div class="block-label">9.</div>
+            <div class="block-content">
+                Miscellaneous
+            </div>
+        </section>
+      </h1>
+      <section class="content-section">
+          <div class="block-label">9.1</div>
+          <div class="block-content">
+            The Controller may cancel this Data Processing Agreement as well as the services agreed in the Terms of Service, at any time without notice, if the Processor commits a severe breach of the data protection regulations or the provisions set forth hereunder, if, despite reminders, he fails to execute an instruction of the Controller to be observed hereunder or if he, contrary to what has been agreed hereunder, refuses to allow the Controller to exercise his rights of inspection. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">9.2</div>
+          <div class="block-content">
+            The right to retention according to Section 273 of the German Code of Civil Law [BGB] to the Data, parts thereof and data carriers of the Controller shall be excluded. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">9.3</div>
+          <div class="block-content">
+            If the Data held by the Processor is threatened by confiscation or pledging, by insolvency proceedings or other events or measures of third parties, the Processor shall inform the Controller forthwith. The Processor must inform all parties involved that the Controller is exclusively responsible and “Master of the Data”. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">9.4</div>
+          <div class="block-content">
+            Changes or additions to this Data Processing Agreement or its parts and Appendices – including any assurances that may be made by the Processor – must be made in writing and require explicit reference to the fact that this is a change or addition to this Agreement. This also applies to a waiver of this written-form agreement. Written form in the aforementioned sense means the form set forth in Section 126 of the German Code of Civil law [BGB]. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">9.5</div>
+          <div class="block-content">
+            Statutory rules pursuant to this Data Processing Agreement also include the regulations issued by the EU. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">9.6</div>
+          <div class="block-content">
+            Apart from section 9.4 hereunder, the use of the text form (i.e. e-mail) is deemed to be compliant with the written-form requirement pursuant to this Data Processing Agreement. 
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">9.7</div>
+          <div class="block-content">
+            This Data Processing Agreement is governed by the law of the Federal Republic of Germany unless the GDPR contains provisions that take priority.  
+          </div>
+      </section>
+      <section class="content-section">
+          <div class="block-label">9.8</div>
+          <div class="block-content">
+            If some parts of this Data Processing Agreement were to be invalid, the validity of the remainder of this Data Processing Agreement shall not be affected thereby. 
+          </div>
+      </section>
     </div>
   </div>
 </div>

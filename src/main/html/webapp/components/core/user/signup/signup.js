@@ -30,8 +30,13 @@ export default Control.extend({
       $("#terms-and-conditions").removeClass("hidden");
     });
 
+    $(document).on("click", "#dpa-view-btn", function () {
+      $("#data-processing-agreement").removeClass("hidden");
+    });
+
     $(document).on("click", ".close-btn", function () {
       $("#terms-and-conditions").addClass("hidden");
+      $("#data-processing-agreement").addClass("hidden");
     });
 
     // We use the MutationObserver to detect that the .content under #terms-and-conditions has been added to the DOM
@@ -47,6 +52,21 @@ export default Control.extend({
               var scrollHeight = this.scrollHeight;
               if (scrolled >= scrollHeight) {
                 document.querySelector('#accept-terms-and-conditions').disabled = false;
+              }
+            });
+            observer.disconnect();
+          }
+
+          var contentElement = document.querySelector("#data-processing-agreement .tac-background .content");
+          if (contentElement) {
+            contentElement.addEventListener("scroll", function () {
+              var scrollTop = this.scrollTop;
+              var tcHeight = this.clientHeight;
+              var scrolled = Math.ceil(scrollTop + tcHeight) + 5;
+              var scrollHeight = this.scrollHeight;
+              console.log(scrolled);
+              console.log(scrollHeight);
+              if (scrolled >= scrollHeight) {
                 document.querySelector('#accept-eu').disabled = false;
               }
             });
@@ -56,22 +76,6 @@ export default Control.extend({
       });
     });
     observer.observe(document.body, { childList: true, subtree: true });
-    // setTimeout(function() {
-    //   var contentElement = document.querySelector("#terms-and-conditions .tac-background .content");
-    //   console.log(contentElement); // Debugging statement
-    //   contentElement.addEventListener("scroll", function() {
-    //     var scrollTop = this.scrollTop;
-    //     var tcHeight = this.clientHeight;
-    //     var scrolled = Math.ceil(scrollTop + tcHeight + 2);
-    //     var scrollHeight = this.scrollHeight;
-    //     console.log(scrolled);
-    //     console.log(scrollHeight);
-    //     if (scrolled >= scrollHeight) {
-    //       document.querySelector('#accept-terms-and-conditions').disabled = false;
-    //       document.querySelector('#accept-eu').disabled = false;
-    //     }
-    //   });
-    // }, 1000);
   },
 
   'submit': function (element, event) {

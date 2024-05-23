@@ -108,10 +108,10 @@
 <footer class="text-muted" style="border-top: 1px solid #dee2e6;">
   <div class="container">
     <p class="float-right">
-      <small><a href="#pages/legal">Legal notice</a></small>
+      <small><a href="#pages/legal" target="_blank" rel="noopener noreferrer">Legal notice</a></small>
     </p>
     <p class="float-right">
-      <small><a href="#pages/privacy">Privacy Policy</a></small>
+      <small><a href="#pages/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></small>
     </p>
     <p><small>{{{footer}}}</small></p>
   </div>
