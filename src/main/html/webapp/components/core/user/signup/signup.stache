@@ -368,13 +368,13 @@
       <section class="content-section">
           <div class="block-label">5.1</div>
           <div class="block-content">
-            The Processor must ensure the security of processing pursuant to Article 32 GDPR especially in connection with Article 5(1)(2) GDPR. The Processor warrants therefore a level of security concerning the rendering of his services that is appropriate to the risk to the rights and freedoms enjoyed by the natural data subjects affected by the processing. To this end the Processor meets the security goals listed in Article 32 GDPR such as confidentiality, integrity and availability of the systems and services as well as their resilience regarding the type, scope, circumstances and purpose of the processing, by undertaking the appropriate technical and organisational measures, which, in the long run, exclude the risk as far as possible. An overview of the general technical and organisational measures taken by the Processor can be found here (<a href="https://imputationserver.helmholtz-munich.de/pdf/PR_TOMs_Public_v2.6_202308_engl.pdf">https://imputationserver.helmholtz-munich.de/pdf/PR_TOMs_Public_v2.6_202308_engl.pdf</a>). 
+            The Processor must ensure the security of processing pursuant to Article 32 GDPR especially in connection with Article 5(1)(2) GDPR. The Processor warrants therefore a level of security concerning the rendering of his services that is appropriate to the risk to the rights and freedoms enjoyed by the natural data subjects affected by the processing. To this end the Processor meets the security goals listed in Article 32 GDPR such as confidentiality, integrity and availability of the systems and services as well as their resilience regarding the type, scope, circumstances and purpose of the processing, by undertaking the appropriate technical and organisational measures, which, in the long run, exclude the risk as far as possible. An overview of the general technical and organisational measures taken by the Processor can be found <a href="https://imputationserver.helmholtz-munich.de/pdf/PR_TOMs_Public_v2.6_202308_engl.pdf">here (PR_TOMs_Public_v2.6_202308_engl.pdf)</a>.
           </div>
       </section>
       <section class="content-section">
           <div class="block-label">5.2</div>
           <div class="block-content">
-            <p>The specific measures concerning the Helmholtz Munich Imputation Server are listed under Security - Helmholtz Munich Imputation Server (imputationserver-doc.readthedocs.io).	 </p>
+            <p>The specific measures concerning the Helmholtz Munich Imputation Server are listed under <a href="https://imputationserver-doc.readthedocs.io/en/latest/data-sensitivity">Security - Helmholtz Munich Imputation Server (imputationserver-doc.readthedocs.io)</a>.</p>
             <p>The Processor is obliged to maintain the measures during the term of this Data Processing Agreement. He shall furthermore observe the principles of due data processing.  </p>
           </div>
       </section>
