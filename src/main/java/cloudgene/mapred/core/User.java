@@ -33,7 +33,7 @@ public class User {
 
 	private int loginAttempts;
 
-    private int maxRunningJobs;
+    private int maxRunningJobs=2;
 
 	private Date apiTokenExpiresOn = null;
 
