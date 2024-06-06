@@ -199,4 +199,4 @@ CREATE INDEX idx_user_mail ON `user`(mail);
 CREATE INDEX idx_user_fullname ON `user`(full_name);
 
 -- 2.8.6
-ALTER TABLE `user` ADD COLUMN max_running INT NOT NULL;
+ALTER TABLE `user` ADD COLUMN max_running INT NOT NULL DEFAULT 2;
