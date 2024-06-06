@@ -351,6 +351,7 @@ public class UserDao extends JdbcDataAccessObject {
 		public User mapRow(ResultSet rs, int row) throws SQLException {
 			User user = new User();
 			user.setId(rs.getInt("user.id"));
+			user.setMaxRunningJobs(rs.getInt("user.max_running"));
 			user.setUsername(rs.getString("user.username"));
 			user.setPassword(rs.getString("user.password"));
 			user.setFullName(rs.getString("user.full_name"));
