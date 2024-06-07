@@ -118,6 +118,7 @@ public class SubmitJob extends BaseResource {
 			// private mode
 			//int maxPerUser = settings.getMaxRunningJobsPerUser();
 			int maxPerUser = user.getMaxRunningJobs();
+			log.info("max jobs for user "+user.getUsername()+": "+maxPerUser);
 			if (!user.isAdmin() && engine.getJobsByUser(user).size() >= maxPerUser) {
 				return error400("Only " + maxPerUser + " jobs per user can be executed simultaneously.");
 			}
