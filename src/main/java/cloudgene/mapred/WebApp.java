@@ -30,6 +30,7 @@ import cloudgene.mapred.api.v2.admin.DeleteUser;
 import cloudgene.mapred.api.v2.admin.GetAllJobs;
 import cloudgene.mapred.api.v2.admin.GetGroups;
 import cloudgene.mapred.api.v2.admin.GetStatistics;
+import cloudgene.mapred.api.v2.admin.GetHadoopStats;
 import cloudgene.mapred.api.v2.admin.GetUsers;
 import cloudgene.mapred.api.v2.admin.HotRetireJob;
 import cloudgene.mapred.api.v2.admin.ResetDownloads;
@@ -221,6 +222,7 @@ public class WebApp extends Application {
 		router.attach(prefix + "/api/v2/admin/server/settings/update", UpdateSettings.class);
 		router.attach(prefix + "/api/v2/admin/server/logs/{logfile}", GetServerLogs.class);
 		router.attach(prefix + "/api/v2/admin/server/statistics", GetStatistics.class);
+		router.attach(prefix + "/api/v2/admin/server/hadoop", GetHadoopStats.class);
 
 		// download resources
 		router.attach(prefix + "/get/{id}/{hash}", DownloadScriptResults.class);
