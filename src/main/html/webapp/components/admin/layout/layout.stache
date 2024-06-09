@@ -12,6 +12,9 @@
          <a class="nav-link" href="#!pages/admin-home">Dashboard</a>
        </li>
        <li class="nav-item">
+         <a class="nav-link" href="#!pages/hadoop">Hadoop</a>
+       </li>
+       <li class="nav-item">
          <a class="nav-link" href="#!pages/admin-server">Server</a>
        </li>
        <li class="nav-item">
