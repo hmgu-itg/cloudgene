@@ -4,8 +4,7 @@ import Raphael from 'raphael/raphael';
 import Morris from 'morris.js/morris.js';
 
 import Counter from 'models/counter';
-import template from './dashboard.stache';
-
+import template from './hadoop.stache';
 
 export default Control.extend({
 
@@ -22,8 +21,8 @@ export default Control.extend({
       }));
       $(element).fadeIn();
 
-      $.getJSON("/api/v2/admin/server/statistics", {
-        days: 1
+	$.getJSON("/api/v2/admin/server/hadoop", {
+        day: ""
       }, function(mydata) {
 
         $("#new_users").html(mydata[0].users - mydata[mydata.length - 1].users);
@@ -55,8 +54,8 @@ export default Control.extend({
 
     var days = $("#day_combo").val();
     var that = this;
-    $.getJSON("/api/v2/admin/server/statistics", {
-      days: days
+    $.getJSON("/api/v2/admin/server/hadoop", {
+      day: day
     }, function(mydata) {
 
       $("#new_users").html(mydata[0].users - mydata[mydata.length - 1].users);
