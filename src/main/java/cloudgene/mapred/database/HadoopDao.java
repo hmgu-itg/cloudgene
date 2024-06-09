@@ -61,7 +61,7 @@ public class HadoopDao extends JdbcDataAccessObject {
 	    log.debug(stmt);
 	}
 
-	List<Map<String, String>> result = new Vector<Map<String, String>>();
+	List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 
 	try {
 	    Connection connection = database.getDataSource().getConnection();
