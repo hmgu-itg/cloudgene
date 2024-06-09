@@ -11,6 +11,7 @@ import ErrorPage from 'helpers/error-page';
 import LayoutControl from 'components/admin/layout/';
 import RouterControl from 'helpers/router';
 import DashboardControl from 'components/admin/dashboard/';
+import HadoopControl from 'components/admin/hadoop/';
 import UserListControl from 'components/admin/user/list/';
 import JobListControl from 'components/admin/job/list/';
 import JobDetailControl from 'components/core/job/detail/';
@@ -40,6 +41,9 @@ var routes = [{
   options: {
     login: false
   }
+}, {
+  path: 'pages/hadoop',
+  control: HadoopControl
 }, {
   path: 'pages/jobs',
   control: JobListControl
