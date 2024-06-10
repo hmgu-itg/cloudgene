@@ -110,8 +110,16 @@ input[data-tooltip]:disabled+.tooltip {
 }
 
 .agreement-page>.tac-background>.header>h2 {
-    font-size: 27px;
+    margin-top: 1.5rem;
     margin-bottom: 1.5rem;
+}
+
+#terms-and-conditions>.tac-background>.header>h2 {
+    font-size: 24px;
+}
+
+#data-processing-agreement>.tac-background>.header>h2 {
+    font-size: 31px;
 }
 
 .agreement-page>.tac-background>.content {
@@ -123,11 +131,16 @@ input[data-tooltip]:disabled+.tooltip {
 }
 
 .close-btn {
+    font-size: 40px;
     position: absolute;
-    top: 10px;
+    top: -12px;
     right: 10px;
     z-index: 2;
     cursor: pointer;
+}
+
+.close-btn:hover {
+    color: grey;
 }
 
 .content-section {
@@ -150,4 +163,11 @@ input[data-tooltip]:disabled+.tooltip {
 .content-subsection>.block-content {
     flex: 1;
     /* Takes up the rest of the space, similar to col-11 in Bootstrap */
+}
+
+#DPA-download {
+    padding: 1px 3px 1px 3px;
+    position: absolute;
+    left: 20px;
+    top: 10px;
 }
