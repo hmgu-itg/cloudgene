@@ -26,6 +26,7 @@ public class UserDao extends JdbcDataAccessObject {
 
 	public boolean insert(User user) {
 		StringBuilder sql = new StringBuilder();
+		// max_running has default value=2
 		sql.append("insert into `user` (username, password, full_name, aws_key, aws_secret_key, save_keys, export_to_s3, s3_bucket, mail, role, export_input_to_s3, activation_code, active, api_token, last_login, locked_until, login_attempts, institute_email, institute_name, institute_address1, institute_address2, institute_city, institute_postcode, institute_country, accepted_t_c, accepted_eu_eea, api_token_expires_on)");
 		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
@@ -75,6 +76,7 @@ public class UserDao extends JdbcDataAccessObject {
 		return true;
 	}
 
+    // max_running is not affected here
 	public boolean update(User user) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
@@ -300,7 +302,7 @@ public class UserDao extends JdbcDataAccessObject {
 		return result;
 	}
 
-    /* all unique roles from 'user' table */
+    /* all unique roles from 'user' table, over all users */
 	@SuppressWarnings("unchecked")
 	public Set<String> findAllRoles() {
 	    List<User> users=findAll();
@@ -314,7 +316,6 @@ public class UserDao extends JdbcDataAccessObject {
 	}
 
 	public boolean delete(User user) {
-
 		// update all older jobs
 		User publicUser = PublicUser.getUser(database);
 
