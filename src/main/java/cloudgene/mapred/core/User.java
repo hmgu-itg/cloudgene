@@ -33,6 +33,8 @@ public class User {
 
 	private int loginAttempts;
 
+    private int maxRunningJobs=2;
+
 	private Date apiTokenExpiresOn = null;
 
 	private String instituteEmail;
@@ -69,6 +71,14 @@ public class User {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public int getMaxRunningJobs() {
+		return maxRunningJobs;
+	}
+
+	public void setMaxRunningJobs(int n) {
+		this.maxRunningJobs=n;
 	}
 
 	public int getId() {
