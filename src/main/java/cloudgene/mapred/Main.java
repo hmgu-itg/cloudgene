@@ -34,6 +34,8 @@ import cloudgene.mapred.util.Config;
 import cloudgene.mapred.util.Settings;
 import genepi.io.FileUtil;
 
+import cloudgene.mapred.database.UserDao;
+
 public class Main {
 
 	public static final String VERSION = "2.8.6";
@@ -156,6 +158,10 @@ public class Main {
 		if (!updater.updateDB()) {
 			System.exit(-1);
 		}
+
+		log.info("Main: settings: max running jobs per user: "+settings.getMaxRunningJobsPerUser());
+		UserDao dao = new UserDao(database);
+		dao.setMaxRunningJobs(settings.getMaxRunningJobsPerUser());
 
 		// create directories
 		FileUtil.createDirectory(settings.getTempPath());
