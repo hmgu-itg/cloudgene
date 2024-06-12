@@ -118,6 +118,24 @@ public class UserDao extends JdbcDataAccessObject {
 		return true;
 	}
 
+    // sets max_running for all users
+    public boolean setMaxRunningJobs(int n){
+	StringBuilder sql = new StringBuilder();
+	sql.append("update `user` set max_running = ?");
+
+	try {
+	    Object[] params = new Object[1];
+	    params[0] = n;
+	    update(sql.toString(), params);
+	    log.debug("successfully set max_running to "+n);
+	} catch (SQLException e) {
+	    log.error("setting max_running to "+n+" failed", e);
+	    return false;
+	}
+
+	return true;
+    }
+
 	public User findByUsername(String user) {
 
 		StringBuffer sql = new StringBuffer();
