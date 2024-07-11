@@ -7,13 +7,13 @@ import template from './login.stache';
 
 export default Control.extend({
 
-  "init": function(element, options) {
+  "init": function (element, options) {
     $(element).hide();
     $(element).html(template());
     $(element).fadeIn();
   },
 
-  'submit': function(element, event) {
+  'submit': function (element, event) {
     event.preventDefault();
 
     var password = $(element).find("[name='loginPassword']");
@@ -23,7 +23,7 @@ export default Control.extend({
       type: "POST",
       data: $(element).find("#signin-form").serialize(),
       dataType: 'json',
-      success: function(response) {
+      success: function (response) {
         if (response.success == true) {
 
           //save CSRF token to local storage
@@ -31,10 +31,15 @@ export default Control.extend({
             csrf: response.csrf
           };
           localStorage.setItem('cloudgene', JSON.stringify(dataToken));
-
           var redirect = '/';
-          window.location = redirect;
-
+          if (response.roles != '') {
+            // Normal login. redirect to home page
+            window.location = redirect;
+          } else {
+            // Show standard contractual clause info page
+            redirect = '/#pages/scc-info';
+            window.location = redirect;
+          }
         } else {
           // shows error
           var message = response.message;
@@ -42,7 +47,7 @@ export default Control.extend({
           password.closest('.form-group').find('.invalid-feedback').html(message);
         }
       },
-      error: function(response) {
+      error: function (response) {
         new ErrorPage(element, response);
       }
     });

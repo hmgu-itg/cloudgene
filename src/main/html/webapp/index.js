@@ -52,6 +52,12 @@ var routes = [{
     template: 'static/privacy.stache'
   }
 }, {
+  path: 'pages/scc-info',
+  control: StaticPage,
+  options: {
+    template: 'static/scc-info.stache'
+  }
+}, {
   path: 'pages/login',
   control: UserLoginControl,
 }, {

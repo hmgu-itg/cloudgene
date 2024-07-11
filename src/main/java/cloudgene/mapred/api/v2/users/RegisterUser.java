@@ -1,6 +1,7 @@
 package cloudgene.mapred.api.v2.users;
 
 import java.util.Date;
+import java.util.List;
 
 import org.restlet.data.Form;
 import org.restlet.representation.Representation;
@@ -8,8 +9,10 @@ import org.restlet.resource.Post;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import cloudgene.mapred.core.Country;
 import cloudgene.mapred.core.User;
 import cloudgene.mapred.database.UserDao;
+import cloudgene.mapred.database.CountryDao;
 import cloudgene.mapred.representations.JSONAnswer;
 import cloudgene.mapred.util.BaseResource;
 import cloudgene.mapred.util.HashUtil;
@@ -79,8 +82,15 @@ public class RegisterUser extends BaseResource {
 			}
 		}
 
-		// String[] roles = new String[] { mailProvided ? DEFAULT_ROLE : DEFAULT_ANONYMOUS_ROLE};
-		String[] roles = new String[] { DEFAULT_ROLE };
+		CountryDao countryDao = new CountryDao(getDatabase());
+		List<Country> countries = countryDao.findByQuery(instituteCountry);
+		Country country = countries.get(0);
+		String[] roles;
+		if (country.getAllowed()) {
+			roles = new String[] { DEFAULT_ROLE };
+		} else {
+			roles = new String[] { "" };
+		}
 
 		// check password
 		error = User.checkPassword(newPassword, confirmNewPassword);
