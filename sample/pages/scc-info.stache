@@ -2,12 +2,12 @@
 <p>
 Dear User,<br>
 <br>
-Thank you for logging in to our website. Please be advised that you will not be able to access our genotype imputation service until the Standard Contractual Clauses (SCC) agreement has been completed.<br>
+Please be advised that you will not be able to access our genotype imputation service until the Standard Contractual Clauses (SCC) agreement has been completed.<br>
 <br>
 To proceed, please follow these steps:<br>
 <br>
 <ol>
-  <li><strong>Download the SCC Agreement:</strong> [Insert SCC File Download Link Here]</li>
+  <li><strong>Download the SCC Agreement:</strong> <a href="https://imputationserver.helmholtz-munich.de/pdf/Standard_Contractual_Clauses_MODULE_4.docx">Download here</a></li>
   <li><strong>Complete and Sign the Agreement:</strong> Fill in the required fields in the SCC form and ensure it is signed by an authorized representative.</li>
   <li><strong>Submit the Signed Agreement:</strong> Send the completed and signed SCC agreement to us at <a href="mailto:support@imputationserver.helmholtz-munich.de">support@imputationserver.helmholtz-munich.de</a>.</li>
 </ol>
