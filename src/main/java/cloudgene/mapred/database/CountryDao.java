@@ -15,7 +15,7 @@ import cloudgene.mapred.database.util.JdbcDataAccessObject;
 
 public class CountryDao extends JdbcDataAccessObject {
 
-    private static final Log log = LogFactory.getLog(CountryDao.class);
+	private static final Log log = LogFactory.getLog(CountryDao.class);
 
 	public CountryDao(Database database) {
 		super(database);
@@ -45,10 +45,7 @@ public class CountryDao extends JdbcDataAccessObject {
 		return true;
 	}
 
-
-
-
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public List<Country> findAll() {
 
 		StringBuffer sql = new StringBuffer();
@@ -71,7 +68,7 @@ public class CountryDao extends JdbcDataAccessObject {
 		}
 		return result;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Country> findByQuery(String query) {
 
@@ -86,7 +83,7 @@ public class CountryDao extends JdbcDataAccessObject {
 		params[0] = "%" + query + "%";
 		params[1] = params[0];
 		params[2] = params[0];
-		
+
 		List<Country> result = new Vector<Country>();
 
 		try {
@@ -140,11 +137,11 @@ public class CountryDao extends JdbcDataAccessObject {
 			country.setName(rs.getString("country.name"));
 			country.setDisplay(rs.getBoolean("country.display"));
 			country.setAllowed(rs.getBoolean("country.allowed"));
+			country.setAlpha2Code(rs.getString("country.alpha2code"));
+			country.setAlpha3Code(rs.getString("country.alpha3code"));
 			return country;
 		}
 
 	}
 
 }
-
-
