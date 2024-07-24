@@ -59,11 +59,11 @@ public class CountryDao extends JdbcDataAccessObject {
 		try {
 			result = query(sql.toString(), new CountryMapper());
 
-			log.debug("find all user successful. size = " + result.size());
+			log.debug("find all country successful. size = " + result.size());
 
 		} catch (SQLException e1) {
 
-			log.error("find all user failed.", e1);
+			log.error("find all country failed.", e1);
 
 		}
 		return result;
@@ -79,21 +79,17 @@ public class CountryDao extends JdbcDataAccessObject {
 		sql.append("where name like ?");
 		sql.append("order by name");
 
-		Object[] params = new Object[3];
+		Object[] params = new Object[1];
 		params[0] = "%" + query + "%";
-		params[1] = params[0];
-		params[2] = params[0];
 
 		List<Country> result = new Vector<Country>();
-
 		try {
 			result = query(sql.toString(), params, new CountryMapper());
-
-			log.debug("find all country successful. size = " + result.size());
+			log.info("find country by query successful. size = " + result.size());
 
 		} catch (SQLException e1) {
 
-			log.error("find all country failed.", e1);
+			log.error("find country by query failed.", e1);
 
 		}
 		return result;
