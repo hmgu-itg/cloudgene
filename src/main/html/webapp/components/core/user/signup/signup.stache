@@ -128,7 +128,7 @@
     <div class="content">
       <ul>
         <li>The HMIS is run by the Institute of Translational Genomics (ITG), located at the Helmholtz Zentrum München Deutsches Forschungszentrum für Gesundheit und Umwelt (GmbH) ("Helmholtz Munich"), Ingolstädter Landstraße 1, D-85764 Neuherberg, Germany. </li>
-        <li>Third parties forming part of the research community may use the HMIS. Those third parties are in the following referred to as "the User".  </li>
+        <li>All parties forming part of the research community may use the HMIS. Any party using the HMIS is in the following referred to as "the User".  </li>
         <li>The datasets available at the HMIS ("Datasets") may only be used for</li>
           <ul>
             <li>imputation of additional sites into genotype data provided by the User,</li>
@@ -149,7 +149,7 @@
         <li>The User understands that personal data submitted to the HMIS contains genetic information, which may require consent from the data subject or another legal basis for the lawful processing of data. To the extent that the User submits this type of data for processing by the HMIS, the User represents to Helmholtz Munich that he or she has obtained such consent or that he or she can claim another legal basis for processing according to Art. 9(2) General Data Protection Regulation (GDPR). </li>
         <li>When uploading personal data to the HMIS and using the HMIS Helmholtz Munich acts as a processor according to Art. 4 number 8 GDPR and the User shall remain controller of the Imputed data according to Art. 4 number 7 GDPR. Helmholtz Munich will process personal data submitted by the user as directed. Personal data will be processed by Helmholtz Munich on behalf of the user for the purpose of computing in support of genetic research, but only for so long as necessary to complete the computing. Once complete, the Imputed Data is encrypted, made available to the User, and deleted from the servers of HMIS once the User has retrieved it. </li>
         <li>The User of the HMIS agrees with the provisions as stated in the Data Processing Agreement and with the technical and organisational measures ("TOM") implemented for the data uploaded as stipulated in Appendix 1 of the Data Processing Agreement.  </li>
-        <li>The User confirms that she/he is fully authorized to accept these Terms of Service including the Data Processing Agreement on behalf of her/his institution. </li>
+        <li>The User confirms that she/he is fully authorized to accept these Terms of Service including the Data Processing Agreement on behalf of her/his institution. She/he shall refrain from making false statements when registering, as in this case the contractual agreements are null and void.</li>
         <li>In case the User is not located in an EU-/EEA-country and is intending to  use the HMIS, the data transfer of the Imputed data requires the conclusion of Standard Contractual Clauses (SCC) (MODULE FOUR, Processor to Controller) according to Art. 46(2) point (c) GDPR. Please contact <a href="mailto:dataprotectionmanagement@helmholtz-munich.de">dataprotectionmanagement@helmholtz-munich.de</a> for further assistance. </li>
         <li>The User assumes all and any liability for damages which may arise from its use, storage or disposal of the Imputed Data.</li>
         <li>Nothing in these terms shall limit or exclude liability for cases in which liability cannot be limited according to applicable law and/or for personal injury or death. </li>
