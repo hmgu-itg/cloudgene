@@ -32,12 +32,15 @@ export default Control.extend({
           };
           localStorage.setItem('cloudgene', JSON.stringify(dataToken));
           var redirect = '/';
-          if (response.roles != '') {
-            // Normal login. redirect to home page
+          if (response.roles.includes('block')) {
+            redirect = '/#pages/block';
             window.location = redirect;
-          } else {
+          } else if (response.roles == '') {
             // Show standard contractual clause info page
             redirect = '/#pages/scc-info';
+            window.location = redirect;
+          } else {
+            // Normal login. redirect to home page
             window.location = redirect;
           }
         } else {

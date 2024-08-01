@@ -174,7 +174,7 @@ public class ApplicationRepository {
 
 			boolean using = true;
 
-			if (user == null) {
+			if (user == null || user.hasRole("block")) {
 				if (application.hasPermission("public")) {
 					using = true;
 				} else {
