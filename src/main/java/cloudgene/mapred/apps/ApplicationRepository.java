@@ -85,8 +85,7 @@ public class ApplicationRepository {
 		Application app = getById(id);
 
 		if (app != null && app.isEnabled() && app.isLoaded() && !app.hasSyntaxError()) {
-			// if (user == null || user.hasRole("block")) {
-			if (user == null) {
+			if (user == null || user.hasRole("block")) {
 				if (app.hasPermission(("public"))) {
 					if (app.getWdlApp().getWorkflow() != null) {
 						return app;
