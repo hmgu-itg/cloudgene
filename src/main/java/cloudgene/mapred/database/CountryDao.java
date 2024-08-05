@@ -24,14 +24,16 @@ public class CountryDao extends JdbcDataAccessObject {
 	public boolean insert(Country country) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"insert into `country` (name, display, allowed) ");
-		sql.append("values (?,?,?)");
+				"insert into `country` (name, display, allowed, alpha2code, alpha3code) ");
+		sql.append("values (?,?,?,?,?)");
 
 		try {
-			Object[] params = new Object[3];
+			Object[] params = new Object[5];
 			params[0] = country.getName();
-			params[1] = false;
-			params[2] = false;
+			params[1] = country.getDisplay();
+			params[2] = country.getAllowed();
+			params[3] = country.getAlpha2Code();
+			params[4] = country.getAlpha3Code();
 
 			int id = insert(sql.toString(), params);
 
@@ -76,12 +78,10 @@ public class CountryDao extends JdbcDataAccessObject {
 
 		sql.append("select * ");
 		sql.append("from `country` ");
-		sql.append("where name like ?");
+		sql.append("where name like ? ");
 		sql.append("order by name");
-
 		Object[] params = new Object[1];
 		params[0] = "%" + query + "%";
-
 		List<Country> result = new Vector<Country>();
 		try {
 			result = query(sql.toString(), params, new CountryMapper());
