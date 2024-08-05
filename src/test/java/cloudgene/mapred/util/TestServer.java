@@ -15,6 +15,8 @@ import cloudgene.mapred.WebServer;
 import cloudgene.mapred.apps.Application;
 import cloudgene.mapred.apps.ApplicationRepository;
 import cloudgene.mapred.core.User;
+import cloudgene.mapred.core.Country;
+import cloudgene.mapred.database.CountryDao;
 import cloudgene.mapred.database.TemplateDao;
 import cloudgene.mapred.database.UserDao;
 import cloudgene.mapred.database.util.Database;
@@ -47,7 +49,7 @@ public class TestServer {
 	private Thread engineThread;
 
 	private static TestServer instance;
-	
+
 	private TestServer() {
 		HashMap<String, String> mail = new HashMap<String, String>();
 		mail.put("smtp", "localhost");
@@ -56,7 +58,7 @@ public class TestServer {
 		mail.put("password", "");
 		mail.put("name", "noreply@cloudgene");
 		settings.setMail(mail);
-	
+
 		settings.setServerUrl(HOSTNAME);
 		settings.setSecretKey(Settings.DEFAULT_SECURITY_KEY);
 	}
@@ -176,7 +178,7 @@ public class TestServer {
 			app18.setFilename("test-data/app-links-child.yaml");
 			app18.setPermission("public");
 			applications.add(app18);
-			
+
 			Application app188 = new Application();
 			app188.setId("app-links-child-version@1.0.0");
 			app188.setFilename("test-data/app-links-child.yaml");
@@ -188,14 +190,13 @@ public class TestServer {
 			app19.setFilename("test-data/app-links-child.yaml");
 			app19.setPermission("protected");
 			applications.add(app19);
-			
+
 			Application app20 = new Application();
 			app20.setId("app-installation2");
 			app20.setFilename("test-data/app-installation2.yaml");
 			app20.setPermission("public");
 			applications.add(app20);
 
-			
 			Application app21 = new Application();
 			app21.setId("app-installation-child");
 			app21.setFilename("test-data/app-installation-child.yaml");
@@ -207,22 +208,19 @@ public class TestServer {
 			app22.setFilename("test-data/print-hidden-inputs.yaml");
 			app22.setPermission("public");
 			applications.add(app22);
-			
-			
+
 			Application app23 = new Application();
 			app23.setId("app-version-test@1.0.1");
 			app23.setFilename("test-data/app-version-test.yaml");
 			app23.setPermission("private");
 			applications.add(app23);
-			
-			
+
 			Application app24 = new Application();
 			app24.setId("app-version-test@1.2.1");
 			app24.setFilename("test-data/app-version-test2.yaml");
 			app24.setPermission("private");
 			applications.add(app24);
-			
-			
+
 			settings.setApps(applications);
 
 		}
@@ -300,7 +298,7 @@ public class TestServer {
 			String usernameUser = "user";
 			String passwordUser = "admin1978";
 
-			// insert user admin
+			// insert user
 			user = dao.findByUsername(usernameUser);
 			if (user == null) {
 				user = new User();
@@ -316,6 +314,22 @@ public class TestServer {
 				user.setRoles(new String[] { "public" });
 				dao.insert(user);
 			}
+
+			CountryDao countryDao = new CountryDao(database);
+			List<Country> countries = countryDao.findByQuery("Germany");
+			System.out.println("INSERT COUNTRY");
+			System.out.println(countries.size());
+			if (countries.size() == 0) {
+				Country country = new Country();
+				country.setName("Germany");
+				country.setAllowed(true);
+				country.setDisplay(true);
+				country.setAlpha2Code("GE");
+				country.setAlpha3Code("GER");
+				countryDao.insert(country);
+				System.out.println(countryDao.findAll());
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -327,7 +341,7 @@ public class TestServer {
 
 	public WorkflowEngine startWorkflowEngineWithoutServer() throws SQLException {
 		if (engine == null) {
-		
+
 			registerApplications();
 			database = createDatabase(true);
 			// start workflow engine
@@ -346,7 +360,6 @@ public class TestServer {
 
 		if (server == null) {
 
-		
 			registerApplications();
 
 			database = createDatabase(newDatabase);
@@ -438,7 +451,7 @@ public class TestServer {
 	public Database getDatabase() {
 		return database;
 	}
-	
+
 	public ApplicationRepository getApplicationRepository() {
 		return settings.getApplicationRepository();
 	}
