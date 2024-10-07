@@ -197,3 +197,11 @@ CREATE INDEX idx_downloads_path ON downloads(path);
 CREATE INDEX idx_user_username ON `user`(username);
 CREATE INDEX idx_user_mail ON `user`(mail);
 CREATE INDEX idx_user_fullname ON `user`(full_name);
+
+-- 2.8.6
+ALTER TABLE `user` ADD COLUMN max_running INT NOT NULL DEFAULT 2;
+
+
+-- 2.8.7
+alter    table    `country`    add    column    alpha2code    varchar(5)    not    null;
+alter    table    `country`    add    column    alpha3code    varchar(5)    not    null;

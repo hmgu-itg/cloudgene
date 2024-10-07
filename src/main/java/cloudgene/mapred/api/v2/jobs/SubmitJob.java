@@ -116,11 +116,13 @@ public class SubmitJob extends BaseResource {
 		boolean publicMode = false;
 		if (user != null) {
 			// private mode
-			int maxPerUser = settings.getMaxRunningJobsPerUser();
+			//int maxPerUser = settings.getMaxRunningJobsPerUser();
+			int maxPerUser = user.getMaxRunningJobs();
+			log.info("max jobs for user "+user.getUsername()+": "+maxPerUser);
 			if (!user.isAdmin() && engine.getJobsByUser(user).size() >= maxPerUser) {
-				return error400("Only " + maxPerUser + " jobs per user can be executed simultaneously.");
+			    //return error400("Only " + maxPerUser + " jobs per user can be executed simultaneously.");
+			    return error400("User " +user.getUsername() + " can only execute "+maxPerUser+" jobs simultaneously.");
 			}
-
 		} else {
 			// public mode
 			user = PublicUser.getUser(getDatabase());

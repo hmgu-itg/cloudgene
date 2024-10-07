@@ -21,7 +21,7 @@ import JobDetailControl from 'components/core/job/detail/';
 import SubmitJobControl from 'components/core/job/submit/';
 
 // open all external link in new tab
-$(document.links).filter(function() {
+$(document.links).filter(function () {
   return this.hostname != window.location.hostname;
 }).attr('target', '_blank');
 
@@ -38,6 +38,30 @@ var routes = [{
   control: StaticPage,
   options: {
     template: 'static/contact.stache'
+  }
+}, {
+  path: 'pages/legal',
+  control: StaticPage,
+  options: {
+    template: 'static/legal.stache'
+  }
+}, {
+  path: 'pages/privacy',
+  control: StaticPage,
+  options: {
+    template: 'static/privacy.stache'
+  }
+}, {
+  path: 'pages/scc-info',
+  control: StaticPage,
+  options: {
+    template: 'static/scc-info.stache'
+  }
+}, {
+  path: 'pages/block',
+  control: StaticPage,
+  options: {
+    template: 'static/block.stache'
   }
 }, {
   path: 'pages/login',
@@ -85,7 +109,7 @@ var routes = [{
   path: 'run/{app}',
   control: SubmitJobControl,
   classes: 'fullsize-container'
-},{
+}, {
   path: 'pages/{page}',
   control: StaticPage
 }];
@@ -94,7 +118,7 @@ function loggedInGuard(appState) {
   return appState.attr('loggedIn');
 }
 
-Server.findOne({}, function(server) {
+Server.findOne({}, function (server) {
 
   new LayoutControl("#main", {
     server: server

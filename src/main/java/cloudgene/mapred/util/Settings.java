@@ -205,7 +205,7 @@ public class Settings {
 				String username = settings.cluster.get("user");
 				String name = settings.cluster.get("name");
 				if (conf != null) {
-					log.info("Use Haddop configuration folder '" + conf + "'"
+					log.info("Use Hadoop configuration folder '" + conf + "'"
 							+ (username != null ? " with username " + username : ""));
 					try {
 						HadoopCluster.setConfPath(name, conf, username);

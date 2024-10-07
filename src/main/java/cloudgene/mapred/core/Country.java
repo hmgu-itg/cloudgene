@@ -6,7 +6,8 @@ public class Country {
     private String name;
     private boolean display;
     private boolean allowed;
-
+    private String alpha2code;
+    private String alpha3code;
 
     public int getId() {
         return id;
@@ -39,4 +40,21 @@ public class Country {
     public void setAllowed(boolean allowed) {
         this.allowed = allowed;
     }
+
+    public String getAlpha2Code() {
+        return alpha2code;
+    }
+
+    public void setAlpha2Code(String alpha2code) {
+        this.alpha2code = alpha2code;
+    }
+
+    public String getAlpha3Code() {
+        return alpha3code;
+    }
+
+    public void setAlpha3Code(String alpha3code) {
+        this.alpha3code = alpha3code;
+    }
+
 }

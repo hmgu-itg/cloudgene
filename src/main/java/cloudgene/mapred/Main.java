@@ -34,9 +34,11 @@ import cloudgene.mapred.util.Config;
 import cloudgene.mapred.util.Settings;
 import genepi.io.FileUtil;
 
+import cloudgene.mapred.database.UserDao;
+
 public class Main {
 
-	public static final String VERSION = "2.8.5";
+	public static final String VERSION = "2.8.7";
 
 	private Database database;
 
@@ -76,7 +78,7 @@ public class Main {
 				System.out.println("Error: serverUrl not set in settings.yaml");
 				System.exit(1);
 			}
-			
+
 			if (!settings.testPaths()) {
 				System.exit(1);
 			}
@@ -156,6 +158,10 @@ public class Main {
 		if (!updater.updateDB()) {
 			System.exit(-1);
 		}
+
+		log.info("Main: settings: max running jobs per user: " + settings.getMaxRunningJobsPerUser());
+		UserDao dao = new UserDao(database);
+		dao.setMaxRunningJobs(settings.getMaxRunningJobsPerUser());
 
 		// create directories
 		FileUtil.createDirectory(settings.getTempPath());

@@ -15,7 +15,7 @@ import cloudgene.mapred.database.util.JdbcDataAccessObject;
 
 public class CountryDao extends JdbcDataAccessObject {
 
-    private static final Log log = LogFactory.getLog(CountryDao.class);
+	private static final Log log = LogFactory.getLog(CountryDao.class);
 
 	public CountryDao(Database database) {
 		super(database);
@@ -24,14 +24,16 @@ public class CountryDao extends JdbcDataAccessObject {
 	public boolean insert(Country country) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"insert into `country` (name, display, allowed) ");
-		sql.append("values (?,?,?)");
+				"insert into `country` (name, display, allowed, alpha2code, alpha3code) ");
+		sql.append("values (?,?,?,?,?)");
 
 		try {
-			Object[] params = new Object[3];
+			Object[] params = new Object[5];
 			params[0] = country.getName();
-			params[1] = false;
-			params[2] = false;
+			params[1] = country.getDisplay();
+			params[2] = country.getAllowed();
+			params[3] = country.getAlpha2Code();
+			params[4] = country.getAlpha3Code();
 
 			int id = insert(sql.toString(), params);
 
@@ -45,10 +47,7 @@ public class CountryDao extends JdbcDataAccessObject {
 		return true;
 	}
 
-
-
-
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public List<Country> findAll() {
 
 		StringBuffer sql = new StringBuffer();
@@ -62,16 +61,16 @@ public class CountryDao extends JdbcDataAccessObject {
 		try {
 			result = query(sql.toString(), new CountryMapper());
 
-			log.debug("find all user successful. size = " + result.size());
+			log.debug("find all country successful. size = " + result.size());
 
 		} catch (SQLException e1) {
 
-			log.error("find all user failed.", e1);
+			log.error("find all country failed.", e1);
 
 		}
 		return result;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Country> findByQuery(String query) {
 
@@ -79,24 +78,18 @@ public class CountryDao extends JdbcDataAccessObject {
 
 		sql.append("select * ");
 		sql.append("from `country` ");
-		sql.append("where name like ?");
+		sql.append("where name like ? ");
 		sql.append("order by name");
-
-		Object[] params = new Object[3];
+		Object[] params = new Object[1];
 		params[0] = "%" + query + "%";
-		params[1] = params[0];
-		params[2] = params[0];
-		
 		List<Country> result = new Vector<Country>();
-
 		try {
 			result = query(sql.toString(), params, new CountryMapper());
-
-			log.debug("find all country successful. size = " + result.size());
+			log.info("find country by query successful. size = " + result.size());
 
 		} catch (SQLException e1) {
 
-			log.error("find all country failed.", e1);
+			log.error("find country by query failed.", e1);
 
 		}
 		return result;
@@ -140,11 +133,11 @@ public class CountryDao extends JdbcDataAccessObject {
 			country.setName(rs.getString("country.name"));
 			country.setDisplay(rs.getBoolean("country.display"));
 			country.setAllowed(rs.getBoolean("country.allowed"));
+			country.setAlpha2Code(rs.getString("country.alpha2code"));
+			country.setAlpha3Code(rs.getString("country.alpha3code"));
 			return country;
 		}
 
 	}
 
 }
-
-
