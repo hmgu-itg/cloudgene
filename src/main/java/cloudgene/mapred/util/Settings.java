@@ -106,7 +106,7 @@ public class Settings {
 
 	private String googleAnalytics = "";
 
-	private int maxDownloads = 10;
+	private int maxDownloads = 10000;
 
 	protected Config config;
 
