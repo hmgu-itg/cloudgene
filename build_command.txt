@@ -1,0 +1,9 @@
+mvn install -Dmaven.test.skip=true
+
+cd ~/repos/cloudgene/target/cloudgene-2.8.7-assembly
+chmod 750 cloudgene
+rm -rf ~/cloudgene_exec/webapp ; cp -r webapp ~/cloudgene_exec
+rm -rf ~/cloudgene_exec/sample ; cp -r sample ~/cloudgene_exec
+rm -rf ~/cloudgene_exec/lib ; cp -r lib ~/cloudgene_exec
+rm ~/cloudgene_exec/cloudgene ; cp cloudgene ~/cloudgene_exec
+rm ~/cloudgene_exec/cloudgene.jar ; cp cloudgene.jar ~/cloudgene_exec
