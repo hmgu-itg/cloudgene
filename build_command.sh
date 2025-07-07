@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-mvn -Dmaven.test.skip=true package
+mvn install -Dmaven.test.skip=true
 
 chmod +x ./target/cloudgene-2.8.7-assembly/cloudgene
 
