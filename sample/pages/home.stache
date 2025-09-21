@@ -19,6 +19,7 @@
 
 <!-- dark:  #303846 -->
 <!-- light: #71829d -->
+
 {{!--
 <div class="text-white" style="background: #71829d;">
 	<div class="container pt-3">
@@ -41,51 +42,34 @@
 		</div>
 	</div>
 </div>
+--}}
 
 
 <!-- News and Logos -->
 <div class="py-5 bg-light">
 	<div class="container  ">
+<!--	<div class="overflow-auto"> -->
 		<div class="card ">
 			<div class="card-body">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-12">
 							<h5 style="padding-top: 10px; padding-bottom: 0px; margin-bottom: 10px;">Latest News</h5>
 							<hr style="padding-top: 0px; margin-top: 0px;">
 							<p>
-								<small class="text-muted"><i class="far fa-calendar-alt"></i> 27 June 2017</small><br>
-								Updated pipeline to v1.0.2. Release notes can be found <a href="https://github.com/genepi/imputationserver/releases/tag/1.0.2" target="_blank">here</a>.
+								<small class="text-muted"><i class="far fa-calendar-alt"></i> 09 August 2025</small><br>
+								HMIS Downtime: Due to the migration of HMGU hardware to the new data center, HMIS will be out of service from September 15 to September 21, 2025.
 							</p>
-							<p>
-								<small class="text-muted"><i class="far fa-calendar-alt"></i> 29 Aug 2016</small><br>
-								Imputation server paper is out now: <a href="http://www.nature.com/ng/journal/v48/n10/full/ng.3656.html" target="_blank">Das et al., Nature Genetics 2016</a>
-							</p>
-							<p>
-								<small class="text-muted"><i class="far fa-calendar-alt"></i> 14 June 2016</small><br>
-								Supporting <a target="_blank" href="https://github.com/seppinho/23andme-tools.git">23andMe input format</a>.
-							</p>
-							<p>
-								<small class="text-muted"><i class="far fa-calendar-alt"></i> 19 April 2016</small><br>
-								Updated <a target="_blank" href="http://www.haplotype-reference-consortium.org/">HRC Panel (r1.1)</a> available.
-							</p>
-							<p>
-								<small class="text-muted"><i class="far fa-calendar-alt"></i> 12 January 2016</small><br>
-								New Reference Panel (<a target="_blank" href="/#!pages/caapa">CAAPA</a>) available.
-							</p>
-							<p>
-								<small class="text-muted"><i class="far fa-calendar-alt"></i> 24 April 2015</small><br>
-								<a target="_blank" href="http://www.haplotype-reference-consortium.org/">HRC release 1</a> (64,976 haplotypes at 39,235,157 SNPs) is now ready for use for HRC consortium members.
-							</p>
-
 						</div>
 
+{{!--
 						<div class="col-md-4">
 
 							<a class="twitter-timeline" href="https://twitter.com/umimpute" data-widget-id="593759360838414337">Tweets by @umimpute</a>
 
 
 						</div>
+--}}
 					</div>
 
 				</div>
@@ -93,7 +77,6 @@
 		</div>
 	</div>
 </div>
---}}
 
 <div class="bg-light py-5" style="margin-top: 0px;">
 	<div class="container  ">
