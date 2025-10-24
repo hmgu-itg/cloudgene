@@ -58,7 +58,7 @@
 							<hr style="padding-top: 0px; margin-top: 0px;">
 							<p>
 								<small class="text-muted"><i class="far fa-calendar-alt"></i> 24 October 2025</small><br>
-								HMIS is currently experiencing firewall issues that may affect access to the front page and email delivery of archive passwords for finished jobs. Please don't start any new jobs on HMIS until Monday, October 27, 2025.
+								HMIS is currently experiencing firewall issues that may affect access to the front page and email delivery of archive passwords for finished jobs. Please <b>don't</b> start any new jobs on HMIS until Monday, October 27, 2025.
 							</p>
 						</div>
 
