@@ -192,7 +192,7 @@ public class RegisterUser extends BaseResource {
 				if (enabled_2fa.equals("on")){
 				    String GA_url=getGoogleAuthenticatorURL(secret_key,mail,"HMIS");
 				    log.debug("GA_url: "+GA_url);
-				    QR=createQR(GA_url,64,64);
+				    QR=createQR(GA_url,256,256);
 				    log.debug("QR: "+QR);
 				    body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
 				}
