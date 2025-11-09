@@ -67,7 +67,7 @@ public class LoginUser extends BaseResource {
 			    String key_2fa=user.get2FA();
 			    //log.debug("key: "+key_2fa);
 			    if (key_2fa!=null){
-				if (otpInput==""){
+				if (otpInput==null || otpInput.isEmpty()){
 				    answer.put("success",true);
 				    answer.put("otpRequired",true);
 				    return new JsonRepresentation(answer);
