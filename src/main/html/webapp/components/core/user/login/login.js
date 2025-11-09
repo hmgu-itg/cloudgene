@@ -18,6 +18,7 @@ export default Control.extend({
     event.preventDefault();
 
     var password = $(element).find("[name='loginPassword']");
+    var OTP = $(element).find("[name='otpInput']");
 
     $.ajax({
       url: "/login",
@@ -50,9 +51,15 @@ export default Control.extend({
 	      }
         } else {
           // shows error
-          var message = response.message;
-          password.addClass('is-invalid');
-          password.closest('.form-group').find('.invalid-feedback').html(message);
+            var message = response.message;
+	    if (/time password/.test(message)){
+		OTP.addClass('is-invalid');
+		OTP.closest('.form-group').find('.invalid-feedback').html(message);
+	    }
+	    else{
+		password.addClass('is-invalid');
+		password.closest('.form-group').find('.invalid-feedback').html(message);
+	    }
         }
       },
       error: function (response) {

@@ -130,7 +130,11 @@ public class LoginUser extends BaseResource {
 				}
 				dao.update(user);
 				log.warn(String.format("Authorization failure: wrong one-time password for username: %s", username));
-				return new JSONAnswer("Login Failed! Wrong one-time password.", false);
+				JSONObject answer = new JSONObject();
+				answer.put("success",false);
+				answer.put("otpRequired",false);
+				answer.put("message","Login Failed, wrong one-time password");
+				return new JsonRepresentation(answer);
 			    }
 			} else {
 
@@ -149,7 +153,12 @@ public class LoginUser extends BaseResource {
 			    dao.update(user);
 
 			    log.warn(String.format("Authorization failure: Invalid password for username: %s", username));
-			    return new JSONAnswer("Login Failed! Wrong Username or Password.", false);
+			    JSONObject answer = new JSONObject();
+			    answer.put("success",false);
+			    answer.put("otpRequired",false);
+			    answer.put("message","Login Failed, wrong Username or Password");
+			    return new JsonRepresentation(answer);
+			    //return new JSONAnswer("Login Failed! Wrong Username or Password.", false);
 			}
 		} else {
 			log.warn(String.format("Authorization failure: unknown username: %s", username));
