@@ -19,7 +19,21 @@
   <div class="form-group">
     <button class="btn  btn-primary" type="submit">Sign in</button>
   </div>
+
 </form>
+
+<form class="form-horizontal" id="otp-form" autocomplete="off" style="display: none;">
+  <div class="form-group">
+    <label for="otpInput" class="control-label">One time password:</label>
+    <input id="otpInput" name="otpInput" type="text" class="form-control col-sm-3" data-required="true" autocomplete="off" />
+  </div>
+
+  <div class="form-group">
+    <button class="btn  btn-primary" id="otpSubmitBtn" type="submit">Submit</button>
+  </div>
+</form>
+
+
 
 <br>
 <p>New user? <a href="#!pages/register">Sign up for free</a></p>

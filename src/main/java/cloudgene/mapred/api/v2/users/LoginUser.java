@@ -20,11 +20,8 @@ import cloudgene.mapred.util.BaseResource;
 import cloudgene.mapred.util.HashUtil;
 
 public class LoginUser extends BaseResource {
-
 	private static final Log log = LogFactory.getLog(LoginUser.class);
-
-	public static final int MAX_LOGIN_ATTEMPTS = 5;
-
+	public static final int MAX_LOGIN_ATTEMPTS = 20;
 	public static final int LOCKING_TIME_MIN = 30;
 
 	@Post
@@ -39,7 +36,6 @@ public class LoginUser extends BaseResource {
 		User user = dao.findByUsername(username);
 
 		if (user != null) {
-
 			if (!user.isActive()) {
 				log.info(String.format(
 						"Authorization failure: User account is not activated for account %s (ID %s - email %s)",
@@ -64,67 +60,66 @@ public class LoginUser extends BaseResource {
 			}
 
 			if (HashUtil.checkPassword(password, user.getPassword())) {
-
-				// create unique csrf token
-				String csrfToken = HashUtil.getCsrfToken(user);
-
-				// create cookie token with crf token
-				String token = JWTUtil.createCookieToken(user, getSettings().getSecretKey(), csrfToken);
-				// set cookie
-				CookieSetting cookie = new CookieSetting(JWTUtil.COOKIE_NAME, token);
-
-				if ((getSettings().isHttps()) || getSettings().isSecureCookie()) {
-					cookie.setSecure(true);
-					cookie.setAccessRestricted(true);
+			    // create unique csrf token
+			    String csrfToken = HashUtil.getCsrfToken(user);
+			    // create cookie token with crf token
+			    String token = JWTUtil.createCookieToken(user, getSettings().getSecretKey(), csrfToken);
+			    // set cookie
+			    CookieSetting cookie = new CookieSetting(JWTUtil.COOKIE_NAME, token);
+			    if ((getSettings().isHttps()) || getSettings().isSecureCookie()) {
+				cookie.setSecure(true);
+				cookie.setAccessRestricted(true);
+			    }
+			    getResponse().getCookieSettings().add(cookie);
+			    user.setLoginAttempts(0);
+			    user.setLastLogin(new Date());
+			    dao.update(user);
+			    String[] roles = user.getRoles();
+			    JSONObject answer = new JSONObject();
+			    try {
+				String key_2fa=user.get2FA();
+				if (key_2fa!=null){
+				    answer.put("otp",HashUtil.getTOTPCode(key_2fa));
 				}
-
-				getResponse().getCookieSettings().add(cookie);
-				user.setLoginAttempts(0);
-				user.setLastLogin(new Date());
-				dao.update(user);
-				String[] roles = user.getRoles();
-
-				JSONObject answer = new JSONObject();
-				try {
-					answer.put("success", true);
-					answer.put("message", "Login successfull.");
-					answer.put("csrf", csrfToken);
-					answer.put("type", "plain");
-					answer.put("roles", String.join(",", roles));
-				} catch (JSONException e) {
-					log.error("Authorization: Unexpected error in serializing login tokens", e);
-					e.printStackTrace();
+				else{
+				    answer.put("otp","");
 				}
-
-				String message = String.format("Authorization success: user login %s (ID %s - email %s)",
-						user.getUsername(), user.getId(), user.getMail());
-				if (user.isAdmin()) {
-					// Note: Admin user logins are called out explicitly, to aid log analysis in the
-					// event of a breach
-					message += " (ADMIN)";
-				}
-				log.info(message);
-
-				return new JsonRepresentation(answer);
-
+				answer.put("success", true);
+				answer.put("message", "Login successfull.");
+				answer.put("csrf", csrfToken);
+				answer.put("type", "plain");
+				answer.put("roles", String.join(",", roles));
+			    } catch (JSONException e) {
+				log.error("Authorization: Unexpected error in serializing login tokens", e);
+				e.printStackTrace();
+			    }
+			    String message = String.format("Authorization success: user login %s (ID %s - email %s)",
+							   user.getUsername(), user.getId(), user.getMail());
+			    if (user.isAdmin()) {
+				// Note: Admin user logins are called out explicitly, to aid log analysis in the
+				// event of a breach
+				message += " (ADMIN)";
+			    }
+			    log.info(message);
+			    return new JsonRepresentation(answer);
 			} else {
 
-				// count failed logins
-				int attempts = user.getLoginAttempts();
-				attempts++;
-				user.setLoginAttempts(attempts);
+			    // count failed logins
+			    int attempts = user.getLoginAttempts();
+			    attempts++;
+			    user.setLoginAttempts(attempts);
 
-				// too many, lock user
-				if (attempts >= MAX_LOGIN_ATTEMPTS) {
-					log.warn(String.format(
-							"Authorization failure: User account %s (ID %s - email %s) locked due to too many failed logins",
-							user.getUsername(), user.getId(), user.getMail()));
-					user.setLockedUntil(new Date(System.currentTimeMillis() + (LOCKING_TIME_MIN * 60 * 1000)));
-				}
-				dao.update(user);
+			    // too many, lock user
+			    if (attempts >= MAX_LOGIN_ATTEMPTS) {
+				log.warn(String.format(
+						       "Authorization failure: User account %s (ID %s - email %s) locked due to too many failed logins",
+						       user.getUsername(), user.getId(), user.getMail()));
+				user.setLockedUntil(new Date(System.currentTimeMillis() + (LOCKING_TIME_MIN * 60 * 1000)));
+			    }
+			    dao.update(user);
 
-				log.warn(String.format("Authorization failure: Invalid password for username: %s", username));
-				return new JSONAnswer("Login Failed! Wrong Username or Password.", false);
+			    log.warn(String.format("Authorization failure: Invalid password for username: %s", username));
+			    return new JSONAnswer("Login Failed! Wrong Username or Password.", false);
 			}
 		} else {
 			log.warn(String.format("Authorization failure: unknown username: %s", username));
