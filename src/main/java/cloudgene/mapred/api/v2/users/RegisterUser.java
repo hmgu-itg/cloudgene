@@ -214,10 +214,10 @@ public class RegisterUser extends BaseResource {
 			dao.insert(newUser);
 
 			if (enabled_2fa.equals("on")){
-			return new JSONAnswer("User sucessfully created. QR code: "+QR, true);
+			return new JSONAnswer(QR, true);
 			}
 			else{
-			    return new JSONAnswer("User sucessfully created.", true);
+			    return new JSONAnswer("", true);
 			}
 
 		} catch (Exception e) {
