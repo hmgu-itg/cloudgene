@@ -13,6 +13,7 @@ export default Control.extend({
     $(element).fadeIn();
   },
 
+  //'#signin-form submit': function (element, event) {
   'submit': function (element, event) {
     event.preventDefault();
 
@@ -46,8 +47,7 @@ export default Control.extend({
 	      }
 	      else{
 		  var otp=response.otp;
-		  $('#signin-form').hide();
-		  $('#otp-form').show();
+		  $('#otp-form-group').show();
 	      }
         } else {
           // shows error

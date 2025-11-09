@@ -30,6 +30,8 @@ public class LoginUser extends BaseResource {
 
 		String username = form.getFirstValue("loginUsername");
 		String password = form.getFirstValue("loginPassword");
+		String otpInput = form.getFirstValue("otpInput");
+		log.debug("otpInput: "+otpInput);
 		// password = HashUtil.getMD5(password);
 
 		UserDao dao = new UserDao(getDatabase());
