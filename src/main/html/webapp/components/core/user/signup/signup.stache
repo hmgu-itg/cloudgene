@@ -6,7 +6,7 @@
 
 
 <div id="QR_div" style="display: none;">
-<label for="QR" style="display: block; margin: 0 auto">Scan this QR code using Google Authenticator app</label>
+<label for="QR">Scan this QR code using Google Authenticator app</label>
 <img id="QR" src="" alt="QR" style="display: block; margin: 0 auto"/>
 </div>
 

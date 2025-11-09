@@ -159,8 +159,9 @@ public class RegisterUser extends BaseResource {
 		newUser.setPassword(HashUtil.hashPassword(newPassword));
 		if (enabled_2fa.equals("on")){
 		    secret_key=generateSecretKey();
-		    log.debug("key: "+secret_key);
-		    newUser.set2FA(HashUtil.hashPassword(secret_key));
+		    //log.debug("key: "+secret_key);
+		    // save it unencrypted for now
+		    newUser.set2FA(secret_key);
 		}
 		newUser.setInstituteEmail(instituteEmail);
 		newUser.setInstituteName(instituteName);
