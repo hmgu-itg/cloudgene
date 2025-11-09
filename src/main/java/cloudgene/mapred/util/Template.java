@@ -3,21 +3,14 @@ package cloudgene.mapred.util;
 public class Template {
 
 	public static final String MAINTENANCE_MESSAGE = "MAINTENANCE_MESSAGE";
-
 	public static final String FOOTER = "FOOTER";
-
 	public static final String REGISTER_MAIL = "REGISTER_MAIL";
-
+	public static final String REGISTER_MAIL_2FA = "REGISTER_MAIL_2FA";
 	public static final String RECOVERY_MAIL = "RECOVERY_MAIL";
-
 	public static final String RETIRE_JOB_MAIL = "RETIRE_JOB_MAIL";
-
 	public static final String FOOTER_SUBMIT_JOB = "FOOTER_SUBMIT_JOB";
-
 	public static final String TERMS = "TERMS";
-
 	public static final String USER_EMAIL_DESCRIPTION = "USER_EMAIL_DESCRIPTION";
-
 	public static final String USER_WITHOUT_EMAIL_DESCRIPTION = "USER_WITHOUT_EMAIL_DESCRIPTION";
 
 	public static final Template[] SNIPPETS = new Template[] {
@@ -29,6 +22,9 @@ public class Template {
 					"<p>powered by <a href=\"https://www.cloudgene.io/\">Cloudgene</a> and supported by the <a href=\"https://www.helmholtz-munich.de/en/itg\">Institute of Translational Genomics (ITG)</a> and funded by <a href=\"https://www.helmholtz.ai/\">Helmholtz AI</a></p>"),
 
 			new Template(REGISTER_MAIL,
+					"Dear %s,\nThis email has been sent automatically by the \"%s\" system to confirm that your profile has now been registered.\n\n"
+							+ "To confirm your email address, please click on this activation link %s"),
+			new Template(REGISTER_MAIL_2FA,
 					"Dear %s,\nThis email has been sent automatically by the \"%s\" system to confirm that your profile has now been registered.\n\n"
 							+ "To confirm your email address, please click on this activation link %s"),
 

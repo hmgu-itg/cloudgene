@@ -160,7 +160,7 @@ export default Control.extend({
       success: function (data) {
         if (data.success == true) {
           // shows success
-          var message = "Well done!</b> An email including the activation code has been sent to your address.";
+          var message = "Well done!</b> An email including the activation code has been sent to your address."+"\n"+data.message;
 
           $('#signon-form').hide();
           $('#success-message').html(message);

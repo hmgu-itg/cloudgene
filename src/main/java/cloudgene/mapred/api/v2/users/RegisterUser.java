@@ -50,6 +50,7 @@ public class RegisterUser extends BaseResource {
 		String instituteCountry = form.getFirstValue("institute-country");
 		String termsAndConditions = form.getFirstValue("accept-terms-and-conditions");
 		String termsAndConditionsCountry = form.getFirstValue("accept-eu");
+		String enabled_2fa = form.getFirstValue("select-2fa");
 
 		// check user accepted terms of service
 		if (!termsAndConditions.equals("on")) {
@@ -136,7 +137,13 @@ public class RegisterUser extends BaseResource {
 				String application = getSettings().getName();
 				String subject = "[" + application + "] Signup activation";
 				String activationLink = hostname + "/#!activate/" + username + "/" + activationKey;
-				String body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
+				if (enable_2fa.equals("on")){
+				    // QRcode=
+				    //String body = getWebApp().getTemplate(Template.REGISTER_MAIL_2FA, fullname, application, activationLink,QRcode);
+				}
+				else{
+				    String body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
+				}
 				log.debug("Sending email with activation code");
 				MailUtil.send(getSettings(), mail, subject, body);
 
