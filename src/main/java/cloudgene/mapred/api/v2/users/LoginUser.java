@@ -97,6 +97,7 @@ public class LoginUser extends BaseResource {
 				String[] roles = user.getRoles();
 				try {
 				    answer.put("success", true);
+				    answer.put("otpRequired",false);
 				    answer.put("message", "Login successfull.");
 				    answer.put("csrf", csrfToken);
 				    answer.put("type", "plain");
