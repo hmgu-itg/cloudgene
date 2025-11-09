@@ -8,6 +8,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import cloudgene.mapred.core.User;
+import org.apache.commons.codec.binary.Base32;
+import org.apache.commons.codec.binary.Hex;
+import de.taimos.totp.TOTP;
 
 public class HashUtil {
 
@@ -47,4 +50,11 @@ public class HashUtil {
 		String hashedCandidate = getMD5(candidate);
 		return BCrypt.checkpw(hashedCandidate, hash);
 	}
+
+    public static String getTOTPCode(String secretKey) {
+	Base32 base32 = new Base32();
+	byte[] bytes = base32.decode(secretKey);
+	String hexKey = Hex.encodeHexString(bytes);
+	return TOTP.getOTP(hexKey);
+    }    
 }
