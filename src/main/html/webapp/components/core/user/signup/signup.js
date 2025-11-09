@@ -165,7 +165,7 @@ export default Control.extend({
             $('#signon-form').hide();
             $('#success-message').html(message);
             $('#success-message').show();
-	    console.log("setting img src to: "+"data:image/png;base64,"+data.message);
+	    //console.log("setting img src to: "+"data:image/png;base64,"+data.message);
             $('#QR').attr("src","data:image/png;base64,"+data.message);
             $('#QR_div').show();
         } else {

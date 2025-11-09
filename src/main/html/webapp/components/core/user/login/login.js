@@ -53,10 +53,12 @@ export default Control.extend({
           // shows error
             var message = response.message;
 	    if (/time password/.test(message)){
+		console.log("OTP");
 		OTP.addClass('is-invalid');
 		OTP.closest('.form-group').find('.invalid-feedback').html(message);
 	    }
 	    else{
+		console.log("password");
 		password.addClass('is-invalid');
 		password.closest('.form-group').find('.invalid-feedback').html(message);
 	    }
