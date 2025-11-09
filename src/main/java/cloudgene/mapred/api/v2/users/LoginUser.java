@@ -62,51 +62,75 @@ public class LoginUser extends BaseResource {
 			}
 
 			if (HashUtil.checkPassword(password, user.getPassword())) {
-			    // create unique csrf token
-			    String csrfToken = HashUtil.getCsrfToken(user);
-			    // create cookie token with crf token
-			    String token = JWTUtil.createCookieToken(user, getSettings().getSecretKey(), csrfToken);
-			    // set cookie
-			    CookieSetting cookie = new CookieSetting(JWTUtil.COOKIE_NAME, token);
-			    if ((getSettings().isHttps()) || getSettings().isSecureCookie()) {
-				cookie.setSecure(true);
-				cookie.setAccessRestricted(true);
-			    }
-			    getResponse().getCookieSettings().add(cookie);
-			    user.setLoginAttempts(0);
-			    user.setLastLogin(new Date());
-			    dao.update(user);
-			    String[] roles = user.getRoles();
+			    bool success=true;
 			    JSONObject answer = new JSONObject();
-			    try {
-				String key_2fa=user.get2FA();
-				log.debug("key: "+key_2fa);
-				if (key_2fa!=null){
-				    String otp=HashUtil.getTOTPCode(key_2fa);
-				    log.debug("OTP: "+otp);
-				    answer.put("otp",otp);
+			    String key_2fa=user.get2FA();
+			    //log.debug("key: "+key_2fa);
+			    if (key_2fa!=null){
+				if (otpInput==null){
+				    answer.put("success",true);
+				    answer.put("otpRequired",true);
+				    return new JsonRepresentation(answer);
 				}
 				else{
-				    answer.put("otp","");
+				    if (!otpInput.equals(HashUtil.getTOTPCode(key_2fa))){
+					success=false;
+				    }
 				}
-				answer.put("success", true);
-				answer.put("message", "Login successfull.");
-				answer.put("csrf", csrfToken);
-				answer.put("type", "plain");
-				answer.put("roles", String.join(",", roles));
-			    } catch (JSONException e) {
-				log.error("Authorization: Unexpected error in serializing login tokens", e);
-				e.printStackTrace();
 			    }
-			    String message = String.format("Authorization success: user login %s (ID %s - email %s)",
-							   user.getUsername(), user.getId(), user.getMail());
-			    if (user.isAdmin()) {
-				// Note: Admin user logins are called out explicitly, to aid log analysis in the
-				// event of a breach
-				message += " (ADMIN)";
+			    
+			    if (success){
+				// create unique csrf token
+				String csrfToken = HashUtil.getCsrfToken(user);
+				// create cookie token with crf token
+				String token = JWTUtil.createCookieToken(user, getSettings().getSecretKey(), csrfToken);
+				// set cookie
+				CookieSetting cookie = new CookieSetting(JWTUtil.COOKIE_NAME, token);
+				if ((getSettings().isHttps()) || getSettings().isSecureCookie()) {
+				    cookie.setSecure(true);
+				    cookie.setAccessRestricted(true);
+				}
+				getResponse().getCookieSettings().add(cookie);
+				user.setLoginAttempts(0);
+				user.setLastLogin(new Date());
+				dao.update(user);
+				String[] roles = user.getRoles();
+				try {
+				    answer.put("success", true);
+				    answer.put("message", "Login successfull.");
+				    answer.put("csrf", csrfToken);
+				    answer.put("type", "plain");
+				    answer.put("roles", String.join(",", roles));
+				} catch (JSONException e) {
+				    log.error("Authorization: Unexpected error in serializing login tokens", e);
+				    e.printStackTrace();
+				}
+				String message = String.format("Authorization success: user login %s (ID %s - email %s)",
+							       user.getUsername(), user.getId(), user.getMail());
+				if (user.isAdmin()) {
+				    // Note: Admin user logins are called out explicitly, to aid log analysis in the
+				    // event of a breach
+				    message += " (ADMIN)";
+				}
+				log.info(message);
+				return new JsonRepresentation(answer);
 			    }
-			    log.info(message);
-			    return new JsonRepresentation(answer);
+			    else{
+				// count failed logins
+				int attempts = user.getLoginAttempts();
+				attempts++;
+				user.setLoginAttempts(attempts);
+				// too many, lock user
+				if (attempts >= MAX_LOGIN_ATTEMPTS) {
+				    log.warn(String.format(
+							   "Authorization failure: User account %s (ID %s - email %s) locked due to too many failed logins",
+							   user.getUsername(), user.getId(), user.getMail()));
+				    user.setLockedUntil(new Date(System.currentTimeMillis() + (LOCKING_TIME_MIN * 60 * 1000)));
+				}
+				dao.update(user);
+				log.warn(String.format("Authorization failure: wrong one-time password for username: %s", username));
+				return new JSONAnswer("Login Failed! Wrong one-time password.", false);
+			    }
 			} else {
 
 			    // count failed logins
