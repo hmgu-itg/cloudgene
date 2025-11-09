@@ -26,7 +26,7 @@ export default Control.extend({
       dataType: 'json',
       success: function (response) {
           if (response.success == true) {
-	      if (response.otp == ''){
+	      if (response.otpRequired == false){
 		  //save CSRF token to local storage
 		  var dataToken = {
 		      csrf: response.csrf
@@ -46,7 +46,6 @@ export default Control.extend({
 		  }
 	      }
 	      else{
-		  var otp=response.otp;
 		  $('#otp-form-group').show();
 	      }
         } else {
