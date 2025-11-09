@@ -130,7 +130,7 @@ public class LoginUser extends BaseResource {
 				}
 				dao.update(user);
 				log.warn(String.format("Authorization failure: wrong one-time password for username: %s", username));
-				JSONObject answer = new JSONObject();
+				answer = new JSONObject();
 				answer.put("success",false);
 				answer.put("otpRequired",false);
 				answer.put("message","Login Failed, wrong one-time password");
