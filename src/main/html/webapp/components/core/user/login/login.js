@@ -13,7 +13,7 @@ export default Control.extend({
     $(element).fadeIn();
   },
 
-  'submit': function (element, event) {
+  '#signin-form submit': function (element, event) {
     event.preventDefault();
 
     var password = $(element).find("[name='loginPassword']");
