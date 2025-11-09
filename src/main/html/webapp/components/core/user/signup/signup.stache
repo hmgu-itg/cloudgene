@@ -45,7 +45,7 @@
         </div>
 
         <div class="form-group">
-          <label for="select-2fa" class="control-label">Enable two-factor authentication using Google Authenticator</label>
+          <label for="select-2fa" class="control-label">Enable 2FA using Google Authenticator</label>
           <input id="select-2fa" name="select-2fa" class="form-control" type="checkbox" style="width: auto; height: auto; display: inline;" data-tooltip="">
           <div class="invalid-feedback"></div>
         </div>
