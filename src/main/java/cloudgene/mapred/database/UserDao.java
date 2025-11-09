@@ -27,11 +27,11 @@ public class UserDao extends JdbcDataAccessObject {
 	public boolean insert(User user) {
 		StringBuilder sql = new StringBuilder();
 		// max_running has default value=2
-		sql.append("insert into `user` (username, password, full_name, aws_key, aws_secret_key, save_keys, export_to_s3, s3_bucket, mail, role, export_input_to_s3, activation_code, active, api_token, last_login, locked_until, login_attempts, institute_email, institute_name, institute_address1, institute_address2, institute_city, institute_postcode, institute_country, accepted_t_c, accepted_eu_eea, api_token_expires_on)");
-		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		sql.append("insert into `user` (username, password, full_name, aws_key, aws_secret_key, save_keys, export_to_s3, s3_bucket, mail, role, export_input_to_s3, activation_code, active, api_token, last_login, locked_until, login_attempts, institute_email, institute_name, institute_address1, institute_address2, institute_city, institute_postcode, institute_country, accepted_t_c, accepted_eu_eea, api_token_expires_on,key_2fa)");
+		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 		try {
-			Object[] params = new Object[27];
+			Object[] params = new Object[28];
 			params[0] = user.getUsername().toLowerCase();
 			params[1] = user.getPassword();
 			params[2] = user.getFullName();
@@ -61,6 +61,7 @@ public class UserDao extends JdbcDataAccessObject {
 			params[24] = user.getAcceptedTandC();
 			params[25] = user.getAcceptedCountry();
 			params[26] = user.getApiTokenExpiresOn();
+			params[27] = user.get2FA();
 
 			int id = insert(sql.toString(), params);
 
@@ -77,6 +78,7 @@ public class UserDao extends JdbcDataAccessObject {
 	}
 
     // max_running is not affected here
+    // key_2fa not affected
 	public boolean update(User user) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
@@ -373,6 +375,7 @@ public class UserDao extends JdbcDataAccessObject {
 			user.setMaxRunningJobs(rs.getInt("user.max_running"));
 			user.setUsername(rs.getString("user.username"));
 			user.setPassword(rs.getString("user.password"));
+			user.set2FA(rs.getString("user.key_2fa"));
 			user.setFullName(rs.getString("user.full_name"));
 			user.setMail(rs.getString("user.mail"));
 			if (rs.getString("user.role") != null) {
