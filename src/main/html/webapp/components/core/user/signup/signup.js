@@ -160,11 +160,13 @@ export default Control.extend({
       success: function (data) {
         if (data.success == true) {
           // shows success
-          var message = "Well done!</b> An email including the activation code has been sent to your address."+"\n"+data.message;
+          var message = "Well done!</b> An email including the activation code has been sent to your address.";
 
           $('#signon-form').hide();
           $('#success-message').html(message);
           $('#success-message').show();
+          $('#QR').src="data:image/png;base64,"+data.message;
+          $('#QR').show();
         } else {
           // shows error msg
           username = $('#signon-form').find("[name='username']");

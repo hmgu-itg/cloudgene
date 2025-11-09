@@ -2,7 +2,8 @@
   <h2>Sign up</h2>
   <div id="sign-up" class="container">
     <div class="alert alert-success" id="success-message" style="display: none;">
-    </div>
+<img id="QR" src="" alt="QR" />
+</div>
 
     <form id="signon-form" class="form-horizontal row" autocomplete="off">
       <div class="col">
