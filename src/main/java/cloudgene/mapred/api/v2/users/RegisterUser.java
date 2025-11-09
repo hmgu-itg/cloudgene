@@ -159,6 +159,7 @@ public class RegisterUser extends BaseResource {
 		newUser.setPassword(HashUtil.hashPassword(newPassword));
 		if (enabled_2fa.equals("on")){
 		    secret_key=generateSecretKey();
+		    log.debug("key: "+secret_key);
 		    newUser.set2FA(HashUtil.hashPassword(secret_key));
 		}
 		newUser.setInstituteEmail(instituteEmail);
@@ -192,7 +193,9 @@ public class RegisterUser extends BaseResource {
 				    // QRcode=
 				    //body = getWebApp().getTemplate(Template.REGISTER_MAIL_2FA, fullname, application, activationLink,QRcode);
 				    String GA_url=getGoogleAuthenticatorURL(secret_key,mail,"HMIS");
+				    log.debug("GA_url: "+GA_url);
 				    QR=createQR(GA_url,64,64);
+				    log.debug("QR: "+QR);
 				    body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
 				}
 				else{
