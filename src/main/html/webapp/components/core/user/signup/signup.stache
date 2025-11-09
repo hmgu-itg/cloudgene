@@ -6,7 +6,7 @@
 
 
     <div class="alert alert-success" id="QR_div" style="display: none;">
-<img id="QR" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQAAAACCEkxzAAABEUlEQVR4XmP4DwUMdGX84PzUt8AeyPj9/tmS9fuBjF/abBYZYIZmtcMKMEMj5hJY5PfbNTnvQYwfXKtWgXX9/+trvh9sTvYpIwmw4puf49vrgYx/Sk8fTAZJ/f7A/sMBJPLjVM2ZNyBd/0xiHzOBDWxZE38PrFhunvBBsDMeVT28ARL5JTtX0x9s11OjfTlgqUl7svXBUssF3MTBlso19z0Difx9Lz35Ckjk/99/b6XAlqat9e0A6fobqPFRA2TO3xOREktBin9Hpzflgxj/G5cpN4Ck/v9+x20Btovv8MmVYLvee9jtBIn80j/yoRlk4C+tf2uTQFK/tN9sdwBb8YpJIQTsDM7Cs24gKczgpR8DAMDjqE3CYguoAAAAAElFTkSuQmCC" alt="QR" />
+<img id="QR" src="" alt="QR" />
 </div>
 
 

@@ -166,7 +166,7 @@ export default Control.extend({
             $('#success-message').html(message);
             $('#success-message').show();
 	    console.log("setting img src to: "+"data:image/png;base64,"+data.message);
-            $('#QR').src="data:image/png;base64,"+data.message;
+            $('#QR').attr("src","data:image/png;base64,"+data.message);
             $('#QR_div').show();
         } else {
           // shows error msg
