@@ -27,6 +27,8 @@ export default Control.extend({
       dataType: 'json',
       success: function (response) {
           if (response.success == true) {
+	      	password.removeClass('is-invalid');
+	      	OTP.removeClass('is-invalid');
 	      if (response.otpRequired == false){
 		  //save CSRF token to local storage
 		  var dataToken = {
