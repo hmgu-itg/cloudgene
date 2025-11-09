@@ -205,3 +205,4 @@ ALTER TABLE `user` ADD COLUMN max_running INT NOT NULL DEFAULT 2;
 -- 2.8.7
 alter    table    `country`    add    column    alpha2code    varchar(5)    not    null;
 alter    table    `country`    add    column    alpha3code    varchar(5)    not    null;
+ALTER TABLE `user` ADD COLUMN key_2fa varchar(100) NULL DEFAULT NULL;
