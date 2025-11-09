@@ -137,12 +137,14 @@ public class RegisterUser extends BaseResource {
 				String application = getSettings().getName();
 				String subject = "[" + application + "] Signup activation";
 				String activationLink = hostname + "/#!activate/" + username + "/" + activationKey;
-				if (enable_2fa.equals("on")){
+				String body;
+				if (enabled_2fa.equals("on")){
 				    // QRcode=
-				    //String body = getWebApp().getTemplate(Template.REGISTER_MAIL_2FA, fullname, application, activationLink,QRcode);
+				    //body = getWebApp().getTemplate(Template.REGISTER_MAIL_2FA, fullname, application, activationLink,QRcode);
+				    body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
 				}
 				else{
-				    String body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
+				    body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
 				}
 				log.debug("Sending email with activation code");
 				MailUtil.send(getSettings(), mail, subject, body);
