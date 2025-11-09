@@ -78,8 +78,11 @@ public class LoginUser extends BaseResource {
 			    JSONObject answer = new JSONObject();
 			    try {
 				String key_2fa=user.get2FA();
+				log.debug("key: "+key_2fa);
 				if (key_2fa!=null){
-				    answer.put("otp",HashUtil.getTOTPCode(key_2fa));
+				    String otp=HashUtil.getTOTPCode(key_2fa);
+				    log.debug("OTP: "+otp);
+				    answer.put("otp",otp);
 				}
 				else{
 				    answer.put("otp","");
