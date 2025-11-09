@@ -62,7 +62,7 @@ public class LoginUser extends BaseResource {
 			}
 
 			if (HashUtil.checkPassword(password, user.getPassword())) {
-			    bool success=true;
+			    boolean success=true;
 			    JSONObject answer = new JSONObject();
 			    String key_2fa=user.get2FA();
 			    //log.debug("key: "+key_2fa);
