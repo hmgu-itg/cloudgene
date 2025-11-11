@@ -108,6 +108,8 @@ export default Control.extend({
     // institute email
     var instituteEmail = $(element).find("[name='institute-mail']")
       var instituteEmailError0 = user.checkMail(instituteEmail.val());
+      console.log("email: "+instituteEmail.val());
+      console.log("error0: "+instituteEmailError0);
     var instituteEmailError = (instituteEmail.val() !== "" ? undefined : 'Must input the email of your institute supervisor/legal-representative')
       var instituteEmailError1 = (instituteEmail.val() !== mail.val() ? undefined : 'Email of your institute supervisor/legal-representative must be different from your own')
       if (instituteEmailError0 !== undefined){
