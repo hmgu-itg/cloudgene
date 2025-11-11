@@ -168,7 +168,8 @@ export default Control.extend({
 	    //console.log("setting img src to: "+"data:image/png;base64,"+data.message);
             $('#QR').attr("src","data:image/png;base64,"+data.message);
             $('#QR_div').show();
-	    $("html, body").animate({scrollTop:0},10);
+	    window.scrollTo(0,0);
+	    //$("html, body").animate({scrollTop:0},10);
         } else {
           // shows error msg
           username = $('#signon-form').find("[name='username']");
