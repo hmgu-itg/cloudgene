@@ -107,8 +107,18 @@ export default Control.extend({
 
     // institute email
     var instituteEmail = $(element).find("[name='institute-mail']")
+      var instituteEmailError0 = user.checkMail(instituteEmail.val());
     var instituteEmailError = (instituteEmail.val() !== "" ? undefined : 'Must input the email of your institute supervisor/legal-representative')
-    this.updateControl(instituteEmail, instituteEmailError);
+      var instituteEmailError1 = (instituteEmail.val() !== mail.val() ? undefined : 'Email of your institute supervisor/legal-representative must be different from your own')
+      if (instituteEmailError0 !== undefined){
+	  this.updateControl(instituteEmail,instituteEmailError0);
+      }
+      else if(instituteEmailError1 !== undefined){
+	  this.updateControl(instituteEmail,instituteEmailError1);
+      }
+      else{
+	  this.updateControl(instituteEmail,instituteEmailError);
+      }
 
     // institute name
     var instituteName = $(element).find("[name='institute-name']")
@@ -160,7 +170,7 @@ export default Control.extend({
       success: function (data) {
         if (data.success == true) {
           // shows success
-            var message = "Well done!</b> An email with an activation link has been sent to your email address.";
+            var message = "Well done!</b> An email with an activation link has been sent to your email address";
 
             $('#signon-form').hide();
             $('#success-message').html(message);
