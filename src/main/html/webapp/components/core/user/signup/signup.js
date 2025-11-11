@@ -106,10 +106,10 @@ export default Control.extend({
     this.updateControl(newPassword, passwordError);
 
     // institute email
-    var instituteEmail = $(element).find("[name='institute-mail']")
+      var instituteEmail = $(element).find("[name='institute-mail']");
       var instituteEmailError0 = user.checkMail(instituteEmail.val());
-    var instituteEmailError = (instituteEmail.val() !== "" ? undefined : 'Must input the email of your institute supervisor/legal-representative')
-      var instituteEmailError1 = (instituteEmail.val() !== mail.val() ? undefined : 'Email of your institute supervisor/legal-representative must be different from your own')
+      var instituteEmailError = (instituteEmail.val() !== "" ? undefined : 'Must input the email of your institute supervisor/legal-representative');
+      var instituteEmailError1 = (instituteEmail.val() !== mail.val() ? undefined : 'Email of your institute supervisor/legal-representative must be different from your own');
       console.log("email: "+mail.val());
       console.log("institute email: "+instituteEmail.val());
       console.log("error0: "+instituteEmailError0);
@@ -161,7 +161,7 @@ export default Control.extend({
     this.updateControl(termsAndConditionsCountry, termsAndConditionsCountryError);
 
 
-    if (usernameError || fullnameError || mailError || passwordError || instituteEmailError || instituteNameError || instituteAddress1Error || instituteCityError || institutePostCodeError || instituteCountryError || termsAndConditionsError || termsAndConditionsCountryError) {
+    if (usernameError || fullnameError || mailError || passwordError || instituteEmailError || instituteEmailError0 || instituteEmailError1 || instituteNameError || instituteAddress1Error || instituteCityError || institutePostCodeError || instituteCountryError || termsAndConditionsError || termsAndConditionsCountryError) {
       return false;
     }
 
