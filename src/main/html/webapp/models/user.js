@@ -59,7 +59,7 @@ export default Model.extend({
 
   'checkName': function(name) {
     if (name === "") {
-      return "The full name is required.";
+      return "Full name is required";
     }
   },
 
