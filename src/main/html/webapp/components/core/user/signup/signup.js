@@ -170,7 +170,7 @@ export default Control.extend({
             $('#QR_div').show();
 	    $("html, body").animate({
         scrollTop: 0
-    }, 9000);
+    }, 10);
         } else {
           // shows error msg
           username = $('#signon-form').find("[name='username']");
