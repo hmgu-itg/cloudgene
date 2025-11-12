@@ -181,7 +181,7 @@ export default Control.extend({
             $('#success-message').html(message);
             $('#success-message').show();
 	    //console.log("setting img src to: "+"data:image/png;base64,"+data.message);
-	    if (data.message === "NA"){
+	    if (data.message != "NA"){
 		$('#QR').attr("src","data:image/png;base64,"+data.message);
 		$('#QR_div').show();
 	    }

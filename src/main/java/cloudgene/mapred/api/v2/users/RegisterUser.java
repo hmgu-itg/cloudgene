@@ -236,7 +236,7 @@ public class RegisterUser extends BaseResource {
 			return new JSONAnswer(QR, true);
 		    }
 		    else{
-			return new JSONAnswer("", true);
+			return new JSONAnswer("NA", true);
 		    }
 
 		} catch (Exception e) {
