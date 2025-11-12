@@ -96,6 +96,8 @@ public class RegisterUser extends BaseResource {
 		String termsAndConditionsCountry = form.getFirstValue("accept-eu");
 		String enabled_2fa = form.getFirstValue("select-2fa");
 
+		log.debug("enabled_2fa="+enabled_2fa);
+
 		// check user accepted terms of service
 		if (!termsAndConditions.equals("on")) {
 			return new JSONAnswer("Must accept Terms of Service.", false);
