@@ -131,7 +131,7 @@ public class RegisterUser extends BaseResource {
 		List<Country> countries = countryDao.findByQuery(instituteCountry);
 		Country country = countries.get(0);
 		String[] roles;
-		log.debug("checking country: "+country);
+		//log.debug("checking country: "+country);
 		if (country.getAllowed()) {
 			roles = new String[] { DEFAULT_ROLE };
 		} else {
@@ -163,19 +163,28 @@ public class RegisterUser extends BaseResource {
 		newUser.setMail(mail);
 		newUser.setRoles(roles);
 		newUser.setPassword(HashUtil.hashPassword(newPassword));
+		log.debug("CP 1");
 		if (enabled_2fa.equals("on")){
 		    secret_key=generateSecretKey();
 		    //log.debug("key: "+secret_key);
 		    // save it unencrypted for now
 		    newUser.set2FA(secret_key);
 		}
+		else{
+		    log.debug("2FA disabled");
+		}
+		log.debug("CP 2");
 		newUser.setInstituteEmail(instituteEmail);
 		newUser.setInstituteName(instituteName);
+		log.debug("CP 3");
 		newUser.setInstituteAddress1(instituteAddress1);
 		newUser.setInstituteAddress2(instituteAddress2);
+		log.debug("CP 4");
 		newUser.setInstituteCity(instituteCity);
 		newUser.setInstitutePostCode(institutePostCode);
+		log.debug("CP 5");
 		newUser.setInstituteCountry(instituteCountry);
+		log.debug("CP 6");
 		newUser.setAcceptedTandC(new Date());
 		newUser.setAcceptedCountry(new Date());
 
@@ -186,8 +195,10 @@ public class RegisterUser extends BaseResource {
 
 		    if (getSettings().getMail() != null && mailProvided) {
 			String activationKey = HashUtil.getActivationHash(newUser);
+			log.debug("ActivationKey done");
 			newUser.setActive(false);
 			newUser.setActivationCode(activationKey);
+			log.debug("ActivationKey set");
 
 			// send email with activation code
 			String application = getSettings().getName();
