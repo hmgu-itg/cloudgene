@@ -142,7 +142,7 @@ public class RegisterUser extends BaseResource {
 		} else {
 			roles = new String[] { "" };
 		}
-		log.debug("OK");
+		//log.debug("OK");
 
 		// check password
 		log.debug("Checking password for "+username);
@@ -168,7 +168,7 @@ public class RegisterUser extends BaseResource {
 		newUser.setMail(mail);
 		newUser.setRoles(roles);
 		newUser.setPassword(HashUtil.hashPassword(newPassword));
-		log.debug("CP 1");
+		//log.debug("CP 1");
 		if (enabled_2fa.equals("on")){
 		    secret_key=generateSecretKey();
 		    //log.debug("key: "+secret_key);
@@ -178,18 +178,18 @@ public class RegisterUser extends BaseResource {
 		else{
 		    log.debug("2FA disabled");
 		}
-		log.debug("CP 2");
+		//log.debug("CP 2");
 		newUser.setInstituteEmail(instituteEmail);
 		newUser.setInstituteName(instituteName);
-		log.debug("CP 3");
+		//log.debug("CP 3");
 		newUser.setInstituteAddress1(instituteAddress1);
 		newUser.setInstituteAddress2(instituteAddress2);
-		log.debug("CP 4");
+		//log.debug("CP 4");
 		newUser.setInstituteCity(instituteCity);
 		newUser.setInstitutePostCode(institutePostCode);
-		log.debug("CP 5");
+		//log.debug("CP 5");
 		newUser.setInstituteCountry(instituteCountry);
-		log.debug("CP 6");
+		//log.debug("CP 6");
 		newUser.setAcceptedTandC(new Date());
 		newUser.setAcceptedCountry(new Date());
 
