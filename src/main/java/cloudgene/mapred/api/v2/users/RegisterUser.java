@@ -95,7 +95,10 @@ public class RegisterUser extends BaseResource {
 		String termsAndConditions = form.getFirstValue("accept-terms-and-conditions");
 		String termsAndConditionsCountry = form.getFirstValue("accept-eu");
 		String enabled_2fa = form.getFirstValue("select-2fa");
-
+		
+		if (enabled_2fa==null){
+		    enabled_2fa="off";
+		}
 		log.debug("enabled_2fa="+enabled_2fa);
 
 		// check user accepted terms of service
