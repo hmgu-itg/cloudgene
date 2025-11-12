@@ -181,9 +181,14 @@ export default Control.extend({
             $('#success-message').html(message);
             $('#success-message').show();
 	    //console.log("setting img src to: "+"data:image/png;base64,"+data.message);
+	    console.log("message: "+data.message);
+	    console.log(data.message==="NA");
 	    if (data.message != "NA"){
 		$('#QR').attr("src","data:image/png;base64,"+data.message);
 		$('#QR_div').show();
+	    }
+	    els{
+		$('#QR_div').hide();
 	    }
 	    window.scrollTo(0,0);
 	    //$("html, body").animate({scrollTop:0},10);
