@@ -187,7 +187,7 @@ export default Control.extend({
 		$('#QR').attr("src","data:image/png;base64,"+data.message);
 		$('#QR_div').show();
 	    }
-	    els{
+	    else{
 		$('#QR_div').hide();
 	    }
 	    window.scrollTo(0,0);
