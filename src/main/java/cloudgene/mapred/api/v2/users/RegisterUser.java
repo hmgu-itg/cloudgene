@@ -131,24 +131,30 @@ public class RegisterUser extends BaseResource {
 		List<Country> countries = countryDao.findByQuery(instituteCountry);
 		Country country = countries.get(0);
 		String[] roles;
+		log.debug("checking country: "+country);
 		if (country.getAllowed()) {
 			roles = new String[] { DEFAULT_ROLE };
 		} else {
 			roles = new String[] { "" };
 		}
+		log.debug("OK");
 
 		// check password
+		log.debug("Checking password for "+username);
 		error = User.checkPassword(newPassword, confirmNewPassword);
 		if (error != null) {
 			return new JSONAnswer(error, false);
 		}
+		log.debug("OK");
 
 		// check name
+		log.debug("Checking name for "+username+" / "+fullname);
 		error = User.checkName(fullname);
 		if (error != null) {
 			return new JSONAnswer(error, false);
 		}
-
+		log.debug("OK");
+		
 		String QR=null;
 		String secret_key=null;
 		User newUser = new User();
