@@ -175,55 +175,51 @@ public class RegisterUser extends BaseResource {
 
 		log.debug("New user '" + username + "' being created");
 		try {
+		    // if email server configured, send mails with activation link. Else
+		    // activate user immediately.
 
-			// if email server configured, send mails with activation link. Else
-			// activate user immediately.
+		    if (getSettings().getMail() != null && mailProvided) {
+			String activationKey = HashUtil.getActivationHash(newUser);
+			newUser.setActive(false);
+			newUser.setActivationCode(activationKey);
 
-			//if (getSettings().getMail() != null && mailProvided) {
-
-		    String activationKey = HashUtil.getActivationHash(newUser);
-		    //		newUser.setActive(false);
-		    //		newUser.setActivationCode(activationKey);
-
-				// send email with activation code
-				String application = getSettings().getName();
-				String subject = "[" + application + "] Signup activation";
-				String activationLink = hostname + "/#!activate/" + username + "/" + activationKey;
-				String body;
-				if (enabled_2fa.equals("on")){
-				    String GA_url=getGoogleAuthenticatorURL(secret_key,mail,"HMIS");
-				    log.debug("GA_url: "+GA_url);
-				    QR=createQR(GA_url,256,256);
-				    log.debug("QR: "+QR);
-				    body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
-				}
-				else{
-				    body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
-				}
-				//log.debug("Sending email with activation code");
-				//MailUtil.send(getSettings(), mail, subject, body);
-
-				//} else {
-				newUser.setActive(true);
-				newUser.setActivationCode("");
-				//}
-
-			log.info(String.format("Registration: New user %s (ID %s - email %s - roles %s)", newUser.getUsername(),
-					newUser.getId(), newUser.getMail(), Arrays.toString(newUser.getRoles())));
-			MailUtil.notifySlack(getSettings(), "Hi! say hello to " + username + " (" + mail + ") :hugging_face:");
-
-			dao.insert(newUser);
-
+			// send email with activation code
+			String application = getSettings().getName();
+			String subject = "[" + application + "] Signup activation";
+			String activationLink = hostname + "/#!activate/" + username + "/" + activationKey;
+			String body;
 			if (enabled_2fa.equals("on")){
-			return new JSONAnswer(QR, true);
+			    String GA_url=getGoogleAuthenticatorURL(secret_key,mail,"HMIS");
+			    //log.debug("GA_url: "+GA_url);
+			    QR=createQR(GA_url,256,256);
+			    //log.debug("QR: "+QR);
+			    body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
 			}
 			else{
-			    return new JSONAnswer("", true);
+			    body = getWebApp().getTemplate(Template.REGISTER_MAIL, fullname, application, activationLink);
 			}
+			log.debug("Sending email with activation code");
+			MailUtil.send(getSettings(), mail, subject, body);
+		    } else {
+			newUser.setActive(true);
+			newUser.setActivationCode("");
+		    }
+
+		    log.info(String.format("Registration: New user %s (ID %s - email %s - roles %s)", newUser.getUsername(),newUser.getId(), newUser.getMail(), Arrays.toString(newUser.getRoles())));
+		    MailUtil.notifySlack(getSettings(), "Hi! say hello to " + username + " (" + mail + ") :hugging_face:");
+
+		    dao.insert(newUser);
+
+		    if (enabled_2fa.equals("on")){
+			return new JSONAnswer(QR, true);
+		    }
+		    else{
+			return new JSONAnswer("", true);
+		    }
 
 		} catch (Exception e) {
 
-			return new JSONAnswer(e.getMessage(), false);
+		    return new JSONAnswer(e.getMessage(), false);
 
 		}
 
