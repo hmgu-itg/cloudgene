@@ -181,8 +181,10 @@ export default Control.extend({
             $('#success-message').html(message);
             $('#success-message').show();
 	    //console.log("setting img src to: "+"data:image/png;base64,"+data.message);
-            $('#QR').attr("src","data:image/png;base64,"+data.message);
-            $('#QR_div').show();
+	    if (data.message === "NA"){
+		$('#QR').attr("src","data:image/png;base64,"+data.message);
+		$('#QR_div').show();
+	    }
 	    window.scrollTo(0,0);
 	    //$("html, body").animate({scrollTop:0},10);
         } else {
