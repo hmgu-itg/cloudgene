@@ -448,8 +448,11 @@ abstract public class AbstractJob extends PriorityRunnable {
 			// TODO: check if all input parameters are set
 
 			writeLog("  Outputs:");
+			// for (CloudgeneParameterOutput parameter : outputParams) {
+			// 	writeLog("    " + parameter.getDescription() + ": " + context.get(parameter.getName()));
+			// }
 			for (CloudgeneParameterOutput parameter : outputParams) {
-				writeLog("    " + parameter.getDescription() + ": " + context.get(parameter.getName()));
+				writeLog("    " + parameter.getDescription());
 			}
 
 			writeLog("Preparing Job....");
