@@ -53,7 +53,7 @@ public class DownloadScriptResults extends BaseResource {
 			script.append("echo \"\"\n");
 			script.append(
 					"echo \"Downloading file " + download.getName() + " (" + i + "/" + downloads.size() + ")...\"\n");
-			script.append("wget --tries=0 --continue --recursive --output-document=" + download.getName() + " "
+			script.append("wget --no-check-certificate --tries=0 --continue --recursive --output-document=" + download.getName() + " "
 					+ hostname + "/share/results/" + download.getHash() + "/" + download.getName() + "\n");
 			i++;
 		}

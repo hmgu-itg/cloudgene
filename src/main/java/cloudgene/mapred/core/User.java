@@ -12,6 +12,7 @@ public class User {
 	private String username;
 
 	private String password;
+	private String key_2fa=null;
 
 	private int id;
 
@@ -71,6 +72,14 @@ public class User {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public void set2FA(String key) {
+		this.key_2fa = key;
+	}
+
+	public String get2FA() {
+		return key_2fa;
 	}
 
 	public int getMaxRunningJobs() {

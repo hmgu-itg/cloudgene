@@ -106,9 +106,24 @@ export default Control.extend({
     this.updateControl(newPassword, passwordError);
 
     // institute email
-    var instituteEmail = $(element).find("[name='institute-mail']")
-    var instituteEmailError = (instituteEmail.val() !== "" ? undefined : 'Must input the email of your institute supervisor/legal-representative')
-    this.updateControl(instituteEmail, instituteEmailError);
+      var instituteEmail = $(element).find("[name='institute-mail']");
+      var instituteEmailError0 = user.checkMail(instituteEmail.val());
+      var instituteEmailError = (instituteEmail.val() !== "" ? undefined : 'Must input the email of your institute supervisor/legal-representative');
+      var instituteEmailError1 = (instituteEmail.val() !== mail.val() ? undefined : 'Email of your institute supervisor/legal-representative must be different from your own');
+      // console.log("email: "+mail.val());
+      // console.log("institute email: "+instituteEmail.val());
+      // console.log("error0: "+instituteEmailError0);
+      // console.log("error1: "+instituteEmailError1);
+      // console.log("error: "+instituteEmailError);
+      if (instituteEmailError0 !== undefined){
+	  this.updateControl(instituteEmail,instituteEmailError0);
+      }
+      else if(instituteEmailError1 !== undefined){
+	  this.updateControl(instituteEmail,instituteEmailError1);
+      }
+      else{
+	  this.updateControl(instituteEmail,instituteEmailError);
+      }
 
     // institute name
     var instituteName = $(element).find("[name='institute-name']")
@@ -146,7 +161,7 @@ export default Control.extend({
     this.updateControl(termsAndConditionsCountry, termsAndConditionsCountryError);
 
 
-    if (usernameError || fullnameError || mailError || passwordError || instituteEmailError || instituteNameError || instituteAddress1Error || instituteCityError || institutePostCodeError || instituteCountryError || termsAndConditionsError || termsAndConditionsCountryError) {
+    if (usernameError || fullnameError || mailError || passwordError || instituteEmailError || instituteEmailError0 || instituteEmailError1 || instituteNameError || instituteAddress1Error || instituteCityError || institutePostCodeError || instituteCountryError || termsAndConditionsError || termsAndConditionsCountryError) {
       return false;
     }
 
@@ -160,11 +175,23 @@ export default Control.extend({
       success: function (data) {
         if (data.success == true) {
           // shows success
-          var message = "Well done!</b> An email including the activation code has been sent to your address.";
+            var message = "Well done!</b> An email with an activation link has been sent to your email address";
 
-          $('#signon-form').hide();
-          $('#success-message').html(message);
-          $('#success-message').show();
+            $('#signon-form').hide();
+            $('#success-message').html(message);
+            $('#success-message').show();
+	    //console.log("setting img src to: "+"data:image/png;base64,"+data.message);
+	    //console.log("message: "+data.message);
+	    //console.log(data.message==="NA");
+	    if (data.message != "NA"){
+		$('#QR').attr("src","data:image/png;base64,"+data.message);
+		$('#QR_div').show();
+	    }
+	    else{
+		$('#QR_div').hide();
+	    }
+	    window.scrollTo(0,0);
+	    //$("html, body").animate({scrollTop:0},10);
         } else {
           // shows error msg
           username = $('#signon-form').find("[name='username']");
