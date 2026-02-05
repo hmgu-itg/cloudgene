@@ -56,10 +56,10 @@
 						<div class="col-md-12">
 							<h5 style="padding-top: 10px; padding-bottom: 0px; margin-bottom: 10px;">Latest News</h5>
 							<hr style="padding-top: 0px; margin-top: 0px;">
-<!-- 							<p> -->
-<!--								<small class="text-muted"><i class="far fa-calendar-alt"></i> 5 December 2025</small><br> -->
-<!--								There will be possible service disruptions on December 9th from 6:00 p.m. to 9:00 p.m. CET because of a scheduled maintenance of the HMGU network infrastructure. -->
-<!-- 							</p> -->
+ 							<p>
+								<small class="text-muted"><i class="far fa-calendar-alt"></i> 5 February 2026</small><br>
+							Due to recent network disruptions on the HMGU campus, emails could not be sent to certain email addresses. We are working on resolving this issue.
+ 							</p>
 						</div>
 
 {{!--
