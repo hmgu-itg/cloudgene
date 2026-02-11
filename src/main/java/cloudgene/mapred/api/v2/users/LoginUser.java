@@ -65,7 +65,7 @@ public class LoginUser extends BaseResource {
 			    boolean success=true;
 			    JSONObject answer = new JSONObject();
 			    String key_2fa=user.get2FA();
-			    //log.debug("key: "+key_2fa);
+			    log.debug("key: "+key_2fa);
 			    if (key_2fa!=null){
 				if (otpInput==null || otpInput.isEmpty()){
 				    answer.put("success",true);
@@ -73,7 +73,10 @@ public class LoginUser extends BaseResource {
 				    return new JsonRepresentation(answer);
 				}
 				else{
+				    String tmp=HashUtil.getTOTPCode(key_2fa);
+				    log.debug("TOTP from key "+key_2fa+": "+tmp);
 				    if (!otpInput.equals(HashUtil.getTOTPCode(key_2fa))){
+					log.error("TOTP "+otpInput+" is wrong");
 					success=false;
 				    }
 				}
