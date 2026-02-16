@@ -53,6 +53,12 @@ public class MailUtil {
 	public static void send(final String smtp, final String port, final String username, final String password,
 			final String name, String tos, String subject, String text) throws Exception {
 
+	    log.debug("smtp: "+smtp);
+	    log.debug("port: "+port);
+	    log.debug("username: "+username);
+	    log.debug("password: "+password);
+	    log.debug("name: "+name);
+
 		Properties props = new Properties();
 		props.put("mail.smtp.host", smtp);
 		props.put("mail.smtp.port", port);
