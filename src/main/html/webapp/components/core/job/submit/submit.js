@@ -182,19 +182,21 @@ export default Control.extend({
     '#parameters submit': function(form, event) {
 	event.preventDefault();
     
-	let cs_mapping={"1GB":1073741824,"100MB":104857600,"10MB":10485760,"1MB":1024000};
+	//let cs_mapping={"1GB":1073741824,"100MB":104857600,"10MB":10485760,"1MB":1024000};
 	//const md5File = require('md5-file')
 	// max chunk size, bytes
 	// 1GB
-	var cs_selector=null;
-	for (const x of form.elements){
-	    console.log("element ID: "+x.id);
-	    if (x.id==="chunksize")
-		cs_selector=x;
-	}
-	console.log(cs_selector.value);
+	// var cs_selector=null;
+	// for (const x of form.elements){
+	//     console.log("element ID: "+x.id);
+	//     if (x.id==="chunksize")
+	// 	cs_selector=x;
+	// }
+	// console.log(cs_selector.value);
 	
-	var MAX_CHUNK_SIZE=cs_mapping[cs_selector.value];
+	// var MAX_CHUNK_SIZE=cs_mapping[cs_selector.value];
+	// 1GB
+	var MAX_CHUNK_SIZE=1073741824;
 	var total_size=0;
 	var n_chunks=0;
       
