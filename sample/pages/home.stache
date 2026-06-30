@@ -56,12 +56,10 @@
 						<div class="col-md-12">
 							<h5 style="padding-top: 10px; padding-bottom: 0px; margin-bottom: 10px;">Latest News</h5>
 							<hr style="padding-top: 0px; margin-top: 0px;">
-<!--
  							<p>
-								<small class="text-muted"><i class="far fa-calendar-alt"></i> 5 February 2026</small><br>
+								<small class="text-muted"><i class="far fa-calendar-alt"></i> 30 June 2026</small><br>
 							During the last couple of days, emails with download details could not be sent out to Imputation Server users. The issue has been resolved, we apologize for the inconvinience.
  							</p>
--->
 						</div>
 
 {{!--
